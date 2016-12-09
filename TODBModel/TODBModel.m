@@ -33,7 +33,8 @@ static FMDatabase *database;
         dispatch_async(sql_queue, ^{
             database = [FMDatabase databaseWithPath:TO_MODEL_DATABASE_PATH];
             [database open];
-            NSLog(@"%@",TO_MODEL_DATABASE_PATH);
+            
+            NSLog(@"数据库路径:%@",TO_MODEL_DATABASE_PATH);
         });
     });
     
@@ -41,7 +42,7 @@ static FMDatabase *database;
     if (![db_name isEqualToString:@"TODBModel"]) {
         
         //为了屏蔽NSKVONotifying_类及其他未知的覆盖操作
-        if ([db_name rangeOfString:@"_"].location == 0) {
+        if ([db_name rangeOfString:@"_"].location != NSNotFound) {
             return;
         }
         
@@ -155,13 +156,15 @@ static FMDatabase *database;
     __block NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@)",[[self class] db_name],columnName,columnValue];
     
     
-    NSLog(@"%@",sql);
     
     dispatch_async(sql_queue, ^{
-        if (![database executeUpdate:sql withArgumentsInArray:objects]) {
-            NSLog(@"数据库更新失败");
+        if ([database executeUpdate:sql withArgumentsInArray:objects] != 0) {
+            
+//            NSLog(@"数据库更新成功");
+
         }else{
-            NSLog(@"数据库更新成功");
+            NSLog(@"数据库更新失败");
+            NSLog(@"%@",sql);
         }
     });
 }
@@ -214,6 +217,27 @@ static FMDatabase *database;
 //    });
 //}
 
+//删除数据库内容
+- (void)db_delete{
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"DELETE FROM %@ WHERE %@ = \"%@\"",[[self class] db_name],[[self class] db_pk],[self pk]];
+    
+    
+    
+    dispatch_async(sql_queue, ^{
+        BOOL result = [database executeUpdate:sql];
+        
+        if (result) {
+//            NSLog(@"数据库删除成功");
+        }else{
+            NSLog(@"数据库删除失败");
+            NSLog(@"%@",sql);
+        }
+        
+    });
+    
+    
+}
+
 //放弃内存数据，从数据库重新读取
 - (void)db_rollback{
     
@@ -240,7 +264,7 @@ static FMDatabase *database;
         FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
         
         if (resultSet) {
-            NSLog(@"数据库查询成功");
+//            NSLog(@"数据库查询成功");
         }else{
             NSLog(@"数据库查询失败");
             NSLog(@"%@",sql);
@@ -296,10 +320,12 @@ static FMDatabase *database;
     __block NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ ADD COLUMN %@ %@;",[self db_name],name,type];
     
     dispatch_async(sql_queue, ^{
-        if (![database executeUpdate:sql]) {
-            NSLog(@"添加表字段失败");
+        if ([database executeUpdate:sql]) {
+//            NSLog(@"添加字段成功");
+
         }else{
-            NSLog(@"添加字段");
+            NSLog(@"添加表字段失败");
+            NSLog(@"%@",sql);
         }
     });
 }
@@ -368,9 +394,10 @@ static FMDatabase *database;
     dispatch_sync(sql_queue, ^{
         
         if ([database executeUpdate:sql]){
-            NSLog(@"表重命名");
+//            NSLog(@"表重命名成功");
         }else{
             NSLog(@"表重命名失败");
+            NSLog(@"%@",sql);
         }
     });
 
@@ -386,9 +413,10 @@ static FMDatabase *database;
     dispatch_sync(sql_queue, ^{
         
         if ([database executeUpdate:sql]){
-            NSLog(@"拷贝表成功");
+//            NSLog(@"拷贝表成功");
         }else{
             NSLog(@"拷贝表失败");
+            NSLog(@"%@",sql);
         }
     });
 }
@@ -399,9 +427,10 @@ static FMDatabase *database;
     
     dispatch_sync(sql_queue, ^{
         if ([database executeUpdate:sql]){
-            NSLog(@"数据表创建成功");
+//            NSLog(@"数据表创建成功");
         }else{
             NSLog(@"数据表创建失败");
+            NSLog(@"%@",sql);
         }
     });
 }
@@ -414,9 +443,10 @@ static FMDatabase *database;
     
     dispatch_sync(sql_queue, ^{
         if ([database executeUpdate:sql]){
-            NSLog(@"删除数据表成功");
+//            NSLog(@"删除数据表成功");
         }else{
             NSLog(@"删除数据表失败");
+            NSLog(@"%@",sql);
         }
     });
 }

@@ -108,25 +108,33 @@
         }else if([objcType isEqualToString:@"@\"NSData\""]){
             result = [result dataForColumn:name];
         }else{
-            NSString *className = [objcType substringWithRange:NSMakeRange(2, objcType.length - 3)];
-            NSData *data = [resultSet dataForColumn:name];
-            Class class = NSClassFromString(className);
-            
-            if ([class isSubclassOfClass:[TODBModel class]]) {
-                TODBPointer *pointer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                if (pointer) {
-                    result = pointer;
-                }
-            }else{
-                @try {
-                    result = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"属性解析失败.\n%@",exception);
+            if (![resultSet columnIsNull:name]) {
+                
+                
+                NSString *className = [objcType substringWithRange:NSMakeRange(2, objcType.length - 3)];
+                NSData *data = [resultSet dataForColumn:name];
+                Class class = NSClassFromString(className);
+                
+                if ([class isSubclassOfClass:[TODBModel class]]) {
+                    
+                    TODBPointer *pointer;
+                    @try {
+                        pointer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    }
+                    @catch (NSException *exception) {
+                    }
+                    if (pointer && ![pointer isEqual:[NSNull null]]) {
+                        result = pointer;
+                    }
+                }else{
+                    @try {
+                        result = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"属性解析失败.\n%@",exception);
+                    }
                 }
             }
-            
-            
         }
     }else{
         result = @([resultSet doubleForColumn:name]);

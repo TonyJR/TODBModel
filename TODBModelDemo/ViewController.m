@@ -33,6 +33,9 @@
     testModel.test = [NSDate date];
     testModel.name = @"123";
 
+    
+    [self.imageView setImage:testModel.image];
+
     testModel.image = [UIImage imageNamed:@"user"];
     
     TestModel *testModel2;
@@ -43,6 +46,9 @@
     
     [testModel2 db_update];
     [testModel db_update];
+    
+//    [testModel2 db_delete];
+
 }
 
 - (void)didReceiveMemoryWarning {

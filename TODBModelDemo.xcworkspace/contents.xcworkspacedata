@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/Tony/Documents/ios_workspace/2016-11/TOModelDemo/TODBModel.xcodeproj">
+      location = "group:TODBModel.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -17,6 +17,8 @@
 //删除数据库
 + (void)db_dropTable;
 
+//删除数据库内容
+- (void)db_delete;
 //内存数据同步到数据库
 - (void)db_update;
 //放弃内存数据，从数据库重新读取
