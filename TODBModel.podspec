@@ -9,10 +9,11 @@ s.homepage         = "https://github.com/TonyJR/TODBModel.git"
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { "Tony.JR" => "show_3@163.com" }
 s.source           = { :git => "https://github.com/TonyJR/TODBModel.git", :tag => "#{s.version}" }
-s.platform         = :ios, '0.2'           
+s.platform         = :ios, '7.0'           
 s.requires_arc     = true  
              
-s.source_files     = 'TODBModel/TODBModel/*.{h,m}, TODBModel/TODBModel/conditions/*.{h,m}'
+s.source_files     = 'TODBModel/*.{h,m}'
+s.source_files     = 'TODBModel/conditions/*.{h,m}'
 
 
 s.frameworks       = 'Foundation'

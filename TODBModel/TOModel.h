@@ -23,4 +23,9 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
 
 #import <TOModel/TODBModel+Cache.h>
 #import <TOModel/TODBModel+Search.h>
+#import <TOModel/TODBCondition.h>
+#import <TOModel/TODBAndCondition.h>
+#import <TOModel/TODBOrCondition.h>
+#import <TOModel/TODBNotCondition.h>
+
 
