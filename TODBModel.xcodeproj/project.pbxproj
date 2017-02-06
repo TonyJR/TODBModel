@@ -52,7 +52,7 @@
 		EA72A2501DEE5D78005F12D2 /* TODBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBModel.m; sourceTree = "<group>"; };
 		EA72A2511DEE5D78005F12D2 /* TODataTypeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataTypeHelper.h; sourceTree = "<group>"; };
 		EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODataTypeHelper.m; sourceTree = "<group>"; };
-		EA72A2531DEE5D78005F12D2 /* TOModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOModel.h; sourceTree = "<group>"; };
+		EA72A2531DEE5D78005F12D2 /* TODB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODB.h; sourceTree = "<group>"; };
 		EA72A2541DEE5D78005F12D2 /* TODBModelConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBModelConfig.h; sourceTree = "<group>"; };
 		EA72A2561DEE5D78005F12D2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EA72A2571DEE5D78005F12D2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				EA829BE91E1DDDEB006E4DEA /* TODBModel+Search.m */,
 				EA72A2511DEE5D78005F12D2 /* TODataTypeHelper.h */,
 				EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */,
-				EA72A2531DEE5D78005F12D2 /* TOModel.h */,
+				EA72A2531DEE5D78005F12D2 /* TODB.h */,
 				EA72A2541DEE5D78005F12D2 /* TODBModelConfig.h */,
 				EA72A26E1DEE744B005F12D2 /* TODBPointer.h */,
 				EA72A26F1DEE744B005F12D2 /* TODBPointer.m */,

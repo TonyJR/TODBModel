@@ -8,7 +8,6 @@
 
 #import "TODBModel.h"
 
-
 @interface TODBModel (Cache)
 
 + (id)modelByDic:(NSDictionary *)dic;
