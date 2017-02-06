@@ -8,10 +8,15 @@
 
 #import "TODBModel.h"
 
+
 @interface TODBModel (Cache)
 
-+ (instancetype)modelByKey:(NSString *)modelKey;
-+ (instancetype)modelByKey:(NSString *)modelKey allowNull:(BOOL)allowNull;
++ (id)modelByDic:(NSDictionary *)dic;
 
++ (instancetype)memoryByKey:(id)modelKey;
+
++ (instancetype)modelByKey:(id)modelKey;
++ (instancetype)modelByKey:(id)modelKey allowNull:(BOOL)allowNull;
++ (void)saveModelByKey:(id)modelKey model:(TODBModel *)model;
 
 @end

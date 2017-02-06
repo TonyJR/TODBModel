@@ -9,6 +9,9 @@
 #ifndef TODataBase_h
 #define TODataBase_h
 
+
+#import "TODBCondition.h"
+
 @protocol TODataBase
 
 @required
@@ -28,6 +31,8 @@
 
 + (NSString *)db_pk;
 + (NSArray *)db_search:(NSString *)value forKey:(NSString *)key;
++ (NSArray *)db_search:(NSString *)sqlStr;
++ (NSArray *)db_condition_search:(id<TODBConditionBase>)condition;
 
 @optional
 + (NSString *)db_name;

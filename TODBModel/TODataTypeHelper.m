@@ -142,4 +142,40 @@
     return result;
 }
 
++ (NSArray *)copyArray:(NSArray *)array{
+    NSMutableArray *result = [NSMutableArray arrayWithArray:array];
+    
+    for (NSUInteger i=0; i<result.count; i++) {
+        id object = [result objectAtIndex:i];
+        if ([object isKindOfClass:[TODBModel class]]) {
+            [result replaceObjectAtIndex:i withObject:[[TODBPointer alloc] initWithModel:object]];
+        }else if ([object isKindOfClass:[NSArray class]]){
+            [result replaceObjectAtIndex:i withObject:[self copyArray:object]];
+        }else if ([object isKindOfClass:[NSDictionary class]]){
+            [result replaceObjectAtIndex:i withObject:[self copyDictionary:object]];
+        }
+    }
+    
+    return result;
+}
+
++ (NSDictionary *)copyDictionary:(NSDictionary *)dictionary{
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+    
+    for (id key in result.allKeys) {
+        
+        id object = [result objectForKey:key];
+        if ([object isKindOfClass:[TODBModel class]]) {
+            [result setObject:[[TODBPointer alloc] initWithModel:object] forKey:key];
+        }else if ([object isKindOfClass:[NSArray class]]){
+            [result setObject:[self copyArray:object] forKey:key];
+        }else if ([object isKindOfClass:[NSDictionary class]]){
+            [result setObject:[self copyDictionary:object] forKey:key];
+        }
+        
+    }
+    
+    return result;
+}
+
 @end

@@ -12,12 +12,15 @@
 #import "TODBModelConfig.h"
 #import "TODataTypeHelper.h"
 #import "TODBPointer.h"
+#import "TODBModel+Cache.h"
+#import "TODBCondition.h"
 
 @interface TODBModel (){
 @private
     BOOL _isLocked;
     BOOL _needUpdate;
 }
+
 
 @end
 
@@ -52,6 +55,139 @@ static FMDatabase *database;
     }
 }
 
++ (id)crateModel{
+    NSString *pkType = [self sqlPropertys][[self db_pk]];
+    if (![pkType isEqual:DB_TYPE_INTEGER]) {
+        [NSException raise:@"创建模型失败" format:@"主键必须为int型"];
+    }
+    
+
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (NULL);",[[self class] db_name],[[self class] db_pk]];
+    
+    __block id result;
+    
+    
+    
+    dispatch_sync(sql_queue, ^{
+        BOOL isSuccess = [database executeUpdate:sql];
+        
+        if (isSuccess) {
+            //            NSLog(@"数据库查询成功");
+            
+            result = [[self alloc] init];
+            [result setValue:@(database.lastInsertRowId) forKey:[self db_pk]];
+            
+        }else{
+            NSLog(@"创建模型失败");
+            NSLog(@"%@",sql);
+        }
+        
+        
+        
+    });
+    
+    return result;
+}
+
++ (NSArray *)crateModels:(NSUInteger)count{
+    
+    
+    NSString *pkType = [self sqlPropertys][[self db_pk]];
+    if (![pkType isEqual:DB_TYPE_INTEGER]) {
+        [NSException raise:@"创建模型失败" format:@"主键必须为int型"];
+    }
+    
+    if (count == 0) {
+        return @[];
+    }
+    __block int64_t lastID;
+    
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (%@) VALUES ",[[self class] db_name],[[self class] db_pk]];
+    
+    
+    for (int i=0; i<count; i++) {
+        if (i == 0) {
+            [sql appendString:@"(NULL)"];
+
+        }else{
+            [sql appendString:@",(NULL)"];
+        }
+    }
+    
+    dispatch_sync(sql_queue, ^{
+        [database beginTransaction];
+        BOOL isRollBack;
+        @try
+        {
+            BOOL isSuccess = [database executeUpdate:sql];
+            
+            if (isSuccess) {
+                //            NSLog(@"数据库查询成功");
+                
+                lastID = database.lastInsertRowId;
+                
+            }else{
+                NSLog(@"创建模型失败");
+                NSLog(@"%@",sql);
+            }
+            
+        }
+        @catch (NSException *exception)
+        {
+            isRollBack = YES;
+            [database rollback];
+        }
+        @finally
+        {
+            if (!isRollBack)
+            {
+                [database commit];
+            }
+        }
+        
+    });
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    if (lastID != 0) {
+        for (NSInteger i=count-1; i>=0; i--) {
+            TODBModel *model = [[self alloc] init];
+            [model setValue:@(lastID - i) forKey:[self db_pk]];
+            [result addObject:model];
+        }
+    }
+    
+    return result;
+}
+
+- (void)save{
+    [self db_update];
+}
+
+- (void)save:(void (^)(TODBModel *))block{
+    __weak TODBModel *self_weak = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __strong TODBModel *self_strong = self_weak;
+        [self_strong db_update];
+        if (block) {
+            block(self_strong);
+        }
+    });
+}
+
+- (void)del{
+    [self db_delete];
+}
+- (void)del:(void(^)(TODBModel *model))block{
+    __weak TODBModel *self_weak = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __strong TODBModel *self_strong = self_weak;
+        [self_strong db_delete];
+        if (block) {
+            block(self_strong);
+        }
+    });
+}
 
 #pragma mark - TODataBase
 //检查并更新数据结构
@@ -169,57 +305,10 @@ static FMDatabase *database;
     });
 }
 
-////内存数据同步到数据库
-//- (void)db_update{
-//    
-//    NSString *pk = [[self class] db_pk];
-//    NSString *pv = [self valueForKey:pk];
-//    
-//    if (!pv) {
-//        NSException *e = [NSException
-//                          
-//                          exceptionWithName: @"数据插入错误"
-//                          
-//                          reason: @"主键不能为空"
-//                          
-//                          userInfo: nil];
-//        
-//        @throw e;
-//    }
-//    
-//    
-//    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"UPDATE %@ SET ",[[self class] db_name]];
-//    __block NSMutableArray *objects = [NSMutableArray array];
-//    
-//    NSDictionary *sqlPropertys = [[self class] sqlPropertys];
-//    for (NSString *key in sqlPropertys.allKeys) {
-//        [sql appendFormat:@"%@ = ",key];
-//        [sql appendString:[TODataTypeHelper objcObjectToSqlObject:[self valueForKey:key] withType:sqlPropertys[key] arguments:objects]];
-//        [sql appendString:@","];
-//    }
-//    
-//    
-//    if ([sql characterAtIndex:sql.length - 1] == ',') {
-//        [sql replaceCharactersInRange:NSMakeRange(sql.length - 1,1) withString:@""];
-//    }
-//    
-//    [sql appendFormat:@" where %@ = %@",pk,pv];
-//    
-//    
-//    NSLog(@"%@",sql);
-//
-//    dispatch_async(sql_queue, ^{
-//        if (![database executeUpdate:sql withArgumentsInArray:objects]) {
-//            NSLog(@"数据库更新失败");
-//        }else{
-//            NSLog(@"数据库更新成功");
-//        }
-//    });
-//}
 
 //删除数据库内容
 - (void)db_delete{
-    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"DELETE FROM %@ WHERE %@ = \"%@\"",[[self class] db_name],[[self class] db_pk],[self pk]];
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"DELETE FROM %@ WHERE %@ = \"%@\"",[[self class] db_name],[[self class] db_pk],[self valueForKey:[[self class] db_pk]]];
     
     
     
@@ -280,12 +369,127 @@ static FMDatabase *database;
                 NSString *type = classPropertys[key];
                 if (key) {
                     id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
-                    [item setValue:value forKey:key];
+                    if (value) {
+                        [item setValue:value forKey:key];
+                    }
                 }
             }
             
             [result addObject:item];
         }
+        
+        [resultSet close];
+    });
+    
+    for (TODBModel *model in result) {
+        [model checkPointer];
+    }
+    
+    return result;
+}
+
++ (NSArray *)db_condition_search:(id<TODBConditionBase>)condition{
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE ",[self db_name]];
+    NSMutableArray *result = [NSMutableArray array];
+    NSMutableArray *arguments = [NSMutableArray array];
+
+//    BOOL firstItem = YES;
+//    for (NSString *key in conditions.allKeys) {
+//        TODBCondition *condition = conditions[key];
+//        id value = condition.value;
+//        if (!firstItem) {
+//            [sql appendString:@"AND "];
+//        }else{
+//            firstItem = NO;
+//        }
+//        NSString *valueStr = [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments];
+//        [sql appendFormat:@"%@ %@ %@",key,condition.relationship,valueStr];
+//    }
+    [sql appendString:[condition conditionWithPropertys:[self sqlPropertys]]];
+
+    
+    dispatch_sync(sql_queue, ^{
+        FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
+        
+        if (resultSet) {
+            //            NSLog(@"数据库查询成功");
+        }else{
+            NSLog(@"数据库查询失败");
+            NSLog(@"%@",sql);
+        }
+        
+        
+        NSDictionary *classPropertys = [self classPropertys];
+        while ([resultSet next]) {
+            id item = [[self alloc] init];
+            int count = resultSet.columnCount;
+            for (int i=0; i<count; i++) {
+                NSString *key = [resultSet columnNameForIndex:i];
+                NSString *type = classPropertys[key];
+                if (key) {
+                    id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
+                    if (value) {
+                        [item setValue:value forKey:key];
+                    }
+                }
+            }
+            
+            [result addObject:item];
+        }
+        [resultSet close];
+
+    });
+    
+    for (TODBModel *model in result) {
+        [model checkPointer];
+    }
+    
+    return result;
+}
+
++ (NSArray *)db_search:(NSString *)sqlStr{
+    
+    NSMutableArray *result = [NSMutableArray array];
+
+    dispatch_sync(sql_queue, ^{
+        FMResultSet *resultSet = [database executeQuery:sqlStr];
+        
+        if (resultSet) {
+            //            NSLog(@"数据库查询成功");
+        }else{
+            NSLog(@"数据库查询失败");
+            NSLog(@"%@",sqlStr);
+        }
+        
+        
+        NSDictionary *classPropertys = [self classPropertys];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+
+        while ([resultSet next]) {
+            [dic removeAllObjects];
+            
+            
+            int count = resultSet.columnCount;
+            for (int i=0; i<count; i++) {
+                NSString *key = [resultSet columnNameForIndex:i];
+                NSString *type = classPropertys[key];
+                if (key) {
+                    id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
+                    if (value) {
+                        [dic setObject:value forKey:key];
+                    }
+                }
+            }
+
+            id pkValue = dic[[self db_pk]];
+            id item = [self memoryByKey:pkValue];
+            if (!item) {
+                item = [self modelByDic:dic];
+            }
+            
+            [result addObject:item];
+        }
+        [resultSet close];
     });
     
     for (TODBModel *model in result) {
@@ -360,7 +564,7 @@ static FMDatabase *database;
             [sameColums setObject:sqlPropertys[name] forKey:name];
             
             //字段已存在时，检查字段是否一样
-            if (![sqlPropertys[name] isEqualToString:tablePropertys[name]]) {
+            if ([tablePropertys[name] rangeOfString:sqlPropertys[name]].location != 0) {
                 result = 2;
             }
         }else{
@@ -457,9 +661,16 @@ static FMDatabase *database;
     
     NSDictionary *dic = [self sqlPropertys];
     for (NSString *name in dic.allKeys) {
-        [sql appendFormat:@"%@ %@,",name,dic[name]];
+        if ([name isEqualToString:[self db_pk]]) {
+            [sql appendFormat:@"%@ %@ PRIMARY KEY NOT NULL,",name,dic[name]];
+        }else{
+            [sql appendFormat:@"%@ %@,",name,dic[name]];
+        }
     }
-    [sql appendFormat:@"PRIMARY KEY (%@)",[self db_pk]];
+    if ([sql characterAtIndex:sql.length - 1] == ',') {
+        [sql replaceCharactersInRange:NSMakeRange(sql.length - 1,1) withString:@""];
+    }
+//    [sql appendFormat:@"PRIMARY KEY (%@)",[self db_pk]];
     [sql appendString:@")"];
     
     return sql;
@@ -492,7 +703,7 @@ static FMDatabase *database;
         if (!sqlTypeName) {
             NSLog(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
-            [dic setObject:objcType2SqlType(type) forKey:[NSString stringWithUTF8String:name]];
+            [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
             
         }
         
@@ -553,6 +764,13 @@ static FMDatabase *database;
 #pragma mark - KVC
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key{
+    [super setValue:value forKey:key];
+    if ([key isEqualToString:[[self class] db_pk]]) {
+        [[self class] saveModelByKey:value model:self];
+    }
 }
 
 @end

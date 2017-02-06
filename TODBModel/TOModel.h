@@ -22,3 +22,5 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
 #import <TOModel/TODataBaseConnect.h>
 
 #import <TOModel/TODBModel+Cache.h>
+#import <TOModel/TODBModel+Search.h>
+

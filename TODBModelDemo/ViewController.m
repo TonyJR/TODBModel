@@ -24,6 +24,11 @@
     
     NSDate *date = [NSDate date];
     testModel = [TestModel modelByKey:@"102"];
+    
+    NSLog(@"%@",testModel);
+    testModel = [TestModel modelByKey:@"102"];
+    
+    NSLog(@"%@",testModel);
     NSLog(@"搜索用时%f",[[NSDate date] timeIntervalSinceDate:date]);
 
     
@@ -44,11 +49,9 @@
 
     testModel.model = testModel2;
     
-    [testModel2 db_update];
-    [testModel db_update];
+    [testModel2 save];
+    [testModel save];
     
-//    [testModel2 db_delete];
-
 }
 
 - (void)didReceiveMemoryWarning {

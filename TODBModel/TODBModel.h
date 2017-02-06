@@ -9,8 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "TODataBase.h"
 
+
 @interface TODBModel : NSObject<TODataBase>
 
-@property (nonatomic,strong) NSString *pk;
+
++ (id)crateModel;
++ (NSArray *)crateModels:(NSUInteger)count;
+
+
+- (void)save;
+- (void)save:(void(^)(TODBModel *model))block;
+
+- (void)del;
+- (void)del:(void(^)(TODBModel *model))block;
+
 
 @end

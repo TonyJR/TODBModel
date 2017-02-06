@@ -32,4 +32,10 @@
 + (NSString *)objcObjectToSqlObject:(id)objcObject  withType:(NSString *)type arguments:(NSMutableArray *)arguments;
 
 + (id)readObjcObjectFrom:(FMResultSet *)resultSet name:(NSString *)name type:(NSString *)objcType;
+
+//筛选NSArray，NSDictionary
++ (NSArray *)copyArray:(NSArray *)array;
+
++ (NSDictionary *)copyDictionary:(NSDictionary *)array;
+
 @end

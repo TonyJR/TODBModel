@@ -22,20 +22,47 @@
 static NSMapTable * cache;
 
 + (void)load{
-    if (!cache) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         cache = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsCopyIn valueOptions:NSPointerFunctionsWeakMemory];
-    }
+    });
 }
 
+#pragma mark - Public
++ (id)modelByDic:(NSDictionary *)dic{
+    NSString *pkValue = dic[[self db_pk]];
+    
+    TODBModel *model = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),pkValue]];
+
+    if (!model) {
+        model = [[self alloc] init];
+    }
+    
+    
+    for (NSString *key in dic.allKeys) {
+        [model setValue:dic[key] forKey:key];
+    }
+    return model;
+}
+
+
++ (instancetype)memoryByKey:(id)modelKey{
+    id result = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),modelKey]];
+    return result;
+}
 //获取模型
-+ (instancetype)modelByKey:(NSString *)modelKey{
++ (instancetype)modelByKey:(id)modelKey{
     return [self modelByKey:modelKey allowNull:NO];
 }
 
 //获取模型
-+ (instancetype)modelByKey:(NSString *)modelKey allowNull:(BOOL)allowNull{
-    if (!modelKey || modelKey.length == 0) {
-        return nil;
++ (instancetype)modelByKey:(id)modelKey allowNull:(BOOL)allowNull{
+    if (!modelKey) {
+        if (allowNull) {
+            return nil;
+        }else{
+            return [[self alloc] init];
+        }
     }
     
     id result = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),modelKey]];
@@ -51,8 +78,8 @@ static NSMapTable * cache;
     return result;
 }
 
-+ (void)saveModelByKey:(NSString *)modelKey model:(TODBModel *)model{
-    if (modelKey && modelKey.length > 0) {
++ (void)saveModelByKey:(id)modelKey model:(TODBModel *)model{
+    if (modelKey) {
         [cache setObject:model forKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),modelKey]];
     }
 }
