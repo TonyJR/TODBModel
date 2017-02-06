@@ -5,6 +5,14 @@ TODBModel是基于FMDB开发的数据库模型系统，它把数据库操作完�
 
 功能列表
 ------------
+version 0.2
+0、完善了DEMO
+1、新增删除
+2、新增查询功能，包括模糊查询、复合条件查询
+3、新增批量添加功能
+4、添加对部分有较高延迟的指令的异步执行方法
+5、优化了性能，修复了已知bug
+
 version 0.1.1
 0、增加数据删除功能
 1、修复一个初始化阶段导致死循环的bug
@@ -18,5 +26,9 @@ version 0.1
 
 特别说明
 ------------
-TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建对象，而应该使用-modelByKey:或者-modelByKey: allowNull:来获取获取对象。
+TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建对象，而应该使用以下方法创建
+-modelByKey:
+-modelByKey: allowNull:
+-createModel
+-createModels:
 多次调用-modelByKey:来获取同一key对应的对象时，将获得指向同一内存地址的指针实例。
