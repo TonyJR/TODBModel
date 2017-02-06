@@ -17,15 +17,15 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <TOModel/PublicHeader.h>
 
 
-#import <TOModel/TODataBase.h>
-#import <TOModel/TODBModel.h>
-#import <TOModel/TODataBaseConnect.h>
+#import "TODataBase.h"
+#import "TODBModel.h"
+#import "TODataBaseConnect.h"
 
-#import <TOModel/TODBModel+Cache.h>
-#import <TOModel/TODBModel+Search.h>
-#import <TOModel/TODBCondition.h>
-#import <TOModel/TODBAndCondition.h>
-#import <TOModel/TODBOrCondition.h>
-#import <TOModel/TODBNotCondition.h>
+#import "TODBModel+Cache.h'
+#import "TODBModel+Search.h'
+#import "TODBCondition.h"
+#import "TODBAndCondition.h"
+#import "TODBOrCondition.h"
+#import "TODBNotCondition.h"
 
 
