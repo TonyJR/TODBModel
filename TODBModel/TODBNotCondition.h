@@ -1,5 +1,5 @@
 //
-//  TODBNotContition.h
+//  TODBNotCondition.h
 //  TODBModel
 //
 //  Created by Tony on 17/2/6.
@@ -8,7 +8,7 @@
 
 #import "TODBCondition.h"
 
-@interface TODBNotContition: NSObject<TODBConditionBase>
+@interface TODBNotCondition: NSObject<TODBConditionBase>
 
 @property (nonatomic,strong) id<TODBConditionBase> condition;
 

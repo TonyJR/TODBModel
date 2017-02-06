@@ -10,7 +10,7 @@
 		83BF09AD43A92BF3A8EB74A0 /* libPods-TODBModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3C0F24E9AE489AE617DA25 /* libPods-TODBModel.a */; };
 		EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F691E48C70A00893605 /* TODBAndCondition.m */; };
 		EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6B1E48C70A00893605 /* TODBCondition.m */; };
-		EA2F0F721E48C70A00893605 /* TODBNotContition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */; };
+		EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6D1E48C70A00893605 /* TODBNotCondition.m */; };
 		EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */; };
 		EA72A2631DEE5D78005F12D2 /* TODBModel+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A24E1DEE5D78005F12D2 /* TODBModel+Cache.m */; };
 		EA72A2641DEE5D78005F12D2 /* TODBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2501DEE5D78005F12D2 /* TODBModel.m */; };
@@ -41,8 +41,8 @@
 		EA2F0F691E48C70A00893605 /* TODBAndCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBAndCondition.m; sourceTree = "<group>"; };
 		EA2F0F6A1E48C70A00893605 /* TODBCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBCondition.h; sourceTree = "<group>"; };
 		EA2F0F6B1E48C70A00893605 /* TODBCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBCondition.m; sourceTree = "<group>"; };
-		EA2F0F6C1E48C70A00893605 /* TODBNotContition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBNotContition.h; sourceTree = "<group>"; };
-		EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBNotContition.m; sourceTree = "<group>"; };
+		EA2F0F6C1E48C70A00893605 /* TODBNotCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBNotCondition.h; sourceTree = "<group>"; };
+		EA2F0F6D1E48C70A00893605 /* TODBNotCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBNotCondition.m; sourceTree = "<group>"; };
 		EA2F0F6E1E48C70A00893605 /* TODBOrCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBOrCondition.h; sourceTree = "<group>"; };
 		EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBOrCondition.m; sourceTree = "<group>"; };
 		EA72A24C1DEE5D78005F12D2 /* TODataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataBase.h; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 				EA2F0F691E48C70A00893605 /* TODBAndCondition.m */,
 				EA2F0F6A1E48C70A00893605 /* TODBCondition.h */,
 				EA2F0F6B1E48C70A00893605 /* TODBCondition.m */,
-				EA2F0F6C1E48C70A00893605 /* TODBNotContition.h */,
-				EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */,
+				EA2F0F6C1E48C70A00893605 /* TODBNotCondition.h */,
+				EA2F0F6D1E48C70A00893605 /* TODBNotCondition.m */,
 				EA2F0F6E1E48C70A00893605 /* TODBOrCondition.h */,
 				EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */,
 				EA72A24C1DEE5D78005F12D2 /* TODataBase.h */,
@@ -335,7 +335,7 @@
 				EA72A26C1DEE5D78005F12D2 /* TestModel.m in Sources */,
 				EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */,
 				EAC163D81E46E3270065BABC /* AddressTableViewCell.m in Sources */,
-				EA2F0F721E48C70A00893605 /* TODBNotContition.m in Sources */,
+				EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */,
 				EA72A2641DEE5D78005F12D2 /* TODBModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

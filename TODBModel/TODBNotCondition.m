@@ -1,14 +1,14 @@
 //
-//  TODBNotContition.m
+//  TODBNotCondition.m
 //  TODBModel
 //
 //  Created by Tony on 17/2/6.
 //  Copyright © 2017年 Tony. All rights reserved.
 //
 
-#import "TODBNotContition.h"
+#import "TODBNotCondition.h"
 
-@implementation TODBNotContition
+@implementation TODBNotCondition
 
 - (instancetype)initConditionWith:(id<TODBConditionBase>)condition
 {
