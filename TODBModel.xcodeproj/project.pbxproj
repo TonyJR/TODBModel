@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		83BF09AD43A92BF3A8EB74A0 /* libPods-TODBModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3C0F24E9AE489AE617DA25 /* libPods-TODBModel.a */; };
+		EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F691E48C70A00893605 /* TODBAndCondition.m */; };
+		EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6B1E48C70A00893605 /* TODBCondition.m */; };
+		EA2F0F721E48C70A00893605 /* TODBNotContition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */; };
+		EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */; };
 		EA72A2631DEE5D78005F12D2 /* TODBModel+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A24E1DEE5D78005F12D2 /* TODBModel+Cache.m */; };
 		EA72A2641DEE5D78005F12D2 /* TODBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2501DEE5D78005F12D2 /* TODBModel.m */; };
 		EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */; };
@@ -19,16 +23,12 @@
 		EA72A26D1DEE5D78005F12D2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2621DEE5D78005F12D2 /* ViewController.m */; };
 		EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A26F1DEE744B005F12D2 /* TODBPointer.m */; };
 		EA829BEA1E1DDDEB006E4DEA /* TODBModel+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = EA829BE91E1DDDEB006E4DEA /* TODBModel+Search.m */; };
-		EA8718BC1E442666006199EE /* TODBCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8718BB1E442666006199EE /* TODBCondition.m */; };
 		EAC163D01E46BDBB0065BABC /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163CF1E46BDBB0065BABC /* AddressBookTableViewController.m */; };
 		EAC163D31E46C7DE0065BABC /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163D21E46C7DE0065BABC /* AddressModel.m */; };
 		EAC163D81E46E3270065BABC /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163D61E46E3270065BABC /* AddressTableViewCell.m */; };
 		EAC163D91E46E3270065BABC /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163D71E46E3270065BABC /* AddressTableViewCell.xib */; };
 		EAC163DD1E480ECF0065BABC /* AddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163DB1E480ECF0065BABC /* AddressSearchViewController.m */; };
 		EAC163DE1E480ECF0065BABC /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163DC1E480ECF0065BABC /* AddressSearchViewController.xib */; };
-		EAC163E11E4825180065BABC /* TODBAndCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163E01E4825180065BABC /* TODBAndCondition.m */; };
-		EAC163E41E48252B0065BABC /* TODBOrCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163E31E48252B0065BABC /* TODBOrCondition.m */; };
-		EAC163E71E4825480065BABC /* TODBNotContition.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163E61E4825480065BABC /* TODBNotContition.m */; };
 		EAC163EB1E483DF30065BABC /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163E91E483DF30065BABC /* EditAddressViewController.m */; };
 		EAC163EC1E483DF30065BABC /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */; };
 /* End PBXBuildFile section */
@@ -37,6 +37,14 @@
 		29EBB61FA07838B6D214CF57 /* Pods-TODBModel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODBModel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TODBModel/Pods-TODBModel.debug.xcconfig"; sourceTree = "<group>"; };
 		5C3C0F24E9AE489AE617DA25 /* libPods-TODBModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TODBModel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955ADFD052B1DD2CA11D97B4 /* Pods-TODBModel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODBModel.release.xcconfig"; path = "Pods/Target Support Files/Pods-TODBModel/Pods-TODBModel.release.xcconfig"; sourceTree = "<group>"; };
+		EA2F0F681E48C70A00893605 /* TODBAndCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBAndCondition.h; sourceTree = "<group>"; };
+		EA2F0F691E48C70A00893605 /* TODBAndCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBAndCondition.m; sourceTree = "<group>"; };
+		EA2F0F6A1E48C70A00893605 /* TODBCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBCondition.h; sourceTree = "<group>"; };
+		EA2F0F6B1E48C70A00893605 /* TODBCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBCondition.m; sourceTree = "<group>"; };
+		EA2F0F6C1E48C70A00893605 /* TODBNotContition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBNotContition.h; sourceTree = "<group>"; };
+		EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBNotContition.m; sourceTree = "<group>"; };
+		EA2F0F6E1E48C70A00893605 /* TODBOrCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBOrCondition.h; sourceTree = "<group>"; };
+		EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBOrCondition.m; sourceTree = "<group>"; };
 		EA72A24C1DEE5D78005F12D2 /* TODataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataBase.h; sourceTree = "<group>"; };
 		EA72A24D1DEE5D78005F12D2 /* TODBModel+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TODBModel+Cache.h"; sourceTree = "<group>"; };
 		EA72A24E1DEE5D78005F12D2 /* TODBModel+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TODBModel+Cache.m"; sourceTree = "<group>"; };
@@ -60,8 +68,6 @@
 		EA72A26F1DEE744B005F12D2 /* TODBPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBPointer.m; sourceTree = "<group>"; };
 		EA829BE81E1DDDEB006E4DEA /* TODBModel+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TODBModel+Search.h"; sourceTree = "<group>"; };
 		EA829BE91E1DDDEB006E4DEA /* TODBModel+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TODBModel+Search.m"; sourceTree = "<group>"; };
-		EA8718BA1E442666006199EE /* TODBCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBCondition.h; sourceTree = "<group>"; };
-		EA8718BB1E442666006199EE /* TODBCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBCondition.m; sourceTree = "<group>"; };
 		EAC163CE1E46BDBB0065BABC /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
 		EAC163CF1E46BDBB0065BABC /* AddressBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewController.m; sourceTree = "<group>"; };
 		EAC163D11E46C7DE0065BABC /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -72,12 +78,6 @@
 		EAC163DA1E480ECF0065BABC /* AddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSearchViewController.h; sourceTree = "<group>"; };
 		EAC163DB1E480ECF0065BABC /* AddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSearchViewController.m; sourceTree = "<group>"; };
 		EAC163DC1E480ECF0065BABC /* AddressSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
-		EAC163DF1E4825180065BABC /* TODBAndCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBAndCondition.h; sourceTree = "<group>"; };
-		EAC163E01E4825180065BABC /* TODBAndCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBAndCondition.m; sourceTree = "<group>"; };
-		EAC163E21E48252B0065BABC /* TODBOrCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBOrCondition.h; sourceTree = "<group>"; };
-		EAC163E31E48252B0065BABC /* TODBOrCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBOrCondition.m; sourceTree = "<group>"; };
-		EAC163E51E4825480065BABC /* TODBNotContition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBNotContition.h; sourceTree = "<group>"; };
-		EAC163E61E4825480065BABC /* TODBNotContition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBNotContition.m; sourceTree = "<group>"; };
 		EAC163E81E483DF30065BABC /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
 		EAC163E91E483DF30065BABC /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
 		EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
@@ -118,7 +118,14 @@
 		EA72A24B1DEE5D78005F12D2 /* TODBModel */ = {
 			isa = PBXGroup;
 			children = (
-				EA8718B91E442666006199EE /* conditions */,
+				EA2F0F681E48C70A00893605 /* TODBAndCondition.h */,
+				EA2F0F691E48C70A00893605 /* TODBAndCondition.m */,
+				EA2F0F6A1E48C70A00893605 /* TODBCondition.h */,
+				EA2F0F6B1E48C70A00893605 /* TODBCondition.m */,
+				EA2F0F6C1E48C70A00893605 /* TODBNotContition.h */,
+				EA2F0F6D1E48C70A00893605 /* TODBNotContition.m */,
+				EA2F0F6E1E48C70A00893605 /* TODBOrCondition.h */,
+				EA2F0F6F1E48C70A00893605 /* TODBOrCondition.m */,
 				EA72A24C1DEE5D78005F12D2 /* TODataBase.h */,
 				EA72A24F1DEE5D78005F12D2 /* TODBModel.h */,
 				EA72A2501DEE5D78005F12D2 /* TODBModel.m */,
@@ -164,21 +171,6 @@
 				EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */,
 			);
 			path = TODBModelDemo;
-			sourceTree = "<group>";
-		};
-		EA8718B91E442666006199EE /* conditions */ = {
-			isa = PBXGroup;
-			children = (
-				EA8718BA1E442666006199EE /* TODBCondition.h */,
-				EA8718BB1E442666006199EE /* TODBCondition.m */,
-				EAC163DF1E4825180065BABC /* TODBAndCondition.h */,
-				EAC163E01E4825180065BABC /* TODBAndCondition.m */,
-				EAC163E21E48252B0065BABC /* TODBOrCondition.h */,
-				EAC163E31E48252B0065BABC /* TODBOrCondition.m */,
-				EAC163E51E4825480065BABC /* TODBNotContition.h */,
-				EAC163E61E4825480065BABC /* TODBNotContition.m */,
-			);
-			path = conditions;
 			sourceTree = "<group>";
 		};
 		EAC1FE991DE4353B00555898 = {
@@ -326,23 +318,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC163E11E4825180065BABC /* TODBAndCondition.m in Sources */,
 				EA72A26D1DEE5D78005F12D2 /* ViewController.m in Sources */,
-				EAC163E71E4825480065BABC /* TODBNotContition.m in Sources */,
 				EAC163DD1E480ECF0065BABC /* AddressSearchViewController.m in Sources */,
 				EA72A26B1DEE5D78005F12D2 /* main.m in Sources */,
 				EAC163EB1E483DF30065BABC /* EditAddressViewController.m in Sources */,
 				EA829BEA1E1DDDEB006E4DEA /* TODBModel+Search.m in Sources */,
-				EA8718BC1E442666006199EE /* TODBCondition.m in Sources */,
 				EAC163D31E46C7DE0065BABC /* AddressModel.m in Sources */,
 				EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */,
-				EAC163E41E48252B0065BABC /* TODBOrCondition.m in Sources */,
 				EA72A2661DEE5D78005F12D2 /* AppDelegate.m in Sources */,
+				EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */,
+				EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */,
 				EAC163D01E46BDBB0065BABC /* AddressBookTableViewController.m in Sources */,
+				EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */,
 				EA72A2631DEE5D78005F12D2 /* TODBModel+Cache.m in Sources */,
 				EA72A26C1DEE5D78005F12D2 /* TestModel.m in Sources */,
 				EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */,
 				EAC163D81E46E3270065BABC /* AddressTableViewCell.m in Sources */,
+				EA2F0F721E48C70A00893605 /* TODBNotContition.m in Sources */,
 				EA72A2641DEE5D78005F12D2 /* TODBModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
