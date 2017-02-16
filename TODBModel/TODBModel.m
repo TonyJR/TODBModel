@@ -173,6 +173,7 @@ static FMDatabase *database;
             block(self_strong);
         }
     });
+    
 }
 
 - (void)del{
