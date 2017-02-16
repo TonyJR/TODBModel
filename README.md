@@ -64,8 +64,8 @@ AddressModel *model = [AddressModel crateModel];
     //获取成功
 }];
 //搜索name中或者mobile中包含“123”的数据
-TODBCondition *condition1 = [TODBCondition condition:@"name" like:[NSString stringWithFormat:@"%%%@%%",@"123"]];
-TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:[NSString stringWithFormat:@"%%%@%%",@"123"]];
+TODBCondition *condition1 = [TODBCondition condition:@"name" like:@"%123%"];
+TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:@"%123%"];
 [AddressModel search:[TODBOrCondition conditionWith:condition1 or:condition2] callBack:^(NSArray<TODBModel *> *models) {
     //搜索完成
 }];
