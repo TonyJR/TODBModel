@@ -77,7 +77,7 @@ TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:@"%123%"];
 ```
 Swift
 ------------
-在Model中请不要使用“？”、“！”修饰属性
+在Swift中，非指针对象（Int,Float,Double,Boolean等）请不要使用“？”、“！”修饰属性。否则可能导致该字段无法插入数据库
 ```swift
 //  AddressModel.swift
 
