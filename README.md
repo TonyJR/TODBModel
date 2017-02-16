@@ -4,6 +4,9 @@
 
 TODBModel是基于FMDB开发的数据库模型系统，它把数据库操作完全融入模型中。该类的任何子类将自动创建并维护数据库，无需懂得任何SQL语法及概念即可进行数据库操作。支持字符串、整型、浮点型、NSData、NSDate、UIImage、NSArray、NSDictionary存储。
 
+模型缓存+数据库异步读写，创建1000条数据仅需0.015秒。
+
+![image](https://github.com/TonyJR/TODBModel/blob/master/1.gif)
 
 快速集成
 ------------
@@ -14,6 +17,8 @@ pod 'TODBModel'
 如何使用
 ------------
 1、创建一个对象，继承TODBModel。
+
+
 2、为对象添加属性
 ```objc
 //  AddressModel.h
