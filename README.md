@@ -17,6 +17,7 @@ pod 'TODBModel'
 2、为对象添加属性
 ```objc
 //  AddressModel.h
+
 #import "TODBModel.h"
 
 @interface AddressModel : TODBModel
@@ -32,6 +33,7 @@ pod 'TODBModel'
 3、覆盖+ (NSString *)db_pk方法，并返回主键对应的属性。
 ```objc
 //  AddressModel.m
+
 #import "AddressModel.h"
 
 @implementation AddressModel
@@ -68,14 +70,38 @@ TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:[NSString st
     //搜索完成
 }];
 ```
+Swift
+------------
+在Model中请不要使用“？”、“！”修饰属性
+```swift
+//  AddressModel.swift
 
+import UIKit
+import TODBModel
+
+class AddressModel: TODBModel {
+    var name: String = "";
+    var addressID: Int = 0;
+    var age: Float = 0;
+
+    var editDate: NSDate!;
+    var mobile: String!;
+    var address: String!;
+
+    public static override func db_pk() -> String{
+        return "addressID";
+    }
+}
+```
 特别说明
 ------------
 TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建对象，而应该使用以下方法创建
+```
 -modelByKey:
 -modelByKey: allowNull:
 -createModel
 -createModels:
+```
 多次调用-modelByKey:来获取同一key对应的对象时，将获得指向同一内存地址的指针实例。
 
 更新日志
