@@ -54,11 +54,11 @@ pod 'TODBModel'
 //创建
 AddressModel *model = [AddressModel crateModel];
 //保存
-[self save:^(TODBModel *model) {
+[model save:^(TODBModel *model) {
     //保存成功
 }]
 //删除
-[self del:^(TODBModel *model) {
+[model del:^(TODBModel *model) {
     //删除成功
 }]
 ```
