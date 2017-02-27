@@ -26,16 +26,51 @@
 
 @interface TODataTypeHelper : NSObject
 
-//将objc类型转化为Sqllite对应的类型
+/**
+ Charge a objc-type to sqlite-type
+
+ @param objcType objc-type
+ @return sqlite-type
+ */
 + (NSString *)objcTypeToSqlType:(const char *)objcType;
 
+
+/**
+ Charge a objc-object to sqlite-object
+
+
+ @param objcObject objc-object
+ @param type sqlite-type
+ @param arguments arguments with bitcode
+ @return sqlite-object
+ */
 + (NSString *)objcObjectToSqlObject:(id)objcObject  withType:(NSString *)type arguments:(NSMutableArray *)arguments;
 
+/**
+ Read a objc-object from FMResultSet
+
+ @param resultSet source FMResultSet
+ @param name reading name
+ @param objcType objc-type
+ @return objc-object
+ */
 + (id)readObjcObjectFrom:(FMResultSet *)resultSet name:(NSString *)name type:(NSString *)objcType;
 
-//筛选NSArray，NSDictionary
+
+/**
+ Copy a NSArray. Replace TODBPointer with TODBModel
+
+ @param array source array
+ @return result array
+ */
 + (NSArray *)copyArray:(NSArray *)array;
 
+/**
+ Copy a NSDictionary. Replace TODBPointer with TODBModel
+ 
+ @param array source dictionary
+ @return result dictionary
+ */
 + (NSDictionary *)copyDictionary:(NSDictionary *)array;
 
 @end

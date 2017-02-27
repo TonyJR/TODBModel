@@ -21,6 +21,8 @@
     BOOL _needUpdate;
 }
 
++ (void)saveModelByKey:(nonnull id)modelKey model:(nonnull TODBModel *)model;
+
 
 @end
 
@@ -764,6 +766,11 @@ static FMDatabase *database;
     objc_setAssociatedObject(self, __func__, dic, OBJC_ASSOCIATION_COPY);
     
     return dic;
+}
+
+//update model indexes in memory 
++ (void)saveModelByKey:(nonnull id)modelKey model:(nonnull TODBModel *)model{
+    //This method is realizd in category of TODBModel+Cache
 }
 
 #pragma mark - KVC
