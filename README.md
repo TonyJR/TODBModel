@@ -132,9 +132,8 @@ version 0.1.1
 ```
 version 0.1
 ```
-0、数据增、改、查，（删暂未实现）。
-1、自动创建、维护模型对应的数据库。启动时检测模型变化，如属性发生变更则自动更新数据表。
-2、支持NSString、NSDate、NSData、CGFloat、NSInteger、float、double等基本类型。
-3、支持任何实现了NSCoding接口的对象。
-4、特别优化了TODBModel的子类作为属性的支持。
+0、自动创建、维护模型对应的数据库。启动时检测模型变化，如属性发生变更则自动更新数据表。
+1、支持NSString、NSDate、NSData、CGFloat、NSInteger、float、double等基本类型。
+2、支持任何实现了NSCoding接口的对象。
+3、特别优化了TODBModel的子类作为属性的支持。
 ```
