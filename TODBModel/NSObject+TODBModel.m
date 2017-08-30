@@ -697,7 +697,7 @@ static FMDatabase *database;
         
         const char *name = property_getName(property);
         
-        const char *type = property_copyAttributeValue(property,"T");        
+        const char *type = property_copyAttributeValue(property,"T");
         
         NSString *sqlTypeName = objcType2SqlType(type);
         if (!sqlTypeName) {
