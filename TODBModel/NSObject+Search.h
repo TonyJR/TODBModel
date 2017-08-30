@@ -1,24 +1,19 @@
 //
-//  TODBModel+Search.h
+//  NSObject+Search.h
 //  TODBModel
 //
-//  Created by Tony on 17/1/5.
+//  Created by Tony on 2017/8/30.
 //  Copyright © 2017年 Tony. All rights reserved.
 //
 
-#import "TODBModel.h"
+#import <Foundation/Foundation.h>
 #import "TODBCondition.h"
 
-
-/**
- This category will help you to search model from database.
- */
-@interface TODBModel (Search)
-
+@interface NSObject (Search)
 
 /**
  Find all models in database synchronously.
-
+ 
  @return all models.
  */
 + (NSArray *)allModels;
@@ -26,15 +21,15 @@
 
 /**
  Find all models in database asynchronously.
-
+ 
  @param block finish callback.
  */
-+ (void)allModels:(void(^)(NSArray<TODBModel *> *models))block;
++ (void)allModels:(void(^)(NSArray<NSObject *> *models))block;
 
 
 /**
  Search models in database by condition synchronously.
-
+ 
  @param condition search condition
  @return search result
  */
@@ -46,7 +41,7 @@
  @param condition search condition
  @param block finish callback.
  */
-+ (void)search:(id<TODBConditionBase>)condition callBack:(void(^)(NSArray<TODBModel *> *models))block;
++ (void)search:(id<TODBConditionBase>)condition callBack:(void(^)(NSArray<NSObject *> *models))block;
 
 /**
  Search models in database by SQL synchronously.
@@ -62,8 +57,7 @@
  @param sqlString search SQL
  @param block finish callback.
  */
-+ (void)searchSQL:(NSString *)sqlString callBack:(void(^)(NSArray<TODBModel *> *models))block;
-
++ (void)searchSQL:(NSString *)sqlString callBack:(void(^)(NSArray<NSObject *> *models))block;
 
 
 @end

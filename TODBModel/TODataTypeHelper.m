@@ -7,7 +7,6 @@
 //
 
 #import "TODataTypeHelper.h"
-#import "TODBModel.h"
 #import "TODBPointer.h"
 
 @implementation TODataTypeHelper
@@ -62,7 +61,7 @@
     NSString *result = nil;
     
     if ([type isEqualToString:DB_TYPE_BLOB]) {
-        if ([objcObject isKindOfClass:[TODBModel class]]) {
+        if ([objcObject isKindOfClass:[NSObject class]]) {
             objcObject = [[TODBPointer alloc] initWithModel:objcObject];
         }
         
@@ -115,7 +114,7 @@
                 NSData *data = [resultSet dataForColumn:name];
                 Class class = NSClassFromString(className);
                 
-                if ([class isSubclassOfClass:[TODBModel class]]) {
+                if ([class isSubclassOfClass:[NSObject class]]) {
                     
                     TODBPointer *pointer;
                     @try {
@@ -147,7 +146,7 @@
     
     for (NSUInteger i=0; i<result.count; i++) {
         id object = [result objectAtIndex:i];
-        if ([object isKindOfClass:[TODBModel class]]) {
+        if ([object isKindOfClass:[NSObject class]]) {
             [result replaceObjectAtIndex:i withObject:[[TODBPointer alloc] initWithModel:object]];
         }else if ([object isKindOfClass:[NSArray class]]){
             [result replaceObjectAtIndex:i withObject:[self copyArray:object]];
@@ -165,7 +164,7 @@
     for (id key in result.allKeys) {
         
         id object = [result objectForKey:key];
-        if ([object isKindOfClass:[TODBModel class]]) {
+        if ([object isKindOfClass:[NSObject class]]) {
             [result setObject:[[TODBPointer alloc] initWithModel:object] forKey:key];
         }else if ([object isKindOfClass:[NSArray class]]){
             [result setObject:[self copyArray:object] forKey:key];

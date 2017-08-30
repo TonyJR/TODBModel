@@ -1,21 +1,15 @@
 //
-//  TODBModel+Cache.m
+//  NSObject+Cache.m
 //  TODBModel
 //
-//  Created by Tony on 16/11/29.
-//  Copyright © 2016年 Tony. All rights reserved.
+//  Created by Tony on 2017/8/30.
+//  Copyright © 2017年 Tony. All rights reserved.
 //
 
-#import "TODBModel+Cache.h"
-#import <objc/runtime.h>
-#import "TODataTypeHelper.h"
+#import "NSObject+Cache.h"
+#import "NSObject+TODBModel.h"
 
-@interface TODBModel ()
-
-
-@end
-
-@implementation TODBModel (Cache)
+@implementation NSObject (Cache)
 
 static NSMapTable * cache;
 
@@ -30,8 +24,8 @@ static NSMapTable * cache;
 + (id)modelByDic:(NSDictionary *)dic{
     NSString *pkValue = dic[[self db_pk]];
     
-    TODBModel *model = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),pkValue]];
-
+    NSObject *model = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),pkValue]];
+    
     if (!model) {
         model = [[self alloc] init];
     }
@@ -76,7 +70,7 @@ static NSMapTable * cache;
     return result;
 }
 
-+ (void)saveModelByKey:(id)modelKey model:(TODBModel *)model{
++ (void)saveModelByKey:(id)modelKey model:(NSObject *)model{
     if (modelKey) {
         [cache setObject:model forKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),modelKey]];
     }
@@ -84,29 +78,22 @@ static NSMapTable * cache;
 
 
 
-//模型初始化
-- (id)init{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
+
 
 
 //- (void)setDbCacheKey:(NSString *)dbCacheKey{
 //    objc_setAssociatedObject(self, "dbCacheKey", dbCacheKey, OBJC_ASSOCIATION_COPY);
 //
 //    NSString *_dbCacheKey = [self dbCacheKey];
-//    
-//    
+//
+//
 //    if (_dbCacheKey && _dbCacheKey.length!= 0) {
 //        if ([_dbCacheKey isEqualToString:dbCacheKey]) {
 //            return;
 //        }
 //        [cache removeObjectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass([self class]),_dbCacheKey]];
 //    }
-//    
+//
 //    if (dbCacheKey && dbCacheKey.length!= 0) {
 //        [cache setObject:self forKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass([self class]),dbCacheKey]];
 //    }

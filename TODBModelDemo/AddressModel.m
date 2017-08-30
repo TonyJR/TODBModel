@@ -10,6 +10,10 @@
 
 @implementation AddressModel
 
++ (void)initialize{
+    [self regiestDB];
+}
+
 + (NSString *)db_pk{
     return @"addressID";
 }

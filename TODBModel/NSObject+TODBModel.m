@@ -1,37 +1,31 @@
 //
-//  TODBModel.m
+//  NSObject+RegiestDB.m
 //  TODBModel
 //
-//  Created by Tony on 16/11/22.
-//  Copyright © 2016年 Tony. All rights reserved.
+//  Created by Tony on 2017/8/30.
+//  Copyright © 2017年 Tony. All rights reserved.
 //
 
-#import "TODBModel.h"
+#import "NSObject+TODBModel.h"
+#import "NSObject+Cache.h"
+
 #import <FMDB/FMDB.h>
 #import <objc/runtime.h>
 #import "TODBModelConfig.h"
 #import "TODataTypeHelper.h"
 #import "TODBPointer.h"
-#import "TODBModel+Cache.h"
 #import "TODBCondition.h"
 
-@interface TODBModel (){
-@private
-    BOOL _isLocked;
-    BOOL _needUpdate;
-}
-
-+ (void)saveModelByKey:(nonnull id)modelKey model:(nonnull TODBModel *)model;
 
 
-@end
-
-@implementation TODBModel
+@implementation NSObject (RegiestDB)
 
 static dispatch_queue_t sql_queue;
 static FMDatabase *database;
 
-+ (void)initialize{
+
+
++ (void)regiestDB{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sql_queue = dispatch_queue_create("sql_operation_queue", DISPATCH_QUEUE_SERIAL);
@@ -40,6 +34,10 @@ static FMDatabase *database;
             [database open];
             
             NSLog(@"数据库路径:%@",TO_MODEL_DATABASE_PATH);
+            
+            Method oldM  = class_getInstanceMethod(self, @selector(setValue:forKey:));
+            Method newM = class_getInstanceMethod(self, @selector(swap_setValue:forKey:));
+            method_exchangeImplementations(oldM, newM);
         });
     });
     
@@ -153,7 +151,7 @@ static FMDatabase *database;
     
     if (lastID != 0) {
         for (NSInteger i=count-1; i>=0; i--) {
-            TODBModel *model = [[self alloc] init];
+            NSObject *model = [[self alloc] init];
             [model setValue:@(lastID - i) forKey:[self db_pk]];
             [result addObject:model];
         }
@@ -166,10 +164,10 @@ static FMDatabase *database;
     [self db_update];
 }
 
-- (void)save:(void (^)(TODBModel *))block{
-    __weak TODBModel *self_weak = self;
+- (void)save:(void (^)(NSObject *))block{
+    __weak NSObject *self_weak = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        __strong TODBModel *self_strong = self_weak;
+        __strong NSObject *self_strong = self_weak;
         [self_strong db_update];
         if (block) {
             block(self_strong);
@@ -181,10 +179,10 @@ static FMDatabase *database;
 - (void)del{
     [self db_delete];
 }
-- (void)del:(void(^)(TODBModel *model))block{
-    __weak TODBModel *self_weak = self;
+- (void)del:(void(^)(NSObject *model))block{
+    __weak NSObject *self_weak = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        __strong TODBModel *self_strong = self_weak;
+        __strong NSObject *self_strong = self_weak;
         [self_strong db_delete];
         if (block) {
             block(self_strong);
@@ -384,7 +382,7 @@ static FMDatabase *database;
         [resultSet close];
     });
     
-    for (TODBModel *model in result) {
+    for (NSObject *model in result) {
         [model checkPointer];
     }
     
@@ -443,7 +441,7 @@ static FMDatabase *database;
         
     });
     
-    for (TODBModel *model in result) {
+    for (NSObject *model in result) {
         [model checkPointer];
     }
     
@@ -495,7 +493,7 @@ static FMDatabase *database;
         [resultSet close];
     });
     
-    for (TODBModel *model in result) {
+    for (NSObject *model in result) {
         [model checkPointer];
     }
     
@@ -699,9 +697,7 @@ static FMDatabase *database;
         
         const char *name = property_getName(property);
         
-        const char *type = property_copyAttributeValue(property,"T");
-        NSLog(@"%s",type);
-        
+        const char *type = property_copyAttributeValue(property,"T");        
         
         NSString *sqlTypeName = objcType2SqlType(type);
         if (!sqlTypeName) {
@@ -768,9 +764,9 @@ static FMDatabase *database;
     return dic;
 }
 
-//update model indexes in memory 
-+ (void)saveModelByKey:(nonnull id)modelKey model:(nonnull TODBModel *)model{
-    //This method is realizd in category of TODBModel+Cache
+//update model indexes in memory
++ (void)saveModelByKey:(nonnull id)modelKey model:(nonnull NSObject *)model{
+    //This method is realizd in category of NSObject+Cache
 }
 
 #pragma mark - KVC
@@ -778,8 +774,8 @@ static FMDatabase *database;
     
 }
 
-- (void)setValue:(id)value forKey:(NSString *)key{
-    [super setValue:value forKey:key];
+- (void)swap_setValue:(id)value forKey:(NSString *)key{
+    [self swap_setValue:value forKey:key];
     if ([key isEqualToString:[[self class] db_pk]]) {
         [[self class] saveModelByKey:value model:self];
     }

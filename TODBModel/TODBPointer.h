@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TODBModel.h"
 
 @interface TODBPointer : NSObject<NSCoding>
 
 @property (nonatomic,strong) NSString *pkValue;
 @property (nonatomic,strong) NSString *className;
-@property (nonatomic,readonly) TODBModel *model;
+@property (nonatomic,readonly) NSObject *model;
 
-- (instancetype)initWithModel:(TODBModel *)model;
+- (instancetype)initWithModel:(NSObject *)model;
 
 @end

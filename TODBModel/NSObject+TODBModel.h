@@ -1,16 +1,20 @@
 //
-//  TODBModel.h
+//  NSObject+TODBModel.h
 //  TODBModel
 //
-//  Created by Tony on 16/11/22.
-//  Copyright © 2016年 Tony. All rights reserved.
+//  Created by Tony on 2017/8/30.
+//  Copyright © 2017年 Tony. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "TODataBase.h"
 
+@interface NSObject (RegiestDB)<TODataBase>
 
-@interface TODBModel : NSObject<TODataBase>
+/**
+ Create or update table for this class.
+ */
++ (void)regiestDB;
 
 /**
  Create a new model.
@@ -19,7 +23,7 @@
 
 /**
  Create a number of models.
-
+ 
  @param count create number.
  @return created models.
  */
@@ -33,10 +37,10 @@
 
 /**
  Save a model to database asynchronously.
-
+ 
  @param block finish callback.
  */
-- (void)save:(void(^)(TODBModel *model))block;
+- (void)save:(void(^)(NSObject *model))block;
 
 /**
  Delete a model from database synchronously.
@@ -48,8 +52,7 @@
  
  @param block finish callback.
  */
-- (void)del:(void(^)(TODBModel *model))block;
+- (void)del:(void(^)(NSObject *model))block;
 
 
 @end
-

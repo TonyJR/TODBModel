@@ -7,12 +7,15 @@
 //
 
 #import "AddressBookTableViewController.h"
-#import "TODBModel+Search.h"
 #import "AddressModel.h"
 #import "AddressTableViewCell.h"
 #import "AddressSearchViewController.h"
 #import "TODBOrCondition.h"
 #import "EditAddressViewController.h"
+
+#import "NSObject+TODBModel.h"
+#import "NSObject+Cache.h"
+#import "NSObject+Search.h"
 
 #define MOBILE_HEAD @[@"130",@"131",@"132",@"133",@"134",@"135",@"136",@"137",@"138",@"139"];
 #define SURNAME @[@"赵",@"钱",@"孙",@"李",@"周",@"吴",@"郑",@"王",@"冯",@"陈",@"楮",@"蒋",@"沈",@"韩",@"杨",@"朱",@"秦",@"尤",@"许",@"何",@"吕",@"施",@"张",@"孔",@"曹",@"严",@"华",@"卫"];
@@ -65,7 +68,7 @@
 
 - (void)loadModels{
     __weak id self_weak = self;
-    [AddressModel allModels:^(NSArray<TODBModel *> *models) {
+    [AddressModel allModels:^(NSArray<NSObject *> *models) {
         __strong AddressBookTableViewController *self_strong = self_weak;
 
         self_strong.dataList = [NSMutableArray arrayWithArray:models];
@@ -200,7 +203,7 @@
         
         TODBCondition *condition1 = [TODBCondition condition:@"name" like:[NSString stringWithFormat:@"%%%@%%",searchText]];
         TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:[NSString stringWithFormat:@"%%%@%%",searchText]];
-        [AddressModel search:[TODBOrCondition conditionWith:condition1 or:condition2] callBack:^(NSArray<TODBModel *> *models) {
+        [AddressModel search:[TODBOrCondition conditionWith:condition1 or:condition2] callBack:^(NSArray<NSObject *> *models) {
             __strong AddressBookTableViewController *self_strong = self_weak;
             self_strong.dataList = [NSMutableArray arrayWithArray:models];
             [self_strong.tableView reloadData];

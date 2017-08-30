@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "TestModel.h"
+#import "NSObject+TODBModel.h"
+#import "NSObject+Cache.h"
 
 @interface ViewController ()
 

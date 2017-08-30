@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TODBModel.h"
-#import "TODBModel+Cache.h"
 
-@interface TestModel : TODBModel{
+
+@interface TestModel : NSObject{
 @private
     int *privateName;
 }

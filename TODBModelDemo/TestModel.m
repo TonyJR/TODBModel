@@ -7,9 +7,13 @@
 //
 
 #import "TestModel.h"
+#import "NSObject+TODBModel.h"
+#import "NSObject+Cache.h"
 
 @implementation TestModel
 
-
++ (void)initialize{
+    [self regiestDB];
+}
 
 @end

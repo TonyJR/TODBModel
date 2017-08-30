@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Tony. All rights reserved.
 //
 
-#import "TODBModel.h"
+#import "NSObject+TODBModel.h"
 
-@interface AddressModel : TODBModel
+@interface AddressModel : NSObject
 
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,assign) int addressID;

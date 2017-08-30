@@ -7,7 +7,8 @@
 //
 
 #import "TODBPointer.h"
-#import "TODBModel+Cache.h"
+#import "NSObject+TODBModel.h"
+#import "NSObject+Cache.h"
 
 
 @implementation TODBPointer
@@ -30,7 +31,7 @@
 
 }
 
-- (instancetype)initWithModel:(TODBModel *)model{
+- (instancetype)initWithModel:(NSObject *)model{
     if (!model) {
         return nil;
     }
@@ -46,8 +47,8 @@
     return self;
 }
 
-- (TODBModel *)model{
-    TODBModel *result;
+- (NSObject *)model{
+    NSObject *result;
     
     if (self.className && self.className.length > 0) {
         Class class = NSClassFromString(self.className);
