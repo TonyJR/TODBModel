@@ -24,5 +24,5 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
 #import "TODBNotCondition.h"
 
 #import "NSObject+TODBModel.h"
-#import "NSObject+Cache"
+#import "NSObject+Cache.h"
 #import "NSObject+Search.h"
