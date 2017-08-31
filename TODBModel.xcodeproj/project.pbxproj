@@ -146,7 +146,6 @@
 		EA72A2551DEE5D78005F12D2 /* TODBModelDemo */ = {
 			isa = PBXGroup;
 			children = (
-				EA75BE6E1F579F630041D319 /* demos */,
 				EA72A2561DEE5D78005F12D2 /* AppDelegate.h */,
 				EA72A2571DEE5D78005F12D2 /* AppDelegate.m */,
 				EA72A2581DEE5D78005F12D2 /* Assets.xcassets */,
@@ -172,45 +171,6 @@
 				EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */,
 			);
 			path = TODBModelDemo;
-			sourceTree = "<group>";
-		};
-		EA75BE6E1F579F630041D319 /* demos */ = {
-			isa = PBXGroup;
-			children = (
-				EA75BE6F1F579FB50041D319 /* create */,
-				EA75BE701F579FB50041D319 /* delete */,
-				EA75BE711F579FB50041D319 /* retrieve */,
-				EA75BE721F579FB50041D319 /* update */,
-			);
-			path = demos;
-			sourceTree = "<group>";
-		};
-		EA75BE6F1F579FB50041D319 /* create */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = create;
-			sourceTree = "<group>";
-		};
-		EA75BE701F579FB50041D319 /* delete */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = delete;
-			sourceTree = "<group>";
-		};
-		EA75BE711F579FB50041D319 /* retrieve */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = retrieve;
-			sourceTree = "<group>";
-		};
-		EA75BE721F579FB50041D319 /* update */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = update;
 			sourceTree = "<group>";
 		};
 		EAC1FE991DE4353B00555898 = {
