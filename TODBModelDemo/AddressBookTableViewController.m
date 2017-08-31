@@ -12,6 +12,7 @@
 #import "AddressSearchViewController.h"
 #import "TODBOrCondition.h"
 #import "EditAddressViewController.h"
+#import "TestModel.h"
 
 #import "NSObject+TODBModel.h"
 #import "NSObject+Cache.h"
@@ -51,6 +52,37 @@
     
     [self loadModels];
 
+    
+    TestModel *testModel;
+    
+    NSDate *date = [NSDate date];
+    testModel = [TestModel modelByKey:@"102"];
+    
+    NSLog(@"%@",testModel);
+    testModel = [TestModel modelByKey:@"102"];
+    
+    NSLog(@"%@",testModel);
+    NSLog(@"搜索用时%f",[[NSDate date] timeIntervalSinceDate:date]);
+    
+    
+    
+    
+    NSLog(@"---%@",testModel.model.name);
+    testModel.test = [NSDate date];
+    testModel.name = @"123";
+    
+    
+    
+    testModel.image = [UIImage imageNamed:@"user"];
+    
+    TestModel *testModel2;
+    testModel2 = [TestModel modelByKey:@"103"];
+    testModel2.name = @"103";
+    
+    testModel.model = testModel2;
+    
+    [testModel2 save];
+    [testModel save];
 }
 
 - (void)initUI{

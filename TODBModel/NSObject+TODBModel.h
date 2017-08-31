@@ -11,6 +11,8 @@
 
 @interface NSObject (RegiestDB)<TODataBase>
 
+@property (nonatomic,assign) NSUInteger pk;
+
 /**
  Create or update table for this class.
  */

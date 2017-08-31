@@ -23,7 +23,13 @@
 static dispatch_queue_t sql_queue;
 static FMDatabase *database;
 
+- (NSUInteger)pk{
+    return [objc_getAssociatedObject(self, @"NSObject_pk") unsignedIntegerValue];
+}
 
+- (void)setPk:(NSUInteger)pk{
+    objc_setAssociatedObject(self, @"NSObject_pk", [NSNumber numberWithUnsignedInteger:pk], OBJC_ASSOCIATION_RETAIN);
+}
 
 + (void)regiestDB{
     static dispatch_once_t onceToken;
@@ -771,13 +777,34 @@ static FMDatabase *database;
 
 #pragma mark - KVC
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    
+    if ([key isEqualToString:@"pk"]) {
+        [self setPk:[[NSString stringWithFormat:@"%@",value] integerValue]];
+    }
 }
 
 - (void)swap_setValue:(id)value forKey:(NSString *)key{
-    [self swap_setValue:value forKey:key];
+    @try {
+        [self swap_setValue:value forKey:key];
+    } @catch (NSException *exception) {
+        if (!key) {
+            @throw exception;
+        }else{
+            [self setValue:value forUndefinedKey:key];
+        }
+    } @finally {
+        
+    }
+    
     if ([key isEqualToString:[[self class] db_pk]]) {
         [[self class] saveModelByKey:value model:self];
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key{
+    if ([key isEqualToString:@"pk"]) {
+        return @([self pk]);
+    }else{
+        return nil;
     }
 }
 
