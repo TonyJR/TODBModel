@@ -29,7 +29,7 @@ pod 'TODBModel'
 
 #import "TODBModel.h"
 
-@interface AddressModel : TODBModel
+@interface AddressModel : NSObject
 
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,assign) int addressID;
@@ -39,6 +39,7 @@ pod 'TODBModel'
 
 @end
 ```
+
 3、覆盖+ (NSString *)db_pk方法，并返回主键对应的属性。
 ```objc
 //  AddressModel.m
@@ -46,6 +47,11 @@ pod 'TODBModel'
 #import "AddressModel.h"
 
 @implementation AddressModel
+
++ (void)initialize{
+   //在数据库中注册数据表
+   [self regiestDB];
+}
 
 + (NSString *)db_pk{
     return @"addressID";
@@ -115,6 +121,12 @@ TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建
 
 更新日志
 ------------
+version 1.0.0
+```
+0、移除了TODBModel类，现在任何NSObject的子类都可以直接存入数据库
+1、新增了更新表结构的方法，现在不再自动更新表结构了，而是需要手动更新
+```
+
 version 0.3
 ```
 0、兼容swift
