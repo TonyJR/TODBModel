@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 
 //! Project version number for TOModel.
-FOUNDATION_EXPORT double TOModelVersionNumber;
+FOUNDATION_EXPORT double TOModelVersionNumber = 10003;
 
 //! Project version string for TOModel.
-FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <TOModel/PublicHeader.h>
+FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.0.3";
 
 
 #import "TODataBase.h"

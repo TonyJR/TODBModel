@@ -13,6 +13,12 @@
 
 @property (nonatomic,assign) NSUInteger pk;
 
+
+/**
+ Did existed table in database
+ */
++ (BOOL)existDB;
+
 /**
  Create or update table for this class.
  */

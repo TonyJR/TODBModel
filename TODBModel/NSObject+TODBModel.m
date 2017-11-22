@@ -31,6 +31,10 @@ static FMDatabase *database;
     objc_setAssociatedObject(self, @"NSObject_pk", [NSNumber numberWithUnsignedInteger:pk], OBJC_ASSOCIATION_RETAIN);
 }
 
++ (BOOL)existDB{
+    return [self db_existTable];
+}
+
 + (void)regiestDB{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -709,7 +713,6 @@ static FMDatabase *database;
         if (!sqlTypeName) {
             NSLog(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
-            NSLog(@"%s",type);
             
             [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
             
