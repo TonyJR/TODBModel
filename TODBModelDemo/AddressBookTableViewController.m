@@ -66,8 +66,6 @@
     
     
     
-    
-    NSLog(@"---%@",testModel.model.name);
     testModel.test = [NSDate date];
     testModel.name = @"123";
     
