@@ -12,7 +12,6 @@
 #import "AddressSearchViewController.h"
 #import "TODBOrCondition.h"
 #import "EditAddressViewController.h"
-#import "TestModel.h"
 
 #import "NSObject+TODBModel.h"
 #import "NSObject+Cache.h"
@@ -51,42 +50,15 @@
     [self initUI];
     
     [self loadModels];
-
-    
-    TestModel *testModel;
-    
-    NSDate *date = [NSDate date];
-    testModel = [TestModel modelByKey:@"102"];
-    
-    NSLog(@"%@",testModel);
-    testModel = [TestModel modelByKey:@"102"];
-    
-    NSLog(@"%@",testModel);
-    NSLog(@"搜索用时%f",[[NSDate date] timeIntervalSinceDate:date]);
-    
-    
-    
-    testModel.test = [NSDate date];
-    testModel.name = @"123";
-    
-    
-    
-    testModel.image = [UIImage imageNamed:@"user"];
-    
-    TestModel *testModel2;
-    testModel2 = [TestModel modelByKey:@"103"];
-    testModel2.name = @"103";
-    
-    testModel.model = testModel2;
-    
-    [testModel2 save];
-    [testModel save];
 }
 
 - (void)initUI{
     self.title = @"通讯录";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonClickHandler:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClickHandler:)];
+    self.navigationItem.rightBarButtonItems = @[
+                                                
+                                                [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonClickHandler:)],
+                                                [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClickHandler:)],
+                                                ];
     
     
     self.tableView.tableHeaderView = self.searchBar;
@@ -122,7 +94,7 @@
     NSArray *surname = SURNAME;
 
     NSArray *cnNumber = CN_NUM;
-
+    date = [NSDate date];
     for (AddressModel *model in createdModels) {
         model.editDate = [NSDate date];
         
@@ -130,6 +102,8 @@
         model.mobile = [NSString stringWithFormat:@"%@%08d",mobileHead[rand()%mobileHead.count],model.addressID];
         [model save:nil];
     }
+    NSLog(@"更新%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);
+
     return createdModels;
 }
 

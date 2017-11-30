@@ -15,22 +15,23 @@
 		EA5710BB1F56AA3B00DF85A0 /* NSObject+TODBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5710BA1F56AA3B00DF85A0 /* NSObject+TODBModel.m */; };
 		EA5710BE1F56AAF300DF85A0 /* NSObject+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */; };
 		EA5710C11F56AB5500DF85A0 /* NSObject+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */; };
+		EA62A81D1FCE841D006EF287 /* DemoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */; };
+		EA62A8291FCE8CC8006EF287 /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */; };
+		EA62A82A1FCE8CC8006EF287 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8221FCE8CC8006EF287 /* AddressModel.m */; };
+		EA62A82B1FCE8CC8006EF287 /* AddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */; };
+		EA62A82C1FCE8CC8006EF287 /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */; };
+		EA62A82D1FCE8CC8006EF287 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */; };
+		EA62A82E1FCE8CC8006EF287 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */; };
+		EA62A8331FCE9663006EF287 /* PreformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8311FCE9663006EF287 /* PreformanceViewController.m */; };
+		EA62A8341FCE9663006EF287 /* PreformanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8321FCE9663006EF287 /* PreformanceViewController.xib */; };
+		EA62A8381FCEA598006EF287 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8361FCEA597006EF287 /* EditAddressViewController.m */; };
+		EA62A8391FCEA598006EF287 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */; };
 		EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */; };
 		EA72A2661DEE5D78005F12D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2571DEE5D78005F12D2 /* AppDelegate.m */; };
 		EA72A2671DEE5D78005F12D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA72A2581DEE5D78005F12D2 /* Assets.xcassets */; };
 		EA72A2681DEE5D78005F12D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA72A2591DEE5D78005F12D2 /* LaunchScreen.storyboard */; };
 		EA72A26B1DEE5D78005F12D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A25E1DEE5D78005F12D2 /* main.m */; };
-		EA72A26C1DEE5D78005F12D2 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2601DEE5D78005F12D2 /* TestModel.m */; };
-		EA72A26D1DEE5D78005F12D2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2621DEE5D78005F12D2 /* ViewController.m */; };
 		EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A26F1DEE744B005F12D2 /* TODBPointer.m */; };
-		EAC163D01E46BDBB0065BABC /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163CF1E46BDBB0065BABC /* AddressBookTableViewController.m */; };
-		EAC163D31E46C7DE0065BABC /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163D21E46C7DE0065BABC /* AddressModel.m */; };
-		EAC163D81E46E3270065BABC /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163D61E46E3270065BABC /* AddressTableViewCell.m */; };
-		EAC163D91E46E3270065BABC /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163D71E46E3270065BABC /* AddressTableViewCell.xib */; };
-		EAC163DD1E480ECF0065BABC /* AddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163DB1E480ECF0065BABC /* AddressSearchViewController.m */; };
-		EAC163DE1E480ECF0065BABC /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163DC1E480ECF0065BABC /* AddressSearchViewController.xib */; };
-		EAC163EB1E483DF30065BABC /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC163E91E483DF30065BABC /* EditAddressViewController.m */; };
-		EAC163EC1E483DF30065BABC /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,24 @@
 		EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Cache.m"; sourceTree = "<group>"; };
 		EA5710BF1F56AB5400DF85A0 /* NSObject+Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Search.h"; sourceTree = "<group>"; };
 		EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Search.m"; sourceTree = "<group>"; };
+		EA62A81B1FCE841D006EF287 /* DemoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoListTableViewController.h; sourceTree = "<group>"; };
+		EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoListTableViewController.m; sourceTree = "<group>"; };
+		EA62A81F1FCE8CC8006EF287 /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
+		EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewController.m; sourceTree = "<group>"; };
+		EA62A8211FCE8CC8006EF287 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		EA62A8221FCE8CC8006EF287 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		EA62A8231FCE8CC8006EF287 /* AddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSearchViewController.h; sourceTree = "<group>"; };
+		EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSearchViewController.m; sourceTree = "<group>"; };
+		EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
+		EA62A8261FCE8CC8006EF287 /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
+		EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
+		EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
+		EA62A8301FCE9663006EF287 /* PreformanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreformanceViewController.h; sourceTree = "<group>"; };
+		EA62A8311FCE9663006EF287 /* PreformanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreformanceViewController.m; sourceTree = "<group>"; };
+		EA62A8321FCE9663006EF287 /* PreformanceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreformanceViewController.xib; sourceTree = "<group>"; };
+		EA62A8351FCEA597006EF287 /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
+		EA62A8361FCEA597006EF287 /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
+		EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
 		EA72A24C1DEE5D78005F12D2 /* TODataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataBase.h; sourceTree = "<group>"; };
 		EA72A2511DEE5D78005F12D2 /* TODataTypeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataTypeHelper.h; sourceTree = "<group>"; };
 		EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODataTypeHelper.m; sourceTree = "<group>"; };
@@ -62,25 +81,8 @@
 		EA72A25A1DEE5D78005F12D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA72A25D1DEE5D78005F12D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA72A25E1DEE5D78005F12D2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EA72A25F1DEE5D78005F12D2 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
-		EA72A2601DEE5D78005F12D2 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
-		EA72A2611DEE5D78005F12D2 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		EA72A2621DEE5D78005F12D2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		EA72A26E1DEE744B005F12D2 /* TODBPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBPointer.h; sourceTree = "<group>"; };
 		EA72A26F1DEE744B005F12D2 /* TODBPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBPointer.m; sourceTree = "<group>"; };
-		EAC163CE1E46BDBB0065BABC /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
-		EAC163CF1E46BDBB0065BABC /* AddressBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewController.m; sourceTree = "<group>"; };
-		EAC163D11E46C7DE0065BABC /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
-		EAC163D21E46C7DE0065BABC /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
-		EAC163D51E46E3270065BABC /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
-		EAC163D61E46E3270065BABC /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
-		EAC163D71E46E3270065BABC /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
-		EAC163DA1E480ECF0065BABC /* AddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSearchViewController.h; sourceTree = "<group>"; };
-		EAC163DB1E480ECF0065BABC /* AddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSearchViewController.m; sourceTree = "<group>"; };
-		EAC163DC1E480ECF0065BABC /* AddressSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
-		EAC163E81E483DF30065BABC /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
-		EAC163E91E483DF30065BABC /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
-		EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
 		EAC1FEA21DE4353B00555898 /* TODBModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODBModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC1FED11DE43FEB00555898 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EAC1FED31DE43FF100555898 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -115,6 +117,45 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EA62A81A1FCE82CB006EF287 /* demoList */ = {
+			isa = PBXGroup;
+			children = (
+				EA62A81B1FCE841D006EF287 /* DemoListTableViewController.h */,
+				EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */,
+			);
+			path = demoList;
+			sourceTree = "<group>";
+		};
+		EA62A81E1FCE8CC8006EF287 /* addressBook */ = {
+			isa = PBXGroup;
+			children = (
+				EA62A8351FCEA597006EF287 /* EditAddressViewController.h */,
+				EA62A8361FCEA597006EF287 /* EditAddressViewController.m */,
+				EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */,
+				EA62A81F1FCE8CC8006EF287 /* AddressBookTableViewController.h */,
+				EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */,
+				EA62A8211FCE8CC8006EF287 /* AddressModel.h */,
+				EA62A8221FCE8CC8006EF287 /* AddressModel.m */,
+				EA62A8231FCE8CC8006EF287 /* AddressSearchViewController.h */,
+				EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */,
+				EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */,
+				EA62A8261FCE8CC8006EF287 /* AddressTableViewCell.h */,
+				EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */,
+				EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */,
+			);
+			path = addressBook;
+			sourceTree = "<group>";
+		};
+		EA62A82F1FCE95AB006EF287 /* performance */ = {
+			isa = PBXGroup;
+			children = (
+				EA62A8301FCE9663006EF287 /* PreformanceViewController.h */,
+				EA62A8311FCE9663006EF287 /* PreformanceViewController.m */,
+				EA62A8321FCE9663006EF287 /* PreformanceViewController.xib */,
+			);
+			path = performance;
+			sourceTree = "<group>";
+		};
 		EA72A24B1DEE5D78005F12D2 /* TODBModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,29 +187,15 @@
 		EA72A2551DEE5D78005F12D2 /* TODBModelDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EA62A82F1FCE95AB006EF287 /* performance */,
+				EA62A81E1FCE8CC8006EF287 /* addressBook */,
+				EA62A81A1FCE82CB006EF287 /* demoList */,
 				EA72A2561DEE5D78005F12D2 /* AppDelegate.h */,
 				EA72A2571DEE5D78005F12D2 /* AppDelegate.m */,
 				EA72A2581DEE5D78005F12D2 /* Assets.xcassets */,
 				EA72A2591DEE5D78005F12D2 /* LaunchScreen.storyboard */,
 				EA72A25D1DEE5D78005F12D2 /* Info.plist */,
 				EA72A25E1DEE5D78005F12D2 /* main.m */,
-				EA72A25F1DEE5D78005F12D2 /* TestModel.h */,
-				EA72A2601DEE5D78005F12D2 /* TestModel.m */,
-				EA72A2611DEE5D78005F12D2 /* ViewController.h */,
-				EA72A2621DEE5D78005F12D2 /* ViewController.m */,
-				EAC163CE1E46BDBB0065BABC /* AddressBookTableViewController.h */,
-				EAC163CF1E46BDBB0065BABC /* AddressBookTableViewController.m */,
-				EAC163D11E46C7DE0065BABC /* AddressModel.h */,
-				EAC163D21E46C7DE0065BABC /* AddressModel.m */,
-				EAC163D51E46E3270065BABC /* AddressTableViewCell.h */,
-				EAC163D61E46E3270065BABC /* AddressTableViewCell.m */,
-				EAC163D71E46E3270065BABC /* AddressTableViewCell.xib */,
-				EAC163DA1E480ECF0065BABC /* AddressSearchViewController.h */,
-				EAC163DB1E480ECF0065BABC /* AddressSearchViewController.m */,
-				EAC163DC1E480ECF0065BABC /* AddressSearchViewController.xib */,
-				EAC163E81E483DF30065BABC /* EditAddressViewController.h */,
-				EAC163E91E483DF30065BABC /* EditAddressViewController.m */,
-				EAC163EA1E483DF30065BABC /* EditAddressViewController.xib */,
 			);
 			path = TODBModelDemo;
 			sourceTree = "<group>";
@@ -256,11 +283,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC163EC1E483DF30065BABC /* EditAddressViewController.xib in Resources */,
-				EAC163DE1E480ECF0065BABC /* AddressSearchViewController.xib in Resources */,
+				EA62A82E1FCE8CC8006EF287 /* AddressTableViewCell.xib in Resources */,
+				EA62A8391FCEA598006EF287 /* EditAddressViewController.xib in Resources */,
 				EA72A2671DEE5D78005F12D2 /* Assets.xcassets in Resources */,
-				EAC163D91E46E3270065BABC /* AddressTableViewCell.xib in Resources */,
+				EA62A8341FCE9663006EF287 /* PreformanceViewController.xib in Resources */,
 				EA72A2681DEE5D78005F12D2 /* LaunchScreen.storyboard in Resources */,
+				EA62A82C1FCE8CC8006EF287 /* AddressSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,23 +350,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA62A82A1FCE8CC8006EF287 /* AddressModel.m in Sources */,
 				EA5710BB1F56AA3B00DF85A0 /* NSObject+TODBModel.m in Sources */,
-				EA72A26D1DEE5D78005F12D2 /* ViewController.m in Sources */,
-				EAC163DD1E480ECF0065BABC /* AddressSearchViewController.m in Sources */,
 				EA72A26B1DEE5D78005F12D2 /* main.m in Sources */,
-				EAC163EB1E483DF30065BABC /* EditAddressViewController.m in Sources */,
+				EA62A8381FCEA598006EF287 /* EditAddressViewController.m in Sources */,
 				EA5710BE1F56AAF300DF85A0 /* NSObject+Cache.m in Sources */,
-				EAC163D31E46C7DE0065BABC /* AddressModel.m in Sources */,
 				EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */,
+				EA62A82B1FCE8CC8006EF287 /* AddressSearchViewController.m in Sources */,
+				EA62A8291FCE8CC8006EF287 /* AddressBookTableViewController.m in Sources */,
+				EA62A82D1FCE8CC8006EF287 /* AddressTableViewCell.m in Sources */,
 				EA5710C11F56AB5500DF85A0 /* NSObject+Search.m in Sources */,
+				EA62A8331FCE9663006EF287 /* PreformanceViewController.m in Sources */,
 				EA72A2661DEE5D78005F12D2 /* AppDelegate.m in Sources */,
+				EA62A81D1FCE841D006EF287 /* DemoListTableViewController.m in Sources */,
 				EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */,
 				EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */,
-				EAC163D01E46BDBB0065BABC /* AddressBookTableViewController.m in Sources */,
 				EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */,
-				EA72A26C1DEE5D78005F12D2 /* TestModel.m in Sources */,
 				EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */,
-				EAC163D81E46E3270065BABC /* AddressTableViewCell.m in Sources */,
 				EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
