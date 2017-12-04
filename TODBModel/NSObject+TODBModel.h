@@ -30,13 +30,20 @@
 + (id)crateModel;
 
 /**
- Create a number of models.
+ Create a number of models synchronously.
  
  @param count create number.
  @return created models.
  */
 + (NSArray *)crateModels:(NSUInteger)count;
 
+/**
+ Create a number of models asynchronously.
+ 
+ @param count create number.
+ @return created models.
+ */
++ (void)crateModels:(NSUInteger)count callback:(void(^)(NSArray *models,NSError *error))block;
 
 /**
  Save a model to database synchronously.

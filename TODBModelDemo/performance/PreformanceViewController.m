@@ -69,9 +69,11 @@
 - (IBAction)insert:(id)sender{
     NSInteger count = [self.createCountText.text integerValue];
     if (count > 0) {
-        NSDate *date = [NSDate date];
-        NSArray *createdModels = [AddressModel crateModels:count];
-        [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]]];
+        __block NSDate *date = [NSDate date];
+       [AddressModel crateModels:count callback:^(NSArray *models, NSError *error) {
+            [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",[models count],[[NSDate date] timeIntervalSinceDate:date]]];
+        }];
+        
     }
     [self endEdit:nil];
 }
@@ -81,15 +83,22 @@
 }
 
 - (IBAction)findAll:(id)sender{
-    NSArray *createdModels = [AddressModel allModels];
+    NSDate *date = [NSDate date];
+    [AddressModel allModels:^(NSArray<NSObject *> *models) {
+        [self log:[NSString stringWithFormat:@"获取%ld条记录用时%f",[models count],[[NSDate date] timeIntervalSinceDate:date]]];
+    }];
 }
 
 - (IBAction)removeAll:(id)sender{
-    
+    [AddressModel removeAll:^{
+        [self log:@"删除成功"];
+    }];
 }
 
 - (IBAction)clearLog:(id)sender{
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.logTextView.text = @"";
+    });
 }
 
 @end

@@ -48,7 +48,17 @@
     });
 }
 
-
++ (void)removeAll:(void(^)())block{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self db_dropTable];
+        [self regiestDB];
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block();
+            });
+        }
+    });
+}
 
 + (NSArray *)search:(id<TODBConditionBase>)condition{
     [[self searchLock] lock];

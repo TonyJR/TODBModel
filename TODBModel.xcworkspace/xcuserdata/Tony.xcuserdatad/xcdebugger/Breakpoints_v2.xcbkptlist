@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TODBModel/NSObject+TODBModel.m"
-            timestampString = "533027650.99207"
+            timestampString = "534061625.08463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "714"
-            endingLineNumber = "714"
+            startingLineNumber = "803"
+            endingLineNumber = "803"
             landmarkName = "+sqlPropertys"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TODBModel/NSObject+TODBModel.m"
-            timestampString = "533027650.99214"
+            timestampString = "534061625.084783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "760"
-            endingLineNumber = "760"
+            startingLineNumber = "849"
+            endingLineNumber = "849"
             landmarkName = "+classPropertys"
             landmarkType = "7">
          </BreakpointContent>

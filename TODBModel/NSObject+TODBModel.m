@@ -15,7 +15,7 @@
 #import "TODataTypeHelper.h"
 #import "TODBPointer.h"
 #import "TODBCondition.h"
-
+#import "TODBModelError.h"
 
 
 @implementation NSObject (RegiestDB)
@@ -101,7 +101,6 @@ static FMDatabase *database;
 
 + (NSArray *)crateModels:(NSUInteger)count{
     
-    
     NSString *pkType = [self sqlPropertys][[self db_pk]];
     if (![pkType isEqual:DB_TYPE_INTEGER]) {
         [NSException raise:@"创建模型失败" format:@"主键必须为int型"];
@@ -168,6 +167,90 @@ static FMDatabase *database;
     }
     
     return result;
+}
+
+
++ (void)crateModels:(NSUInteger)count callback:(void(^)(NSArray *models,NSError *error))block{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        NSString *pkType = [self sqlPropertys][[self db_pk]];
+        if (![pkType isEqual:DB_TYPE_INTEGER]) {
+            
+            if (block) {
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"主键必须为int型"                                                                      forKey:NSLocalizedDescriptionKey];
+                NSError *error = [NSError errorWithDomain:TODBModelError code:TODBModelPrivateKeyError userInfo:userInfo];
+                
+                block(nil,error);
+            }
+            return;
+        }
+        
+        if (count == 0) {
+            if (block) {
+                block(@[],nil);
+            }
+            return;
+        }
+        __block int64_t lastID;
+        
+        __block NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (%@) VALUES ",[[self class] db_name],[[self class] db_pk]];
+        
+        
+        for (int i=0; i<count; i++) {
+            if (i == 0) {
+                [sql appendString:@"(NULL)"];
+                
+            }else{
+                [sql appendString:@",(NULL)"];
+            }
+        }
+        
+        [database beginTransaction];
+        BOOL isRollBack;
+        @try
+        {
+            BOOL isSuccess = [database executeUpdate:sql];
+            
+            if (isSuccess) {
+                //            NSLog(@"数据库查询成功");
+                
+                lastID = database.lastInsertRowId;
+                
+            }else{
+                NSLog(@"创建模型失败");
+                NSLog(@"%@",sql);
+            }
+            
+        }
+        @catch (NSException *exception)
+        {
+            isRollBack = YES;
+            [database rollback];
+        }
+        @finally
+        {
+            if (!isRollBack)
+            {
+                [database commit];
+            }
+        }
+            
+        
+        NSMutableArray *result = [NSMutableArray array];
+        
+        if (lastID != 0) {
+            for (NSInteger i=count-1; i>=0; i--) {
+                NSObject *model = [[self alloc] init];
+                [model setValue:@(lastID - i) forKey:[self db_pk]];
+                [result addObject:model];
+            }
+        }
+        
+        if (block) {
+            block(result,nil);
+        }
+    });
 }
 
 - (void)save{
@@ -257,8 +340,14 @@ static FMDatabase *database;
 
 
 //删除数据库
-+ (void)db_dropTable{
++ (BOOL)db_dropTable{
+    NSString *sql = [NSString stringWithFormat:@"DROP TABLE %@;",[self db_name]];
+    __block BOOL result;
+    dispatch_sync(sql_queue, ^{
+        result = [database executeUpdate:sql];
+    });
     
+    return result;
 }
 
 //数据插入操作

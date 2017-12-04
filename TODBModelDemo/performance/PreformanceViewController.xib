@@ -98,14 +98,23 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41c-WA-4QU">
                             <rect key="frame" x="85" y="85" width="62" height="30"/>
                             <state key="normal" title="删除全部"/>
+                            <connections>
+                                <action selector="removeAll:" destination="-1" eventType="touchUpInside" id="mSZ-Nl-Wx9"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTt-GE-ZoG">
                             <rect key="frame" x="15" y="85" width="62" height="30"/>
                             <state key="normal" title="获取全部"/>
+                            <connections>
+                                <action selector="findAll:" destination="-1" eventType="touchUpInside" id="0Fu-sB-Gdy"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Es0-dm-0en">
                             <rect key="frame" x="16" y="123" width="52" height="30"/>
                             <state key="normal" title="清空log"/>
+                            <connections>
+                                <action selector="clearLog:" destination="-1" eventType="touchUpInside" id="dTQ-BV-Ehe"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

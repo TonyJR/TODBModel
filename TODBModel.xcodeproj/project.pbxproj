@@ -83,6 +83,7 @@
 		EA72A25E1DEE5D78005F12D2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA72A26E1DEE744B005F12D2 /* TODBPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBPointer.h; sourceTree = "<group>"; };
 		EA72A26F1DEE744B005F12D2 /* TODBPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBPointer.m; sourceTree = "<group>"; };
+		EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODBModelError.h; sourceTree = "<group>"; };
 		EAC1FEA21DE4353B00555898 /* TODBModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODBModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC1FED11DE43FEB00555898 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EAC1FED31DE43FF100555898 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -180,6 +181,7 @@
 				EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */,
 				EA5710BF1F56AB5400DF85A0 /* NSObject+Search.h */,
 				EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */,
+				EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */,
 			);
 			path = TODBModel;
 			sourceTree = "<group>";
