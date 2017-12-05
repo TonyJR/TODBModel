@@ -48,7 +48,7 @@
     });
 }
 
-+ (void)removeAll:(void(^)())block{
++ (void)removeAll:(void(^)(void))block{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self db_dropTable];
         [self regiestDB];

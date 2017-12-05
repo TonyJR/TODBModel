@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 
 
-FOUNDATION_EXPORT NSErrorDomain TODBModelError = @"TODBModelError";
+FOUNDATION_EXPORT NSErrorDomain const TODBModelError = @"TODBModelError";
 
 typedef enum : NSUInteger {
     TODBModelPrivateKeyError,
