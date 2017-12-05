@@ -18,7 +18,7 @@
 //检查并更新数据结构
 + (void)db_updateTable;
 //删除数据库
-+ (void)db_dropTable;
++ (BOOL)db_dropTable;
 
 //删除数据库内容
 - (void)db_delete;

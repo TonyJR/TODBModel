@@ -26,6 +26,7 @@
  */
 + (void)allModels:(void(^)(NSArray<NSObject *> *models))block;
 
++ (void)removeAll:(void(^)())block;
 
 /**
  Search models in database by condition synchronously.

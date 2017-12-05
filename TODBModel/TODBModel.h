@@ -1,5 +1,5 @@
 //
-//  TOModel.h
+//  TODBModel.h
 //  TODBModel
 //
 //  Created by Tony on 16/11/22.
@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 
 //! Project version number for TOModel.
-FOUNDATION_EXPORT double TOModelVersionNumber;
+FOUNDATION_EXPORT double TOModelVersionNumber = 10003;
 
 //! Project version string for TOModel.
-FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <TOModel/PublicHeader.h>
+FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.0.3";
 
 
 #import "TODataBase.h"
@@ -24,5 +22,5 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[];
 #import "TODBNotCondition.h"
 
 #import "NSObject+TODBModel.h"
-#import "NSObject+Cache"
+#import "NSObject+Cache.h"
 #import "NSObject+Search.h"

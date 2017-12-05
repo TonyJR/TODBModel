@@ -50,13 +50,15 @@
     [self initUI];
     
     [self loadModels];
-
 }
 
 - (void)initUI{
     self.title = @"通讯录";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonClickHandler:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClickHandler:)];
+    self.navigationItem.rightBarButtonItems = @[
+                                                
+                                                [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonClickHandler:)],
+                                                [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClickHandler:)],
+                                                ];
     
     
     self.tableView.tableHeaderView = self.searchBar;
@@ -92,7 +94,7 @@
     NSArray *surname = SURNAME;
 
     NSArray *cnNumber = CN_NUM;
-
+    date = [NSDate date];
     for (AddressModel *model in createdModels) {
         model.editDate = [NSDate date];
         
@@ -100,6 +102,8 @@
         model.mobile = [NSString stringWithFormat:@"%@%08d",mobileHead[rand()%mobileHead.count],model.addressID];
         [model save:nil];
     }
+    NSLog(@"更新%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);
+
     return createdModels;
 }
 

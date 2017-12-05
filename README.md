@@ -8,7 +8,7 @@ TODBModel是基于FMDB开发的数据库模型系统，它把数据库操作完�
 
 关于对“事物”的支持问题，我考虑了很久，最终还是放弃了。并不是技术上无法实现。TODBModel并不是数据库的延伸，而是一种数据存储方案，这种方案是提供给那些希望简单的存储数据的场景的，我会尽量屏蔽数据库的概念简化操作流程，让使用者感觉在操作面向对象的model，而不是更加抽象的数据表。
 
-在使用TODBModel时，大多数情况下用户都是在操作内存模型。数据库的增删改功能也是同步操作内存模型的动作，数据库操作是在内存操作完成后异步完成的（将操作动作转换为SQL语句，等待队列执行），因此用户并不需要担心因为多线程操作导致的数据错误或者执行顺序与预期不符的情况。
+在使用TODBModel时，大多数情况下用户都是在操作内存模型。模型的增删改功能也是同步操作内存模型的动作，数据库操作是在模型操作完成后异步完成的（将操作动作转换为SQL语句，等待队列执行），因此用户并不需要担心因为多线程操作导致的数据错误或者执行顺序与预期不符的情况。
 
 ![image](https://github.com/TonyJR/TODBModel/blob/master/1.gif)
 
@@ -29,7 +29,7 @@ pod 'TODBModel'
 
 #import "TODBModel.h"
 
-@interface AddressModel : TODBModel
+@interface AddressModel : NSObject
 
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,assign) int addressID;
@@ -39,6 +39,7 @@ pod 'TODBModel'
 
 @end
 ```
+
 3、覆盖+ (NSString *)db_pk方法，并返回主键对应的属性。
 ```objc
 //  AddressModel.m
@@ -46,6 +47,11 @@ pod 'TODBModel'
 #import "AddressModel.h"
 
 @implementation AddressModel
+
++ (void)initialize{
+   //在数据库中注册数据表
+   [self regiestDB];
+}
 
 + (NSString *)db_pk{
     return @"addressID";
@@ -115,6 +121,12 @@ TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建
 
 更新日志
 ------------
+version 1.0.0
+```
+0、移除了TODBModel类，现在任何NSObject的子类都可以直接存入数据库
+1、新增了更新表结构的方法，现在不再自动更新表结构了，而是需要手动更新
+```
+
 version 0.3
 ```
 0、兼容swift

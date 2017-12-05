@@ -8,6 +8,7 @@
 
 #import "TODataTypeHelper.h"
 #import "TODBPointer.h"
+#import "NSObject+TODBModel.h"
 
 @implementation TODataTypeHelper
 
@@ -61,7 +62,7 @@
     NSString *result = nil;
     
     if ([type isEqualToString:DB_TYPE_BLOB]) {
-        if ([objcObject isKindOfClass:[NSObject class]]) {
+        if ([objcObject isKindOfClass:[NSObject class]] && [[objcObject class] existDB]) {
             objcObject = [[TODBPointer alloc] initWithModel:objcObject];
         }
         
@@ -146,7 +147,7 @@
     
     for (NSUInteger i=0; i<result.count; i++) {
         id object = [result objectAtIndex:i];
-        if ([object isKindOfClass:[NSObject class]]) {
+        if ([object isKindOfClass:[NSObject class]] && [[object class] existDB]) {
             [result replaceObjectAtIndex:i withObject:[[TODBPointer alloc] initWithModel:object]];
         }else if ([object isKindOfClass:[NSArray class]]){
             [result replaceObjectAtIndex:i withObject:[self copyArray:object]];
@@ -164,7 +165,7 @@
     for (id key in result.allKeys) {
         
         id object = [result objectForKey:key];
-        if ([object isKindOfClass:[NSObject class]]) {
+        if ([object isKindOfClass:[NSObject class]] && [[object class] existDB]) {
             [result setObject:[[TODBPointer alloc] initWithModel:object] forKey:key];
         }else if ([object isKindOfClass:[NSArray class]]){
             [result setObject:[self copyArray:object] forKey:key];
