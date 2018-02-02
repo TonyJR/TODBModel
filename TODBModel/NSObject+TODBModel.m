@@ -811,7 +811,7 @@ static FMDatabase *database;
     free(propertys);
     NSString *pk = [self db_pk];
     if (![dic objectForKey:pk]) {
-        [dic setObject:DB_TYPE_TEXT forKey:pk];
+        [dic setObject:DB_TYPE_INTEGER forKey:pk];
     }
     
     objc_setAssociatedObject(self, __func__, dic, OBJC_ASSOCIATION_COPY);
