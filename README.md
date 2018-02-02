@@ -1,6 +1,10 @@
 # TODBModel 
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/TODBModel.svg?style=flat)](http://cocoapods.org/?q=name%3ATODBModel)
+[![CocoaPods](https://img.shields.io/cocoapods/p/TODBModel.svg?style=flat)](https://github.com/TonyJR/TODBModel)
+[![CocoaPods](https://img.shields.io/cocoapods/at/TODBModel.svg?style=flat)](http://cocoapods.org/?q=name%3ATODBModel)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/TODBModel.svg?style=flat)](https://github.com/TonyJR/TODBModel)
+[![CocoaPods](https://img.shields.io/cocoapods/l/TODBModel.svg?style=flat)](https://github.com/TonyJR/TODBModel/blob/master/LICENSE)
 
 ==============
 
