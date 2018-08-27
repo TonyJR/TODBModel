@@ -76,34 +76,4 @@ static NSMapTable * cache;
     }
 }
 
-
-
-
-
-
-//- (void)setDbCacheKey:(NSString *)dbCacheKey{
-//    objc_setAssociatedObject(self, "dbCacheKey", dbCacheKey, OBJC_ASSOCIATION_COPY);
-//
-//    NSString *_dbCacheKey = [self dbCacheKey];
-//
-//
-//    if (_dbCacheKey && _dbCacheKey.length!= 0) {
-//        if ([_dbCacheKey isEqualToString:dbCacheKey]) {
-//            return;
-//        }
-//        [cache removeObjectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass([self class]),_dbCacheKey]];
-//    }
-//
-//    if (dbCacheKey && dbCacheKey.length!= 0) {
-//        [cache setObject:self forKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass([self class]),dbCacheKey]];
-//    }
-//}
-//
-//- (NSString *)dbCacheKey{
-//    return objc_getAssociatedObject(self, "dbCacheKey");
-//}
-
-
-
-
 @end

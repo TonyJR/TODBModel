@@ -210,7 +210,11 @@ static FMDatabase *database;
         BOOL isRollBack;
         @try
         {
-            BOOL isSuccess = [database executeUpdate:sql];
+            __block BOOL isSuccess;
+            dispatch_sync(sql_queue, ^{
+                isSuccess = [database executeUpdate:sql];
+            });
+            
             
             if (isSuccess) {
                 //            TO_MODEL_LOG(@"数据库查询成功");
@@ -352,6 +356,7 @@ static FMDatabase *database;
 
 //数据插入操作
 - (void)db_update{
+    
     NSString *pk = [[self class] db_pk];
     NSString *pv = [self valueForKey:pk];
     
@@ -389,20 +394,49 @@ static FMDatabase *database;
         [columnValue replaceCharactersInRange:NSMakeRange(columnValue.length - 1,1) withString:@""];
     }
     
-    __block NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@)",[[self class] db_name],columnName,columnValue];
+    NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@);\n",[[self class] db_name],columnName,columnValue];
     
     
-    
-    dispatch_async(sql_queue, ^{
-        if ([database executeUpdate:sql withArgumentsInArray:objects] != 0) {
-            
-            //            TO_MODEL_LOG(@"数据库更新成功");
-            
-        }else{
-            TO_MODEL_LOG(@"数据库更新失败");
-            TO_MODEL_LOG(@"%@",sql);
-        }
+    static NSMutableString *sqlStr;
+    static NSLock *lock;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sqlStr = [NSMutableString string];
+        lock = [NSLock new];
     });
+    static NSTimeInterval timeInterval;
+    static int i=0;
+    i++;
+    [lock lock];
+    if ([sqlStr length] > 0) {
+        [sqlStr appendString:sql];
+    }else{
+        [sqlStr appendString:sql];
+        
+        dispatch_async(sql_queue, ^{
+            
+            NSString *sql;
+            [lock lock];
+            sql = [sqlStr copy];
+            sqlStr = [NSMutableString string];
+            [lock unlock];
+            NSDate *date = [NSDate date];
+            if ([database executeUpdate:sql withArgumentsInArray:objects] != 0) {
+                
+            }else{
+                TO_MODEL_LOG(@"数据库更新失败");
+                TO_MODEL_LOG(@"%@",sql);
+            }
+            timeInterval += [[NSDate date] timeIntervalSinceDate:date];
+            i--;
+            if (i == 0) {
+                NSLog(@"-------%f",timeInterval);
+            }
+        });
+    }
+    [lock unlock];
+   
+    
 }
 
 
@@ -548,10 +582,10 @@ static FMDatabase *database;
 }
 
 + (NSArray *)db_search:(NSString *)sqlStr{
-    
-    NSMutableArray *result = [NSMutableArray array];
-    
+    NSMutableArray *dicList = [NSMutableArray array];
+
     dispatch_sync(sql_queue, ^{
+        
         FMResultSet *resultSet = [database executeQuery:sqlStr];
         
         if (resultSet) {
@@ -581,21 +615,27 @@ static FMDatabase *database;
                 }
             }
             
-            id pkValue = dic[[self db_pk]];
-            id item = [self memoryByKey:pkValue];
-            if (!item) {
-                item = [self modelByDic:dic];
-            }
-            
-            [result addObject:item];
+            [dicList addObject:[dic copy]];
         }
         [resultSet close];
     });
     
-    for (NSObject *model in result) {
+    
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    for (NSDictionary *dic in dicList) {
+        
+        id pkValue = dic[[self db_pk]];
+        NSObject *model = [self memoryByKey:pkValue];
+        if (!model) {
+            model = [self modelByDic:dic];
+        }
         [model checkPointer];
+        [result addObject:model];
     }
     
+   
     return result;
 }
 

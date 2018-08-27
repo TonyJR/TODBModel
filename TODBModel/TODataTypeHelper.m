@@ -11,6 +11,14 @@
 #import "NSObject+TODBModel.h"
 #import "TODBModelConfig.h"
 
+typedef enum : NSUInteger {
+    TODataTypeUnknow,
+    TODataTypeClass,
+    TODataTypeNSString,
+    TODataTypeNSDate,
+    TODataTypeNSData,
+} TODataType;
+
 @implementation TODataTypeHelper
 
 //将objc类型转化为Sqllite对应的类型
@@ -95,28 +103,73 @@
     return result;
 }
 
++ (void)typeFromString:(NSString *)objcType complete:(void(^)(TODataType type,Class customClass))complete{
+    static NSMutableDictionary *typeDic;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        typeDic = [NSMutableDictionary dictionary];
+    });
+    
+    if (objcType) {
+        NSDictionary *cachedTypeDic = [typeDic objectForKey:objcType];
+        if (!cachedTypeDic) {
+            NSString *regex = @"^@\"[a-zA-Z_0-9]*\"$";
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+            if ([predicate evaluateWithObject:objcType]) {
+                if ([objcType isEqualToString:@"@\"NSString\""]) {
+                    cachedTypeDic = @{@"type":@(TODataTypeNSString)};
+                }else if ([objcType isEqualToString:@"@\"NSDate\""]) {
+                    cachedTypeDic = @{@"type":@(TODataTypeNSDate)};
+
+                }else if([objcType isEqualToString:@"@\"NSData\""]){
+                    cachedTypeDic = @{@"type":@(TODataTypeNSData)};
+                }else{
+                    NSString *className = [objcType substringWithRange:NSMakeRange(2, objcType.length - 3)];
+                    Class class = NSClassFromString(className);
+                    cachedTypeDic = @{@"type":@(TODataTypeClass),@"class":class};
+                }
+            }else{
+                cachedTypeDic = @{@"type":@(TODataTypeUnknow)};
+            }
+            
+            [typeDic setObject:cachedTypeDic forKey:objcType];
+        }
+        
+        
+        if (complete) {
+            TODataType type = [cachedTypeDic[@"type"] integerValue];
+            if (type == TODataTypeClass) {
+                complete(type,cachedTypeDic[@"class"]);
+            }else{
+                complete(type,nil);
+            }
+        }
+    }
+}
+
 + (id)readObjcObjectFrom:(FMResultSet *)resultSet name:(NSString *)name type:(NSString *)objcType{
     
-    id result;
-    NSString *regex = @"^@\"[a-zA-Z_0-9]*\"$";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    if ([predicate evaluateWithObject:objcType]) {
-        if ([objcType isEqualToString:@"@\"NSString\""]) {
-            result = [resultSet stringForColumn:name];
-        }else if ([objcType isEqualToString:@"@\"NSDate\""]) {
-            NSTimeInterval timeInterval = [resultSet doubleForColumn:name];
-            result = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-        }else if([objcType isEqualToString:@"@\"NSData\""]){
-            result = [result dataForColumn:name];
-        }else{
-            if (![resultSet columnIsNull:name]) {
-                
-                
-                NSString *className = [objcType substringWithRange:NSMakeRange(2, objcType.length - 3)];
+    __block id result;
+    
+    [self typeFromString:objcType complete:^(TODataType type, __unsafe_unretained Class customClass) {
+        switch (type) {
+            case TODataTypeNSString:
+                result = [resultSet stringForColumn:name];
+                break;
+            case TODataTypeNSDate:
+            {
+                NSTimeInterval timeInterval = [resultSet doubleForColumn:name];
+                result = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+            }
+                break;
+            case TODataTypeNSData:
+                result = [result dataForColumn:name];
+                break;
+            case TODataTypeClass:
+            {
                 NSData *data = [resultSet dataForColumn:name];
-                Class class = NSClassFromString(className);
-                
-                if ([class isSubclassOfClass:[NSObject class]]) {
+
+                if ([customClass isSubclassOfClass:[NSObject class]]) {
                     
                     TODBPointer *pointer;
                     @try {
@@ -136,10 +189,15 @@
                     }
                 }
             }
+                break;
+            case TODataTypeUnknow:
+                result = @([resultSet doubleForColumn:name]);
+                break;
+            default:
+                break;
         }
-    }else{
-        result = @([resultSet doubleForColumn:name]);
-    }
+    }];
+    
     return result;
 }
 
