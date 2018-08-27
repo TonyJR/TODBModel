@@ -13,6 +13,6 @@
 
 #define TO_MODEL_DATABASE_PATH [[NSString alloc] initWithString:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"TOModel.db"]]
 
-#define TO_MODEL_LOG(x) if(TO_MODEL_DEBUG){NSLog(x)}
+#define TO_MODEL_LOG(x...) if(TO_MODEL_DEBUG){NSLog(x);}
 
 #endif /* TODBModelConfig_h */

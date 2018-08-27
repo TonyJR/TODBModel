@@ -257,7 +257,7 @@
 				TargetAttributes = {
 					EAC1FEA11DE4353B00555898 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = C353C7Q7J9;
+						DevelopmentTeam = 8YWC8ZUV92;
 						LastSwiftMigration = 0820;
 					};
 				};
@@ -490,7 +490,7 @@
 			baseConfigurationReference = 29EBB61FA07838B6D214CF57 /* Pods-TODBModel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C353C7Q7J9;
+				DEVELOPMENT_TEAM = 8YWC8ZUV92;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../TOModel/TOModel",
@@ -510,7 +510,7 @@
 			baseConfigurationReference = 955ADFD052B1DD2CA11D97B4 /* Pods-TODBModel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C353C7Q7J9;
+				DEVELOPMENT_TEAM = 8YWC8ZUV92;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../TOModel/TOModel",

@@ -43,7 +43,7 @@ static FMDatabase *database;
             database = [FMDatabase databaseWithPath:TO_MODEL_DATABASE_PATH];
             [database open];
             
-            NSLog(@"数据库路径:%@",TO_MODEL_DATABASE_PATH);
+            TO_MODEL_LOG(@"数据库路径:%@",TO_MODEL_DATABASE_PATH);
             
             Method oldM  = class_getInstanceMethod(self, @selector(setValue:forKey:));
             Method newM = class_getInstanceMethod(self, @selector(swap_setValue:forKey:));
@@ -61,7 +61,7 @@ static FMDatabase *database;
         
         NSDate *date = [NSDate date];
         [self db_updateTable];
-        NSLog(@"%@检查完成，用时%f",[self db_name],[[NSDate date] timeIntervalSinceDate:date]);
+        TO_MODEL_LOG(@"%@检查完成，用时%f",[self db_name],[[NSDate date] timeIntervalSinceDate:date]);
     }
 }
 
@@ -82,14 +82,14 @@ static FMDatabase *database;
         BOOL isSuccess = [database executeUpdate:sql];
         
         if (isSuccess) {
-            //            NSLog(@"数据库查询成功");
+            //            TO_MODEL_LOG(@"数据库查询成功");
             
             result = [[self alloc] init];
             [result setValue:@(database.lastInsertRowId) forKey:[self db_pk]];
             
         }else{
-            NSLog(@"创建模型失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"创建模型失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
         
         
@@ -131,13 +131,13 @@ static FMDatabase *database;
             BOOL isSuccess = [database executeUpdate:sql];
             
             if (isSuccess) {
-                //            NSLog(@"数据库查询成功");
+                //            TO_MODEL_LOG(@"数据库查询成功");
                 
                 lastID = database.lastInsertRowId;
                 
             }else{
-                NSLog(@"创建模型失败");
-                NSLog(@"%@",sql);
+                TO_MODEL_LOG(@"创建模型失败");
+                TO_MODEL_LOG(@"%@",sql);
             }
             
         }
@@ -213,13 +213,13 @@ static FMDatabase *database;
             BOOL isSuccess = [database executeUpdate:sql];
             
             if (isSuccess) {
-                //            NSLog(@"数据库查询成功");
+                //            TO_MODEL_LOG(@"数据库查询成功");
                 
                 lastID = database.lastInsertRowId;
                 
             }else{
-                NSLog(@"创建模型失败");
-                NSLog(@"%@",sql);
+                TO_MODEL_LOG(@"创建模型失败");
+                TO_MODEL_LOG(@"%@",sql);
             }
             
         }
@@ -396,11 +396,11 @@ static FMDatabase *database;
     dispatch_async(sql_queue, ^{
         if ([database executeUpdate:sql withArgumentsInArray:objects] != 0) {
             
-            //            NSLog(@"数据库更新成功");
+            //            TO_MODEL_LOG(@"数据库更新成功");
             
         }else{
-            NSLog(@"数据库更新失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"数据库更新失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
 }
@@ -416,10 +416,10 @@ static FMDatabase *database;
         BOOL result = [database executeUpdate:sql];
         
         if (result) {
-            //            NSLog(@"数据库删除成功");
+            //            TO_MODEL_LOG(@"数据库删除成功");
         }else{
-            NSLog(@"数据库删除失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"数据库删除失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
         
     });
@@ -453,10 +453,10 @@ static FMDatabase *database;
         FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
         
         if (resultSet) {
-            //            NSLog(@"数据库查询成功");
+            //            TO_MODEL_LOG(@"数据库查询成功");
         }else{
-            NSLog(@"数据库查询失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"数据库查询失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
         
         
@@ -512,10 +512,10 @@ static FMDatabase *database;
         FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
         
         if (resultSet) {
-            //            NSLog(@"数据库查询成功");
+            //            TO_MODEL_LOG(@"数据库查询成功");
         }else{
-            NSLog(@"数据库查询失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"数据库查询失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
         
         
@@ -555,10 +555,10 @@ static FMDatabase *database;
         FMResultSet *resultSet = [database executeQuery:sqlStr];
         
         if (resultSet) {
-            //            NSLog(@"数据库查询成功");
+            //            TO_MODEL_LOG(@"数据库查询成功");
         }else{
-            NSLog(@"数据库查询失败");
-            NSLog(@"%@",sqlStr);
+            TO_MODEL_LOG(@"数据库查询失败");
+            TO_MODEL_LOG(@"%@",sqlStr);
         }
         
         
@@ -625,11 +625,11 @@ static FMDatabase *database;
     
     dispatch_async(sql_queue, ^{
         if ([database executeUpdate:sql]) {
-            //            NSLog(@"添加字段成功");
+            //            TO_MODEL_LOG(@"添加字段成功");
             
         }else{
-            NSLog(@"添加表字段失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"添加表字段失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
 }
@@ -698,10 +698,10 @@ static FMDatabase *database;
     dispatch_sync(sql_queue, ^{
         
         if ([database executeUpdate:sql]){
-            //            NSLog(@"表重命名成功");
+            //            TO_MODEL_LOG(@"表重命名成功");
         }else{
-            NSLog(@"表重命名失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"表重命名失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
     
@@ -717,10 +717,10 @@ static FMDatabase *database;
     dispatch_sync(sql_queue, ^{
         
         if ([database executeUpdate:sql]){
-            //            NSLog(@"拷贝表成功");
+            //            TO_MODEL_LOG(@"拷贝表成功");
         }else{
-            NSLog(@"拷贝表失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"拷贝表失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
 }
@@ -731,10 +731,10 @@ static FMDatabase *database;
     
     dispatch_sync(sql_queue, ^{
         if ([database executeUpdate:sql]){
-            //            NSLog(@"数据表创建成功");
+            //            TO_MODEL_LOG(@"数据表创建成功");
         }else{
-            NSLog(@"数据表创建失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"数据表创建失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
 }
@@ -747,10 +747,10 @@ static FMDatabase *database;
     
     dispatch_sync(sql_queue, ^{
         if ([database executeUpdate:sql]){
-            //            NSLog(@"删除数据表成功");
+            //            TO_MODEL_LOG(@"删除数据表成功");
         }else{
-            NSLog(@"删除数据表失败");
-            NSLog(@"%@",sql);
+            TO_MODEL_LOG(@"删除数据表失败");
+            TO_MODEL_LOG(@"%@",sql);
         }
     });
 }
@@ -800,7 +800,7 @@ static FMDatabase *database;
         
         NSString *sqlTypeName = objcType2SqlType(type);
         if (!sqlTypeName) {
-            NSLog(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
+            TO_MODEL_LOG(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
             
             [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
@@ -846,7 +846,7 @@ static FMDatabase *database;
         NSString *sqlTypeName = [NSString stringWithUTF8String:type];
         
         if (!sqlTypeName) {
-            NSLog(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
+            TO_MODEL_LOG(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
             [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
         }

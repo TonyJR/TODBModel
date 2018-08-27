@@ -58,7 +58,8 @@
         self.logTextView.text = [self.logTextView.text stringByAppendingFormat:@"\n%@",logStr];
         CGFloat top = self.logTextView.contentSize.height - self.logTextView.frame.size.height;
         top = MAX(top, 0);
-        [self.logTextView scrollRectToVisible:CGRectMake(0, top, 0, 0) animated:YES];
+        [self.logTextView setContentOffset:CGPointMake(0, top)];
+//        [self.logTextView scrollRectToVisible:CGRectMake(0, top, 0, 0) animated:YES];
     });
 }
 
@@ -80,6 +81,22 @@
 
 - (IBAction)search:(id)sender{
     
+    TODBCondition *searchCondition;
+    
+    if ([self.searchTypeButton.titleLabel.text isEqualToString: @"=="]) {
+        searchCondition = [TODBCondition condition:self.searchKeyButton.titleLabel.text equalTo:self.searchValueText.text];
+    }else if ([self.searchTypeButton.titleLabel.text isEqualToString: @">"]){
+        searchCondition = [TODBCondition condition:self.searchKeyButton.titleLabel.text greaterThan:self.searchValueText.text];
+    }else if ([self.searchTypeButton.titleLabel.text isEqualToString: @"<"]){
+        searchCondition = [TODBCondition condition:self.searchKeyButton.titleLabel.text lessThan:self.searchValueText.text];
+    }else {
+        return;
+    }
+    NSDate *date = [NSDate date];
+    [AddressModel search:searchCondition callBack:^(NSArray<NSObject *> *models) {
+        
+        [self log:[NSString stringWithFormat:@"搜索到%ld条记录用时%f",[models count],[[NSDate date] timeIntervalSinceDate:date]]];
+    }];
 }
 
 - (IBAction)findAll:(id)sender{

@@ -9,6 +9,7 @@
 #import "TODataTypeHelper.h"
 #import "TODBPointer.h"
 #import "NSObject+TODBModel.h"
+#import "TODBModelConfig.h"
 
 @implementation TODataTypeHelper
 
@@ -131,7 +132,7 @@
                         result = [NSKeyedUnarchiver unarchiveObjectWithData:data];
                     }
                     @catch (NSException *exception) {
-                        NSLog(@"属性解析失败.\n%@",exception);
+                        TO_MODEL_LOG(@"属性解析失败.\n%@",exception);
                     }
                 }
             }
