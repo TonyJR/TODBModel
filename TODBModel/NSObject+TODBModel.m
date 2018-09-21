@@ -262,12 +262,11 @@ static FMDatabase *database;
 }
 
 - (void)save:(void (^)(NSObject *))block{
-    __weak NSObject *self_weak = self;
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        __strong NSObject *self_strong = self_weak;
-        [self_strong db_update];
+        [self db_update];
         if (block) {
-            block(self_strong);
+            block(self);
         }
     });
     
@@ -372,7 +371,6 @@ static FMDatabase *database;
         @throw e;
     }
     
-    
     NSMutableString *columnName = [NSMutableString string];
     NSMutableString *columnValue = [NSMutableString string];
     
@@ -394,49 +392,56 @@ static FMDatabase *database;
         [columnValue replaceCharactersInRange:NSMakeRange(columnValue.length - 1,1) withString:@""];
     }
     
-    NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@);\n",[[self class] db_name],columnName,columnValue];
+    NSMutableString *sqlStr = [[self class] db_sqlStr];
     
-    
-    static NSMutableString *sqlStr;
     static NSLock *lock;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sqlStr = [NSMutableString string];
         lock = [NSLock new];
     });
-    static NSTimeInterval timeInterval;
-    static int i=0;
-    i++;
     [lock lock];
     if ([sqlStr length] > 0) {
-        [sqlStr appendString:sql];
+        [sqlStr appendString:[NSString stringWithFormat:@",(%@)",columnValue]];
     }else{
+        NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@)",[[self class] db_name],columnName,columnValue];
         [sqlStr appendString:sql];
         
         dispatch_async(sql_queue, ^{
-            
             NSString *sql;
             [lock lock];
             sql = [sqlStr copy];
-            sqlStr = [NSMutableString string];
+            [sqlStr setString:@""];
+            
             [lock unlock];
-            NSDate *date = [NSDate date];
-            if ([database executeUpdate:sql withArgumentsInArray:objects] != 0) {
+            NSInteger num = [database executeUpdate:sql withArgumentsInArray:objects];
+            if (num != 0) {
                 
             }else{
                 TO_MODEL_LOG(@"数据库更新失败");
                 TO_MODEL_LOG(@"%@",sql);
             }
-            timeInterval += [[NSDate date] timeIntervalSinceDate:date];
-            i--;
-            if (i == 0) {
-                NSLog(@"-------%f",timeInterval);
-            }
         });
     }
     [lock unlock];
-   
+}
+
++ (NSMutableString *)db_sqlStr{
+    static NSMutableDictionary *sqlClassDic;
+    static NSLock *lock;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sqlClassDic = [NSMutableDictionary dictionary];
+        lock = [NSLock new];
+    });
     
+    [lock lock];
+    NSMutableString *sqlStr = [sqlClassDic objectForKey:NSStringFromClass(self)];
+    if (!sqlStr) {
+        sqlStr = [NSMutableString string];
+        [sqlClassDic setObject:sqlStr forKey:NSStringFromClass(self)];
+    }
+    [lock unlock];
+    return sqlStr;
 }
 
 

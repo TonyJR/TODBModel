@@ -75,6 +75,7 @@
             [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",[models count],[[NSDate date] timeIntervalSinceDate:date]]];
         }];
         
+        
     }
     [self endEdit:nil];
 }
