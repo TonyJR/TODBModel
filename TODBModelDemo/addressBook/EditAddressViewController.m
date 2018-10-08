@@ -57,7 +57,9 @@
     self.model.address = self.adddressTextView.text;
     self.model.editDate = [NSDate date];
     
-    [self.model save];
+    [self.model save:^(NSObject *model) {
+        
+    }];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

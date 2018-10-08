@@ -180,7 +180,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         AddressModel *addressModel = self.dataList[indexPath.row];
-        [addressModel del:nil];
+        [addressModel del:^(NSObject *model) {
+            
+        }];
         [self.dataList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
