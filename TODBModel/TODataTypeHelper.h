@@ -46,6 +46,7 @@
  */
 + (NSString *)objcObjectToSqlObject:(id)objcObject  withType:(NSString *)type arguments:(NSMutableArray *)arguments;
 
+
 /**
  Read a objc-object from FMResultSet
 

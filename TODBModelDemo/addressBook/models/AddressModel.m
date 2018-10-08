@@ -10,12 +10,16 @@
 
 @implementation AddressModel
 
-+ (void)initialize{
++ (void)load{
     [self regiestDB];
 }
 
 + (NSString *)db_pk{
     return @"addressID";
+}
+
+- (void)db_update{
+    [super db_update];
 }
 
 @end

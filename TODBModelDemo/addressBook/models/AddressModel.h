@@ -7,10 +7,11 @@
 //
 
 #import "NSObject+TODBModel.h"
+#import "Userinfo.h"
 
 @interface AddressModel : NSObject
 
-@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) Userinfo *userinfo;
 @property (nonatomic,assign) int addressID;
 @property (nonatomic,strong) NSDate *editDate;
 @property (nonatomic,strong) NSString *mobile;

@@ -22,6 +22,7 @@
 
 static dispatch_queue_t sql_queue;
 static FMDatabase *database;
+static NSMutableDictionary *registedDBs;
 
 - (NSUInteger)pk{
     return [objc_getAssociatedObject(self, @"NSObject_pk") unsignedIntegerValue];
@@ -32,12 +33,21 @@ static FMDatabase *database;
 }
 
 + (BOOL)existDB{
-    return [self db_existTable];
+    NSString *db_name = [self db_name];
+    NSNumber *number = [registedDBs objectForKey:db_name];
+    if (number) {
+        return [number boolValue];
+    }else{
+        BOOL result = [self db_existTable];
+        [registedDBs setObject:@(result) forKey:db_name];
+        return result;
+    }
 }
 
 + (void)regiestDB{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        registedDBs = [NSMutableDictionary dictionary];
         sql_queue = dispatch_queue_create("sql_operation_queue", DISPATCH_QUEUE_SERIAL);
         dispatch_async(sql_queue, ^{
             database = [FMDatabase databaseWithPath:TO_MODEL_DATABASE_PATH];
@@ -62,6 +72,9 @@ static FMDatabase *database;
         NSDate *date = [NSDate date];
         [self db_updateTable];
         TO_MODEL_LOG(@"%@检查完成，用时%f",[self db_name],[[NSDate date] timeIntervalSinceDate:date]);
+        [registedDBs setObject:@(YES) forKey:db_name];
+    }else{
+        [registedDBs setObject:@(NO) forKey:db_name];
     }
 }
 
@@ -262,7 +275,6 @@ static FMDatabase *database;
 }
 
 - (void)save:(void (^)(NSObject *))block{
-
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self db_update];
         if (block) {
@@ -275,6 +287,7 @@ static FMDatabase *database;
 - (void)del{
     [self db_delete];
 }
+
 - (void)del:(void(^)(NSObject *model))block{
     __weak NSObject *self_weak = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -314,12 +327,8 @@ static FMDatabase *database;
             default:
                 break;
         }
-        
-        
-        
     }else{
         [self createTable];
-        
     }
 }
 
@@ -335,7 +344,6 @@ static FMDatabase *database;
     });
     if (totalCount > 0) {
         return YES;
-        
     }else{
         return NO;
     }
@@ -373,15 +381,19 @@ static FMDatabase *database;
     
     NSMutableString *columnName = [NSMutableString string];
     NSMutableString *columnValue = [NSMutableString string];
-    
-    __block NSMutableArray *objects = [NSMutableArray array];
+    NSMutableArray *arguments = [NSMutableArray array];
+
     
     NSDictionary *sqlPropertys = [[self class] sqlPropertys];
+    
     for (NSString *key in sqlPropertys.allKeys) {
-        
+        id value = [self valueForKey:key];
+        NSString *type = sqlPropertys[key];
         [columnName appendFormat:@"%@,",key];
-        [columnValue appendFormat:@"%@,",[TODataTypeHelper objcObjectToSqlObject:[self valueForKey:key] withType:sqlPropertys[key] arguments:objects]];
-        
+        [columnValue appendFormat:@"%@,",[TODataTypeHelper objcObjectToSqlObject:value withType:type arguments:arguments]];
+        if ([type isEqualToString:DB_TYPE_BLOB]) {
+            [value save:nil];
+        }
     }
     
     
@@ -393,32 +405,42 @@ static FMDatabase *database;
     }
     
     NSMutableString *sqlStr = [[self class] db_sqlStr];
-    
+    NSMutableArray *sqlArguments = [[self class] db_sqlObjs];
+
     static NSLock *lock;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lock = [NSLock new];
     });
+    
+
     [lock lock];
     if ([sqlStr length] > 0) {
         [sqlStr appendString:[NSString stringWithFormat:@",(%@)",columnValue]];
+        [sqlArguments addObjectsFromArray:arguments];
     }else{
         NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@)",[[self class] db_name],columnName,columnValue];
         [sqlStr appendString:sql];
-        
+        [sqlArguments removeAllObjects];
+        [sqlArguments addObjectsFromArray:arguments];
+
         dispatch_async(sql_queue, ^{
-            NSString *sql;
+            NSString *__sqlStr;
+            NSArray *__sqlArguments;
             [lock lock];
-            sql = [sqlStr copy];
-            [sqlStr setString:@""];
+            __sqlStr = [sqlStr copy];
+            __sqlArguments = [sqlArguments copy];
             
+            [sqlArguments removeAllObjects];
+            [sqlStr setString:@""];
             [lock unlock];
-            NSInteger num = [database executeUpdate:sql withArgumentsInArray:objects];
+
+            NSInteger num = [database executeUpdate:__sqlStr withArgumentsInArray:__sqlArguments];
             if (num != 0) {
                 
             }else{
                 TO_MODEL_LOG(@"数据库更新失败");
-                TO_MODEL_LOG(@"%@",sql);
+                TO_MODEL_LOG(@"%@",__sqlStr);
             }
         });
     }
@@ -442,6 +464,25 @@ static FMDatabase *database;
     }
     [lock unlock];
     return sqlStr;
+}
+
++ (NSMutableArray *)db_sqlObjs{
+    static NSMutableDictionary *sqlClassDic;
+    static NSLock *lock;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sqlClassDic = [NSMutableDictionary dictionary];
+        lock = [NSLock new];
+    });
+    
+    [lock lock];
+    NSMutableArray *sqlObjs = [sqlClassDic objectForKey:NSStringFromClass(self)];
+    if (!sqlObjs) {
+        sqlObjs = [NSMutableArray array];
+        [sqlClassDic setObject:sqlObjs forKey:NSStringFromClass(self)];
+    }
+    [lock unlock];
+    return sqlObjs;
 }
 
 
@@ -532,18 +573,6 @@ static FMDatabase *database;
     NSMutableArray *result = [NSMutableArray array];
     NSMutableArray *arguments = [NSMutableArray array];
     
-    //    BOOL firstItem = YES;
-    //    for (NSString *key in conditions.allKeys) {
-    //        TODBCondition *condition = conditions[key];
-    //        id value = condition.value;
-    //        if (!firstItem) {
-    //            [sql appendString:@"AND "];
-    //        }else{
-    //            firstItem = NO;
-    //        }
-    //        NSString *valueStr = [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments];
-    //        [sql appendFormat:@"%@ %@ %@",key,condition.relationship,valueStr];
-    //    }
     [sql appendString:[condition conditionWithPropertys:[self sqlPropertys]]];
     
     
