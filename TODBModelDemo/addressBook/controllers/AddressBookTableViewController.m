@@ -72,7 +72,7 @@
 
         self_strong.dataList = [NSMutableArray arrayWithArray:models];
         if (self_strong.dataList.count == 0) {
-            self_strong.dataList = [NSMutableArray arrayWithArray:[CreateAddressHelper createAddress:1000]];
+            self_strong.dataList = [NSMutableArray arrayWithArray:[CreateAddressHelper createAddress:1000 complete:nil]];
         }
         [self_strong.tableView reloadData];
     }];

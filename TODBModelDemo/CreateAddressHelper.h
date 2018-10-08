@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateAddressHelper : NSObject
 
-+ (NSArray<AddressModel *> *)createAddress:(NSUInteger)count;
++ (NSArray<AddressModel *> *)createAddress:(NSUInteger)count complete:(nullable void(^)(NSTimeInterval costTime))complete;
 
 @end
 

@@ -14,9 +14,10 @@
 
 @implementation CreateAddressHelper
 
-+ (NSArray<AddressModel *> *)createAddress:(NSUInteger)count
++ (NSArray<AddressModel *> *)createAddress:(NSUInteger)count complete:(void (^)(NSTimeInterval))complete
 {
-    NSDate *date = [NSDate date];
+    NSDate *startDate = [NSDate date];
+    NSDate *date = startDate;
     
     NSArray *createdModels = [AddressModel crateModels:count];
     NSArray *createdUserinfo = [Userinfo crateModels:count];
@@ -39,7 +40,9 @@
         [model save:nil];
     }
     NSLog(@"更新%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);
-    
+    if (complete) {
+        complete([[NSDate date] timeIntervalSinceDate:startDate]);
+    }
     return createdModels;
 }
 

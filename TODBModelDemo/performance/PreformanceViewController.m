@@ -9,6 +9,7 @@
 #import "PreformanceViewController.h"
 #import "AddressModel.h"
 #import "NSObject+Search.h"
+#import "CreateAddressHelper.h"
 
 @interface PreformanceViewController ()
 
@@ -70,9 +71,9 @@
 - (IBAction)insert:(id)sender{
     NSInteger count = [self.createCountText.text integerValue];
     if (count > 0) {
-        __block NSDate *date = [NSDate date];
-       [AddressModel crateModels:count callback:^(NSArray *models, NSError *error) {
-            [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",[models count],[[NSDate date] timeIntervalSinceDate:date]]];
+        
+        [CreateAddressHelper createAddress:count complete:^(NSTimeInterval costTime) {
+            [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",count,costTime]];
         }];
         
         

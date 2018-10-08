@@ -166,8 +166,6 @@
 				EA1EE223216B4CE100654D3D /* AddressSearchViewController.h */,
 				EA1EE227216B4CE100654D3D /* AddressSearchViewController.m */,
 				EA1EE228216B4CE100654D3D /* AddressSearchViewController.xib */,
-				EA1EE234216B713000654D3D /* CreateAddressHelper.h */,
-				EA1EE235216B713000654D3D /* CreateAddressHelper.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -228,6 +226,8 @@
 				EA62A81A1FCE82CB006EF287 /* demoList */,
 				EA72A2561DEE5D78005F12D2 /* AppDelegate.h */,
 				EA72A2571DEE5D78005F12D2 /* AppDelegate.m */,
+				EA1EE234216B713000654D3D /* CreateAddressHelper.h */,
+				EA1EE235216B713000654D3D /* CreateAddressHelper.m */,
 				EA72A2581DEE5D78005F12D2 /* Assets.xcassets */,
 				EA72A2591DEE5D78005F12D2 /* LaunchScreen.storyboard */,
 				EA72A25D1DEE5D78005F12D2 /* Info.plist */,
