@@ -73,7 +73,8 @@
     if (count > 0) {
         
         [CreateAddressHelper createAddress:count complete:^(NSTimeInterval costTime) {
-            [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",count,costTime]];
+            //addressModel中包含userInfo，因此实际载入时间会较慢，模型包含其他模型的搜索还可以优化
+            [self log:[NSString stringWithFormat:@"创建%ld条记录用时%f",count * 2,costTime]];
         }];
         
         
