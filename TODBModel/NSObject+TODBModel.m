@@ -16,11 +16,48 @@
 #import "TODBPointer.h"
 #import "TODBCondition.h"
 #import "TODBModelError.h"
+#import "NSObject+NSCoding.h"
+
+
+
+static dispatch_queue_t sql_queue;
+const char *sql_queue_label = "com.cocoamob.sql";
+
+
+/**
+ 修复FMDB中的一个bug。释放FMResultSet对象时使用的线程与查询时不同，导致插入操作如果过于频繁可能导致崩溃
+ */
+@interface FMResultSet (release)
+
+@end
+
+@implementation FMResultSet (release)
+
+
++ (void)initialize{
+    [super initialize];
+    Method oldM  = class_getInstanceMethod(self, @selector(close));
+    Method newM = class_getInstanceMethod(self, @selector(db_close));
+    method_exchangeImplementations(oldM, newM);
+}
+
+- (void)db_close{
+    if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), sql_queue_label) == 0){
+        // do something in main thread
+        [self db_close];
+    } else {
+        // do something in other thread
+        dispatch_sync(sql_queue, ^{
+             [self db_close];
+        });
+    }
+}
+
+@end
 
 
 @implementation NSObject (RegiestDB)
 
-static dispatch_queue_t sql_queue;
 static FMDatabase *database;
 static NSMutableDictionary *registedDBs;
 
@@ -48,7 +85,7 @@ static NSMutableDictionary *registedDBs;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         registedDBs = [NSMutableDictionary dictionary];
-        sql_queue = dispatch_queue_create("sql_operation_queue", DISPATCH_QUEUE_SERIAL);
+        sql_queue = dispatch_queue_create(sql_queue_label, DISPATCH_QUEUE_SERIAL);
         dispatch_async(sql_queue, ^{
             database = [FMDatabase databaseWithPath:TO_MODEL_DATABASE_PATH];
             [database open];
@@ -218,41 +255,41 @@ static NSMutableDictionary *registedDBs;
                 [sql appendString:@",(NULL)"];
             }
         }
-        
-        [database beginTransaction];
-        BOOL isRollBack;
-        @try
-        {
-            __block BOOL isSuccess;
-            dispatch_sync(sql_queue, ^{
-                isSuccess = [database executeUpdate:sql];
-            });
-            
-            
-            if (isSuccess) {
-                //            TO_MODEL_LOG(@"数据库查询成功");
-                
-                lastID = database.lastInsertRowId;
-                
-            }else{
-                TO_MODEL_LOG(@"创建模型失败");
-                TO_MODEL_LOG(@"%@",sql);
-            }
-            
-        }
-        @catch (NSException *exception)
-        {
-            isRollBack = YES;
-            [database rollback];
-        }
-        @finally
-        {
-            if (!isRollBack)
+        dispatch_sync(sql_queue, ^{
+
+            [database beginTransaction];
+            BOOL isRollBack;
+            @try
             {
-                [database commit];
+                __block BOOL isSuccess;
+                isSuccess = [database executeUpdate:sql];
+                
+                
+                if (isSuccess) {
+                    //            TO_MODEL_LOG(@"数据库查询成功");
+                    
+                    lastID = database.lastInsertRowId;
+                    
+                }else{
+                    TO_MODEL_LOG(@"创建模型失败");
+                    TO_MODEL_LOG(@"%@",sql);
+                }
+                
             }
-        }
-            
+            @catch (NSException *exception)
+            {
+                isRollBack = YES;
+                [database rollback];
+            }
+            @finally
+            {
+                if (!isRollBack)
+                {
+                    [database commit];
+                }
+            }
+        });
+
         
         NSMutableArray *result = [NSMutableArray array];
         
@@ -275,12 +312,14 @@ static NSMutableDictionary *registedDBs;
 }
 
 - (void)save:(void (^)(NSObject *))block{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self db_update];
-        if (block) {
-            block(self);
-        }
-    });
+    if ([[self class] existDB]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self db_update];
+            if (block) {
+                block(self);
+            }
+        });
+    }
     
 }
 
@@ -392,7 +431,10 @@ static NSMutableDictionary *registedDBs;
         [columnName appendFormat:@"%@,",key];
         [columnValue appendFormat:@"%@,",[TODataTypeHelper objcObjectToSqlObject:value withType:type arguments:arguments]];
         if ([type isEqualToString:DB_TYPE_BLOB]) {
-            [value save:nil];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [value save:nil];
+
+            });
         }
     }
     
@@ -814,8 +856,7 @@ static NSMutableDictionary *registedDBs;
 }
 //删除table
 + (void)dropTable:(NSString *)tableName{
-    [database close];
-    [database open];
+   
     
     __block NSString *sql = [NSString stringWithFormat:@"DROP TABLE %@;",tableName];
     
@@ -876,9 +917,20 @@ static NSMutableDictionary *registedDBs;
         if (!sqlTypeName) {
             TO_MODEL_LOG(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
-            
+            if ([sqlTypeName isEqualToString:DB_TYPE_BLOB]) {
+                NSString *regEx = @"^@\"+[A-Za-z0-9_]+\"+$";
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regEx];
+                
+                NSString *typeName = [NSString stringWithUTF8String:type];
+                if ([predicate evaluateWithObject:typeName]) {
+                    typeName = [typeName substringWithRange:NSMakeRange(2, typeName.length - 3)];
+                    Class typeClass = NSClassFromString(typeName);
+                    if (typeClass) {
+                        [typeClass db_registNSCoding];
+                    }
+                }
+            }
             [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
-            
         }
         
     }

@@ -37,6 +37,8 @@
         userinfo.name = [NSString stringWithFormat:@"%@%@%@",surname[model.addressID%surname.count],cnNumber[model.addressID%100/10],cnNumber[model.addressID%10]];
         model.userinfo = userinfo;
         model.mobile = [NSString stringWithFormat:@"%@%08d",mobileHead[rand()%mobileHead.count],model.addressID];
+        model.addressInfo = [AddressInfo new];
+        model.addressInfo.address = model.mobile;
         [model save:nil];
     }
     NSLog(@"更新%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);

@@ -71,8 +71,10 @@ typedef enum : NSUInteger {
     NSString *result = nil;
     
     if ([type isEqualToString:DB_TYPE_BLOB]) {
-        if ([objcObject isKindOfClass:[NSObject class]] && [[objcObject class] existDB]) {
-            objcObject = [[TODBPointer alloc] initWithModel:objcObject];
+        if ([objcObject isKindOfClass:[NSObject class]]) {
+            if ([[objcObject class] existDB]) {
+                objcObject = [[TODBPointer alloc] initWithModel:objcObject];
+            }
         }
         
         if (!objcObject || [objcObject isEqual:[NSNull null]]) {
@@ -83,7 +85,6 @@ typedef enum : NSUInteger {
                 NSData *dataOnObject = [NSKeyedArchiver archivedDataWithRootObject:objcObject];
                 [arguments addObject:dataOnObject];
             }
-           
         }
     }else{
         if (!objcObject || [objcObject isEqual:[NSNull null]]) {

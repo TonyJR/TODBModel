@@ -18,6 +18,9 @@
 		EA1EE232216B4CE100654D3D /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA1EE228216B4CE100654D3D /* AddressSearchViewController.xib */; };
 		EA1EE233216B4CE100654D3D /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA1EE229216B4CE100654D3D /* EditAddressViewController.xib */; };
 		EA1EE236216B713000654D3D /* CreateAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE235216B713000654D3D /* CreateAddressHelper.m */; };
+		EA1EE23C216DA67C00654D3D /* AddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE23B216DA67C00654D3D /* AddressInfo.m */; };
+		EA1EE243216DB11100654D3D /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */; };
+		EA1EE246216DF9D900654D3D /* FMResultSet+Release.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */; };
 		EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F691E48C70A00893605 /* TODBAndCondition.m */; };
 		EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6B1E48C70A00893605 /* TODBCondition.m */; };
 		EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6D1E48C70A00893605 /* TODBNotCondition.m */; };
@@ -57,6 +60,13 @@
 		EA1EE22A216B4CE100654D3D /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
 		EA1EE234216B713000654D3D /* CreateAddressHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateAddressHelper.h; sourceTree = "<group>"; };
 		EA1EE235216B713000654D3D /* CreateAddressHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateAddressHelper.m; sourceTree = "<group>"; };
+		EA1EE23A216DA67C00654D3D /* AddressInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressInfo.h; sourceTree = "<group>"; };
+		EA1EE23B216DA67C00654D3D /* AddressInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressInfo.m; sourceTree = "<group>"; };
+		EA1EE23D216DA85700654D3D /* TODBModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBModelError.h; sourceTree = "<group>"; };
+		EA1EE241216DB11100654D3D /* NSObject+NSCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSCoding.h"; sourceTree = "<group>"; };
+		EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NSCoding.m"; sourceTree = "<group>"; };
+		EA1EE244216DF9D900654D3D /* FMResultSet+Release.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMResultSet+Release.h"; sourceTree = "<group>"; };
+		EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FMResultSet+Release.m"; sourceTree = "<group>"; };
 		EA2F0F681E48C70A00893605 /* TODBAndCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBAndCondition.h; sourceTree = "<group>"; };
 		EA2F0F691E48C70A00893605 /* TODBAndCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBAndCondition.m; sourceTree = "<group>"; };
 		EA2F0F6A1E48C70A00893605 /* TODBCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBCondition.h; sourceTree = "<group>"; };
@@ -89,7 +99,6 @@
 		EA72A25E1DEE5D78005F12D2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA72A26E1DEE744B005F12D2 /* TODBPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBPointer.h; sourceTree = "<group>"; };
 		EA72A26F1DEE744B005F12D2 /* TODBPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBPointer.m; sourceTree = "<group>"; };
-		EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODBModelError.h; sourceTree = "<group>"; };
 		EAC1FEA21DE4353B00555898 /* TODBModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODBModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC1FED11DE43FEB00555898 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EAC1FED31DE43FF100555898 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -151,6 +160,8 @@
 				EA1EE220216B4CE100654D3D /* AddressModel.m */,
 				EA1EE221216B4CE100654D3D /* Userinfo.h */,
 				EA1EE21F216B4CE100654D3D /* Userinfo.m */,
+				EA1EE23A216DA67C00654D3D /* AddressInfo.h */,
+				EA1EE23B216DA67C00654D3D /* AddressInfo.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -192,6 +203,7 @@
 		EA72A24B1DEE5D78005F12D2 /* TODBModel */ = {
 			isa = PBXGroup;
 			children = (
+				EA1EE23D216DA85700654D3D /* TODBModelError.h */,
 				EA2F0F681E48C70A00893605 /* TODBAndCondition.h */,
 				EA2F0F691E48C70A00893605 /* TODBAndCondition.m */,
 				EA2F0F6A1E48C70A00893605 /* TODBCondition.h */,
@@ -213,7 +225,10 @@
 				EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */,
 				EA5710BF1F56AB5400DF85A0 /* NSObject+Search.h */,
 				EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */,
-				EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */,
+				EA1EE241216DB11100654D3D /* NSObject+NSCoding.h */,
+				EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */,
+				EA1EE244216DF9D900654D3D /* FMResultSet+Release.h */,
+				EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */,
 			);
 			path = TODBModel;
 			sourceTree = "<group>";
@@ -389,6 +404,8 @@
 				EA1EE22E216B4CE100654D3D /* AddressModel.m in Sources */,
 				EA5710BB1F56AA3B00DF85A0 /* NSObject+TODBModel.m in Sources */,
 				EA72A26B1DEE5D78005F12D2 /* main.m in Sources */,
+				EA1EE23C216DA67C00654D3D /* AddressInfo.m in Sources */,
+				EA1EE243216DB11100654D3D /* NSObject+NSCoding.m in Sources */,
 				EA5710BE1F56AAF300DF85A0 /* NSObject+Cache.m in Sources */,
 				EA1EE22D216B4CE100654D3D /* Userinfo.m in Sources */,
 				EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */,
@@ -400,6 +417,7 @@
 				EA62A81D1FCE841D006EF287 /* DemoListTableViewController.m in Sources */,
 				EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */,
 				EA1EE230216B4CE100654D3D /* AddressBookTableViewController.m in Sources */,
+				EA1EE246216DF9D900654D3D /* FMResultSet+Release.m in Sources */,
 				EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */,
 				EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */,
 				EA1EE231216B4CE100654D3D /* AddressSearchViewController.m in Sources */,

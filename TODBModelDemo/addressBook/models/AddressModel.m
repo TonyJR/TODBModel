@@ -18,8 +18,6 @@
     return @"addressID";
 }
 
-- (void)db_update{
-    [super db_update];
-}
+
 
 @end

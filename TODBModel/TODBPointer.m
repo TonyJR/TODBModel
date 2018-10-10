@@ -17,7 +17,6 @@
     self = [self init];
     if (self == nil) return nil;
 
-    
     _className = [aDecoder decodeObjectForKey:@"className"];
     _pkValue = [aDecoder decodeObjectForKey:@"pkValue"];
     
@@ -28,7 +27,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:_className forKey:@"className"];
     [aCoder encodeObject:_pkValue forKey:@"pkValue"];
-
 }
 
 - (instancetype)initWithModel:(NSObject *)model{
