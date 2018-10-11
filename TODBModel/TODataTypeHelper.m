@@ -26,7 +26,7 @@ typedef enum : NSUInteger {
     NSString *result = nil;
     
     NSString *type = [NSString stringWithUTF8String:objcType];
-    NSString *regex = @"^@\"[a-zA-Z_0-9]*\"$";
+    NSString *regex = @"^@\"[a-zA-Z_0-9]+\"$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if ([predicate evaluateWithObject:type]) {
         if ([type isEqualToString:@"@\"NSString\""]) {
@@ -115,7 +115,7 @@ typedef enum : NSUInteger {
     if (objcType) {
         NSDictionary *cachedTypeDic = [typeDic objectForKey:objcType];
         if (!cachedTypeDic) {
-            NSString *regex = @"^@\"[a-zA-Z_0-9]*\"$";
+            NSString *regex = @"^@\"[a-zA-Z_0-9]+\"$";
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
             if ([predicate evaluateWithObject:objcType]) {
                 if ([objcType isEqualToString:@"@\"NSString\""]) {

@@ -661,9 +661,7 @@ static NSMutableDictionary *registedDBs;
     NSMutableArray *dicList = [NSMutableArray array];
 
     dispatch_sync(sql_queue, ^{
-        
         FMResultSet *resultSet = [database executeQuery:sqlStr];
-        
         if (resultSet) {
             //            TO_MODEL_LOG(@"数据库查询成功");
         }else{
@@ -711,7 +709,6 @@ static NSMutableDictionary *registedDBs;
         [result addObject:model];
     }
     
-   
     return result;
 }
 
@@ -725,6 +722,7 @@ static NSMutableDictionary *registedDBs;
 
 - (void)checkPointer{
     NSDictionary *dic = [[self class] classPropertys];
+    
     for (NSString *key in dic.allKeys) {
         id value = [self valueForKey:key];
         if ([value isKindOfClass:[TODBPointer class]]) {
@@ -733,6 +731,7 @@ static NSMutableDictionary *registedDBs;
         
         [self setValue:value forKey:key];
     }
+
 }
 
 //插入字段
@@ -918,8 +917,8 @@ static NSMutableDictionary *registedDBs;
             TO_MODEL_LOG(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
             if ([sqlTypeName isEqualToString:DB_TYPE_BLOB]) {
-                NSString *regEx = @"^@\"+[A-Za-z0-9_]+\"+$";
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regEx];
+                NSString *regex = @"^@\"[a-zA-Z_0-9]+\"$";
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
                 
                 NSString *typeName = [NSString stringWithUTF8String:type];
                 if ([predicate evaluateWithObject:typeName]) {

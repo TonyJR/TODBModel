@@ -30,8 +30,8 @@
             //对子属性实现 NSCoding
             NSDictionary *classPropertys = [self classPropertys];
             for (NSString *value in classPropertys.allValues) {
-                NSString *regEx = @"^@\"+[A-Za-z0-9_]+\"+$";
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regEx];
+                NSString *regex = @"^@\"[a-zA-Z_0-9]+\"$";
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
                 
                 if ([predicate evaluateWithObject:value]) {
                     NSString *className = [value substringWithRange:NSMakeRange(2, value.length - 3)];
