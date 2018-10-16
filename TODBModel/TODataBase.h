@@ -33,6 +33,8 @@
 + (NSArray *)db_search:(NSString *)value forKey:(NSString *)key;
 + (NSArray *)db_search:(NSString *)sqlStr;
 + (NSArray *)db_condition_search:(id<TODBConditionBase>)condition;
++ (NSDictionary<NSString *, NSArray *> *)db_searchValues:(NSArray<NSString *> *)values forKey:(NSString *)key;
+
 
 @optional
 + (NSString *)db_name;
