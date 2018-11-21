@@ -93,7 +93,6 @@ TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:@"%123%"];
 }];
 ```
 6、内存索引
-TOBDModel的设计基于内存+外存两部分，id相同的model在内存中只会存在一个。您可以在多个controller中持有同一个model，使用KVO或者RAC方便的同步数据。
 ```
 + (nonnull instancetype)modelByKey:(nonnull id)modelKey;
 + (nullable instancetype)modelByKey:(nonnull id)modelKey allowNull:(BOOL)allowNull;
@@ -144,14 +143,8 @@ class AddressModel: TODBModel {
 ```
 特别说明
 ------------
-TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建对象，而应该使用以下方法创建
-```
--modelByKey:
--modelByKey: allowNull:
--createModel
--createModels:
-```
-多次调用-modelByKey:来获取同一key对应的对象时，将获得指向同一内存地址的指针实例。
+TOBDModel的设计基于内存+外存两部分，id相同的model在内存中只会存在一个。您可以在多个controller中持有同一个model，使用KVO或者RAC方便的同步数据。
++ 详见内存索引部分
 
 更新日志
 ------------
