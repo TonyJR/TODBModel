@@ -92,6 +92,33 @@ TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:@"%123%"];
     //搜索完成
 }];
 ```
+6、内存索引
+TOBDModel的设计基于内存+外存两部分，id相同的model在内存中只会存在一个。您可以在多个controller中持有同一个model，使用KVO或者RAC方便的同步数据。
+
+-modelByKey:
+-modelByKey: allowNull:
+上面两个方法会现在内存中搜索以key为主键的model，如果内存中不存在，则在数据库中搜索，如果数据库中也不存在则根据allowNull参数决定是否创建空model
+[TestModel modelByKey:@"key"] 等价于 [TestModel modelByKey:@"key" allowNull:NO]
+
+由于使用了内存索引，所以不建议通过new或alloc方法来创建model，创建model的方法有三种。
+（1）前面介绍的
+```
+[TestModel modelByKey:@"key" allowNull:YES];
+```
+可以在检查搜索后创建指定主键的model
+（2）使用自增长主键，创建单个模型。当需要创建多个模型时，+ (id)crateModel效率并不高，建议使用+ (NSArray *)crateModels:(NSUInteger)count
+
+```
+TestModel *model = [TestModel crateModel];
+```
+（3）使用自增长主键，批量创建模型。
+```
+NSArray<TestModel *> *models = [TestModel crateModels:100];
+```
++ (id)crateModel;
++ (NSArray *)crateModels:(NSUInteger)count;
+上面的两个方法会先在内存中建立模型，然后再执行插入操作。因此这两个方法都是同步的。
+
 Swift
 ------------
 在Swift中，非指针对象（Int,Float,Double,Boolean等）请不要使用“？”、“！”修饰属性。否则可能导致该字段无法插入数据库
