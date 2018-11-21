@@ -102,17 +102,18 @@ TOBDModel的设计基于内存+外存两部分，id相同的model在内存中只
 [TestModel modelByKey:@"key"] 等价于 [TestModel modelByKey:@"key" allowNull:NO]
 
 由于使用了内存索引，所以不建议通过new或alloc方法来创建model，创建model的方法有三种。
-+前面介绍的
+
++ 前面介绍的
 ```
 [TestModel modelByKey:@"key" allowNull:YES];
 ```
 可以在检查搜索后创建指定主键的model
-+使用自增长主键，创建单个模型。当需要创建多个模型时，crateModel效率并不高，建议使用crateModels
++ 使用自增长主键，创建单个模型。当需要创建多个模型时，crateModel效率并不高，建议使用crateModels
 
 ```
 TestModel *model = [TestModel crateModel];
 ```
-+使用自增长主键，批量创建模型。
++ 使用自增长主键，批量创建模型。
 ```
 NSArray<TestModel *> *models = [TestModel crateModels:100];
 ```
