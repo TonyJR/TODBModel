@@ -10,8 +10,8 @@
 
 @interface TODBPointer : NSObject<NSCoding>
 
-@property (nonatomic,strong) NSString *pkValue;
-@property (nonatomic,strong) NSString *className;
+@property (nonatomic,copy) NSString *pkValue;
+@property (nonatomic,copy) NSString *className;
 @property (nonatomic,readonly) NSObject *model;
 
 - (instancetype)initWithModel:(NSObject *)model;

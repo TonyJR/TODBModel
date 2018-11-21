@@ -16,29 +16,72 @@
 #import "TODBPointer.h"
 #import "TODBCondition.h"
 #import "TODBModelError.h"
+#import "NSObject+NSCoding.h"
+#import "NSObject+Property.h"
+#import "NSArray+CheckPointer.h"
+#import "TODBPointerChecker.h"
+
+
+static dispatch_queue_t sql_queue;
+const char *sql_queue_label = "to_db_model.sql";
+
+
+/**
+ 修复FMDB中的一个bug。释放FMResultSet对象时使用的线程与查询时不同，导致插入操作如果过于频繁可能导致崩溃
+ */
+@interface FMResultSet (release)
+
+@end
+
+@implementation FMResultSet (release)
+
+
++ (void)initialize{
+    [super initialize];
+    Method oldM  = class_getInstanceMethod(self, @selector(close));
+    Method newM = class_getInstanceMethod(self, @selector(db_close));
+    method_exchangeImplementations(oldM, newM);
+}
+
+- (void)db_close{
+    if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), sql_queue_label) == 0){
+        // do something in main thread
+        [self db_close];
+    } else {
+        // do something in other thread
+        dispatch_sync(sql_queue, ^{
+             [self db_close];
+        });
+    }
+}
+
+@end
 
 
 @implementation NSObject (RegiestDB)
 
-static dispatch_queue_t sql_queue;
 static FMDatabase *database;
+static NSMutableDictionary *registedDBs;
 
-- (NSUInteger)pk{
-    return [objc_getAssociatedObject(self, @"NSObject_pk") unsignedIntegerValue];
-}
 
-- (void)setPk:(NSUInteger)pk{
-    objc_setAssociatedObject(self, @"NSObject_pk", [NSNumber numberWithUnsignedInteger:pk], OBJC_ASSOCIATION_RETAIN);
-}
 
 + (BOOL)existDB{
-    return [self db_existTable];
+    NSString *db_name = [self db_name];
+    NSNumber *number = [registedDBs objectForKey:db_name];
+    if (number) {
+        return [number boolValue];
+    }else{
+        BOOL result = [self db_existTable];
+        [registedDBs setObject:@(result) forKey:db_name];
+        return result;
+    }
 }
 
 + (void)regiestDB{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sql_queue = dispatch_queue_create("sql_operation_queue", DISPATCH_QUEUE_SERIAL);
+        registedDBs = [NSMutableDictionary dictionary];
+        sql_queue = dispatch_queue_create(sql_queue_label, DISPATCH_QUEUE_SERIAL);
         dispatch_async(sql_queue, ^{
             database = [FMDatabase databaseWithPath:TO_MODEL_DATABASE_PATH];
             [database open];
@@ -62,6 +105,9 @@ static FMDatabase *database;
         NSDate *date = [NSDate date];
         [self db_updateTable];
         TO_MODEL_LOG(@"%@检查完成，用时%f",[self db_name],[[NSDate date] timeIntervalSinceDate:date]);
+        [registedDBs setObject:@(YES) forKey:db_name];
+    }else{
+        [registedDBs setObject:@(NO) forKey:db_name];
     }
 }
 
@@ -75,7 +121,6 @@ static FMDatabase *database;
     __block NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (NULL);",[[self class] db_name],[[self class] db_pk]];
     
     __block id result;
-    
     
     
     dispatch_sync(sql_queue, ^{
@@ -205,41 +250,41 @@ static FMDatabase *database;
                 [sql appendString:@",(NULL)"];
             }
         }
-        
-        [database beginTransaction];
-        BOOL isRollBack;
-        @try
-        {
-            __block BOOL isSuccess;
-            dispatch_sync(sql_queue, ^{
-                isSuccess = [database executeUpdate:sql];
-            });
-            
-            
-            if (isSuccess) {
-                //            TO_MODEL_LOG(@"数据库查询成功");
-                
-                lastID = database.lastInsertRowId;
-                
-            }else{
-                TO_MODEL_LOG(@"创建模型失败");
-                TO_MODEL_LOG(@"%@",sql);
-            }
-            
-        }
-        @catch (NSException *exception)
-        {
-            isRollBack = YES;
-            [database rollback];
-        }
-        @finally
-        {
-            if (!isRollBack)
+        dispatch_sync(sql_queue, ^{
+
+            [database beginTransaction];
+            BOOL isRollBack;
+            @try
             {
-                [database commit];
+                __block BOOL isSuccess;
+                isSuccess = [database executeUpdate:sql];
+                
+                
+                if (isSuccess) {
+                    //            TO_MODEL_LOG(@"数据库查询成功");
+                    
+                    lastID = database.lastInsertRowId;
+                    
+                }else{
+                    TO_MODEL_LOG(@"创建模型失败");
+                    TO_MODEL_LOG(@"%@",sql);
+                }
+                
             }
-        }
-            
+            @catch (NSException *exception)
+            {
+                isRollBack = YES;
+                [database rollback];
+            }
+            @finally
+            {
+                if (!isRollBack)
+                {
+                    [database commit];
+                }
+            }
+        });
+
         
         NSMutableArray *result = [NSMutableArray array];
         
@@ -262,19 +307,21 @@ static FMDatabase *database;
 }
 
 - (void)save:(void (^)(NSObject *))block{
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self db_update];
-        if (block) {
-            block(self);
-        }
-    });
+    if ([[self class] existDB]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self db_update];
+            if (block) {
+                block(self);
+            }
+        });
+    }
     
 }
 
 - (void)del{
     [self db_delete];
 }
+
 - (void)del:(void(^)(NSObject *model))block{
     __weak NSObject *self_weak = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -314,12 +361,8 @@ static FMDatabase *database;
             default:
                 break;
         }
-        
-        
-        
     }else{
         [self createTable];
-        
     }
 }
 
@@ -335,7 +378,6 @@ static FMDatabase *database;
     });
     if (totalCount > 0) {
         return YES;
-        
     }else{
         return NO;
     }
@@ -373,15 +415,22 @@ static FMDatabase *database;
     
     NSMutableString *columnName = [NSMutableString string];
     NSMutableString *columnValue = [NSMutableString string];
-    
-    __block NSMutableArray *objects = [NSMutableArray array];
+    NSMutableArray *arguments = [NSMutableArray array];
+
     
     NSDictionary *sqlPropertys = [[self class] sqlPropertys];
+    
     for (NSString *key in sqlPropertys.allKeys) {
-        
+        id value = [self valueForKey:key];
+        NSString *type = sqlPropertys[key];
         [columnName appendFormat:@"%@,",key];
-        [columnValue appendFormat:@"%@,",[TODataTypeHelper objcObjectToSqlObject:[self valueForKey:key] withType:sqlPropertys[key] arguments:objects]];
-        
+        [columnValue appendFormat:@"%@,",[TODataTypeHelper objcObjectToSqlObject:value withType:type arguments:arguments]];
+        if ([type isEqualToString:DB_TYPE_BLOB]) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [value save:nil];
+
+            });
+        }
     }
     
     
@@ -392,57 +441,49 @@ static FMDatabase *database;
         [columnValue replaceCharactersInRange:NSMakeRange(columnValue.length - 1,1) withString:@""];
     }
     
-    NSMutableString *sqlStr = [[self class] db_sqlStr];
-    
+    NSMutableString *sqlStr = [[self class] db_sqlUpdateStr];
+    NSMutableArray *sqlArguments = [[self class] db_sqlUpdateObjs];
+
     static NSLock *lock;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lock = [NSLock new];
     });
+    
+
     [lock lock];
     if ([sqlStr length] > 0) {
         [sqlStr appendString:[NSString stringWithFormat:@",(%@)",columnValue]];
+        [sqlArguments addObjectsFromArray:arguments];
     }else{
         NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) VALUES (%@)",[[self class] db_name],columnName,columnValue];
         [sqlStr appendString:sql];
-        
+        [sqlArguments removeAllObjects];
+        [sqlArguments addObjectsFromArray:arguments];
+
         dispatch_async(sql_queue, ^{
-            NSString *sql;
+            NSString *__sqlStr;
+            NSArray *__sqlArguments;
             [lock lock];
-            sql = [sqlStr copy];
-            [sqlStr setString:@""];
+            __sqlStr = [sqlStr copy];
+            __sqlArguments = [sqlArguments copy];
             
+            [sqlArguments removeAllObjects];
+            [sqlStr setString:@""];
             [lock unlock];
-            NSInteger num = [database executeUpdate:sql withArgumentsInArray:objects];
+
+            NSInteger num = [database executeUpdate:__sqlStr withArgumentsInArray:__sqlArguments];
             if (num != 0) {
                 
             }else{
                 TO_MODEL_LOG(@"数据库更新失败");
-                TO_MODEL_LOG(@"%@",sql);
+                TO_MODEL_LOG(@"%@",__sqlStr);
             }
         });
     }
     [lock unlock];
 }
 
-+ (NSMutableString *)db_sqlStr{
-    static NSMutableDictionary *sqlClassDic;
-    static NSLock *lock;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sqlClassDic = [NSMutableDictionary dictionary];
-        lock = [NSLock new];
-    });
-    
-    [lock lock];
-    NSMutableString *sqlStr = [sqlClassDic objectForKey:NSStringFromClass(self)];
-    if (!sqlStr) {
-        sqlStr = [NSMutableString string];
-        [sqlClassDic setObject:sqlStr forKey:NSStringFromClass(self)];
-    }
-    [lock unlock];
-    return sqlStr;
-}
 
 
 //删除数据库内容
@@ -480,13 +521,77 @@ static FMDatabase *database;
     return @"pk";
 }
 
+//查找对象
 + (NSArray *)db_search:(id)value forKey:(NSString *)key{
-    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ",[self db_name],key];
-    NSMutableArray *result = [NSMutableArray array];
-    NSMutableArray *arguments = [NSMutableArray array];
-    NSString *valueStr = [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments];
+    __block NSArray *searchResult;
+    [self addSearch:value forKey:key callback:^(NSArray * _Nonnull result) {
+        searchResult = result;
+    }];
+    [self searchKey:key make:^NSDictionary<NSString *,NSArray *> * _Nonnull(NSArray<NSString *> * values) {
+        return [self db_searchValues:values forKey:key];
+    }];
     
-    [sql appendString:valueStr];
+    return searchResult;
+//
+//    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ",[self db_name],key];
+//    NSMutableArray *result = [NSMutableArray array];
+//    NSMutableArray *arguments = [NSMutableArray array];
+//    NSString *valueStr = [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments];
+//
+//    [sql appendString:valueStr];
+//
+//    dispatch_sync(sql_queue, ^{
+//        FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
+//
+//        if (resultSet) {
+//            //            TO_MODEL_LOG(@"数据库查询成功");
+//        }else{
+//            TO_MODEL_LOG(@"数据库查询失败");
+//            TO_MODEL_LOG(@"%@",sql);
+//        }
+//
+//
+//        NSDictionary *classPropertys = [self classPropertys];
+//        while ([resultSet next]) {
+//            id item = [[self alloc] init];
+//            int count = resultSet.columnCount;
+//            for (int i=0; i<count; i++) {
+//                NSString *key = [resultSet columnNameForIndex:i];
+//                NSString *type = classPropertys[key];
+//                if (key) {
+//                    id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
+//                    if (value) {
+//                        [item setValue:value forKey:key];
+//                    }
+//                }
+//            }
+//
+//            [result addObject:item];
+//        }
+//
+//        [resultSet close];
+//    });
+//
+//    [result checkPointer];
+//
+//    return result;
+}
+
++ (NSDictionary<NSString *,NSArray *> *)db_searchValues:(NSArray<NSString *> *)values forKey:(NSString *)key{
+    
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    //生成SQL
+    NSMutableArray *arguments = [NSMutableArray array];
+    NSMutableString *valuesStr = [NSMutableString string];
+    
+    for (NSString *value in values) {
+        if ([valuesStr length] > 0) {
+            [valuesStr appendString:@" , "];
+        }
+        [valuesStr appendString: [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments]];
+    }
+    
+    __block NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ IN (%@)",[self db_name], key, valuesStr];
     
     dispatch_sync(sql_queue, ^{
         FMResultSet *resultSet = [database executeQuery:sql withArgumentsInArray:arguments];
@@ -514,14 +619,20 @@ static FMDatabase *database;
                 }
             }
             
-            [result addObject:item];
+            id value = [item valueForKey:key];
+            NSMutableArray *arr = [result objectForKey:value];
+            if (!arr) {
+                arr = [NSMutableArray array];
+                [result setObject:arr forKey:value];
+            }
+            [arr addObject:item];
         }
         
         [resultSet close];
     });
     
-    for (NSObject *model in result) {
-        [model checkPointer];
+    for (NSArray *arr in result.allValues) {
+        [arr checkPointer];
     }
     
     return result;
@@ -532,18 +643,6 @@ static FMDatabase *database;
     NSMutableArray *result = [NSMutableArray array];
     NSMutableArray *arguments = [NSMutableArray array];
     
-    //    BOOL firstItem = YES;
-    //    for (NSString *key in conditions.allKeys) {
-    //        TODBCondition *condition = conditions[key];
-    //        id value = condition.value;
-    //        if (!firstItem) {
-    //            [sql appendString:@"AND "];
-    //        }else{
-    //            firstItem = NO;
-    //        }
-    //        NSString *valueStr = [TODataTypeHelper objcObjectToSqlObject:value withType:[self sqlPropertys][key] arguments:arguments];
-    //        [sql appendFormat:@"%@ %@ %@",key,condition.relationship,valueStr];
-    //    }
     [sql appendString:[condition conditionWithPropertys:[self sqlPropertys]]];
     
     
@@ -579,20 +678,18 @@ static FMDatabase *database;
         
     });
     
-    for (NSObject *model in result) {
-        [model checkPointer];
-    }
+    [result checkPointer];
     
     return result;
 }
 
 + (NSArray *)db_search:(NSString *)sqlStr{
+    __block NSDate *date = [NSDate new];
+
     NSMutableArray *dicList = [NSMutableArray array];
 
     dispatch_sync(sql_queue, ^{
-        
         FMResultSet *resultSet = [database executeQuery:sqlStr];
-        
         if (resultSet) {
             //            TO_MODEL_LOG(@"数据库查询成功");
         }else{
@@ -603,7 +700,7 @@ static FMDatabase *database;
         
         NSDictionary *classPropertys = [self classPropertys];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        
+        date = [NSDate date];
         while ([resultSet next]) {
             [dic removeAllObjects];
             
@@ -625,8 +722,8 @@ static FMDatabase *database;
         [resultSet close];
     });
     
-    
-    
+    date = [NSDate date];
+
     NSMutableArray *result = [NSMutableArray array];
     
     for (NSDictionary *dic in dicList) {
@@ -636,11 +733,10 @@ static FMDatabase *database;
         if (!model) {
             model = [self modelByDic:dic];
         }
-        [model checkPointer];
+        
         [result addObject:model];
     }
-    
-   
+    [result checkPointer];
     return result;
 }
 
@@ -651,18 +747,33 @@ static FMDatabase *database;
 
 
 #pragma mark - Private
-
-- (void)checkPointer{
+- (void)db_checkPointer:(void(^)(TODBPointerChecker *checker))block{
     NSDictionary *dic = [[self class] classPropertys];
+
     for (NSString *key in dic.allKeys) {
         id value = [self valueForKey:key];
         if ([value isKindOfClass:[TODBPointer class]]) {
-            value = [(TODBPointer *)value model];
+            if (block) {
+                block([TODBPointerChecker checkerWithPointer:value target:self key:key]);
+            }
+//            value = [(TODBPointer *)value model];
         }
-        
-        [self setValue:value forKey:key];
     }
 }
+
+
+//- (void)db_checkPointer{
+//    NSDictionary *dic = [[self class] classPropertys];
+//
+//    for (NSString *key in dic.allKeys) {
+//        id value = [self valueForKey:key];
+//        if ([value isKindOfClass:[TODBPointer class]]) {
+//            value = [(TODBPointer *)value model];
+//        }
+//
+//        [self setValue:value forKey:key];
+//    }
+//}
 
 //插入字段
 + (void)addColumn:(NSString *)name withType:(NSString *)type{
@@ -785,8 +896,7 @@ static FMDatabase *database;
 }
 //删除table
 + (void)dropTable:(NSString *)tableName{
-    [database close];
-    [database open];
+   
     
     __block NSString *sql = [NSString stringWithFormat:@"DROP TABLE %@;",tableName];
     
@@ -847,9 +957,20 @@ static FMDatabase *database;
         if (!sqlTypeName) {
             TO_MODEL_LOG(@"#TOModel# %@中存在未识别的数据类型%s",NSStringFromClass([self class]),type);
         }else{
-            
+            if ([sqlTypeName isEqualToString:DB_TYPE_BLOB]) {
+                NSString *regex = @"^@\"[a-zA-Z_0-9]+\"$";
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+                
+                NSString *typeName = [NSString stringWithUTF8String:type];
+                if ([predicate evaluateWithObject:typeName]) {
+                    typeName = [typeName substringWithRange:NSMakeRange(2, typeName.length - 3)];
+                    Class typeClass = NSClassFromString(typeName);
+                    if (typeClass) {
+                        [typeClass db_registNSCoding];
+                    }
+                }
+            }
             [dic setObject:sqlTypeName forKey:[NSString stringWithUTF8String:name]];
-            
         }
         
     }
@@ -944,5 +1065,6 @@ static FMDatabase *database;
         return nil;
     }
 }
+
 
 @end

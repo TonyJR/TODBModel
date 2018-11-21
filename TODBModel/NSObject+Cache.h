@@ -34,6 +34,7 @@
  */
 + (nullable instancetype)memoryByKey:(nonnull id)modelKey;
 
++ (NSDictionary *)modelsByKeys:(NSArray *)modelKeys;
 
 /**
  Search memory/database and return the model with same Primary Key.

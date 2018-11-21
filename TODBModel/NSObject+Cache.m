@@ -8,6 +8,7 @@
 
 #import "NSObject+Cache.h"
 #import "NSObject+TODBModel.h"
+#import "NSArray+CheckPointer.h"
 
 @implementation NSObject (Cache)
 
@@ -68,6 +69,35 @@ static NSMapTable * cache;
     }
     
     return result;
+}
+
++ (NSDictionary *)modelsByKeys:(NSArray *)modelKeys{
+    if (!modelKeys || [modelKeys count] == 0) {
+        return @{};
+    }
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSMutableArray *searchKeys = [NSMutableArray array];
+    for (NSString *modelKey in modelKeys) {
+        id cachedModel = [cache objectForKey:[NSString stringWithFormat:@"%@_%@",NSStringFromClass(self),modelKey]];
+        if (cachedModel) {
+            [result setObject:cachedModel forKey:modelKey];
+        }else{
+            [searchKeys addObject:modelKey];
+        }
+    }
+    
+    NSDictionary *searchedModel = [self db_searchValues:searchKeys forKey:[self db_pk]];
+    NSMutableArray *modesNeedCheck = [NSMutableArray array];
+    for (NSString *key in searchedModel.allKeys) {
+        NSArray *values = [searchedModel objectForKey:key];
+        id obj = [values lastObject];
+        if (obj) {
+            [result setObject:obj forKey:key];
+            [modesNeedCheck addObject:obj];
+        }
+    }
+    [modesNeedCheck checkPointer];
+    return [result copy];
 }
 
 + (void)saveModelByKey:(id)modelKey model:(NSObject *)model{

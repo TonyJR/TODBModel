@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 //! Project version number for TOModel.
-FOUNDATION_EXPORT double TOModelVersionNumber = 10101;
+FOUNDATION_EXPORT double TOModelVersionNumber = 10202;
 
 //! Project version string for TOModel.
-FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.1.1";
+FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.2.2";
 
 
 #import "TODataBase.h"

@@ -43,7 +43,7 @@
 
 - (void)setAddressModel:(AddressModel *)addressModel{
     _addressModel = addressModel;
-    self.nameLabel.text = addressModel.name;
+    self.nameLabel.text = addressModel.userinfo.name;
     self.editDateLabel.text = [[[self class] formatter] stringFromDate:addressModel.editDate];
     self.mobileLabel.text = addressModel.mobile;
 }

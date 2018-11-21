@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		83BF09AD43A92BF3A8EB74A0 /* libPods-TODBModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3C0F24E9AE489AE617DA25 /* libPods-TODBModel.a */; };
+		EA0052392175B89800F74EA1 /* TODBPointerChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0052382175B89800F74EA1 /* TODBPointerChecker.m */; };
+		EA00523C2175BCB800F74EA1 /* TODBPointerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA00523B2175BCB800F74EA1 /* TODBPointerHelper.m */; };
+		EA1EE22B216B4CE100654D3D /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA1EE21B216B4CE100654D3D /* AddressTableViewCell.xib */; };
+		EA1EE22C216B4CE100654D3D /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE21C216B4CE100654D3D /* AddressTableViewCell.m */; };
+		EA1EE22D216B4CE100654D3D /* Userinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE21F216B4CE100654D3D /* Userinfo.m */; };
+		EA1EE22E216B4CE100654D3D /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE220216B4CE100654D3D /* AddressModel.m */; };
+		EA1EE22F216B4CE100654D3D /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE224216B4CE100654D3D /* EditAddressViewController.m */; };
+		EA1EE230216B4CE100654D3D /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE225216B4CE100654D3D /* AddressBookTableViewController.m */; };
+		EA1EE231216B4CE100654D3D /* AddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE227216B4CE100654D3D /* AddressSearchViewController.m */; };
+		EA1EE232216B4CE100654D3D /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA1EE228216B4CE100654D3D /* AddressSearchViewController.xib */; };
+		EA1EE233216B4CE100654D3D /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA1EE229216B4CE100654D3D /* EditAddressViewController.xib */; };
+		EA1EE236216B713000654D3D /* CreateAddressHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE235216B713000654D3D /* CreateAddressHelper.m */; };
+		EA1EE23C216DA67C00654D3D /* AddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE23B216DA67C00654D3D /* AddressInfo.m */; };
+		EA1EE243216DB11100654D3D /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */; };
+		EA1EE246216DF9D900654D3D /* FMResultSet+Release.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */; };
+		EA1EE249216F55A700654D3D /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE248216F55A700654D3D /* NSObject+Property.m */; };
+		EA1EE24C2171CCD400654D3D /* NSArray+CheckPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1EE24B2171CCD400654D3D /* NSArray+CheckPointer.m */; };
 		EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F691E48C70A00893605 /* TODBAndCondition.m */; };
 		EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6B1E48C70A00893605 /* TODBCondition.m */; };
 		EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0F6D1E48C70A00893605 /* TODBNotCondition.m */; };
@@ -16,16 +33,8 @@
 		EA5710BE1F56AAF300DF85A0 /* NSObject+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */; };
 		EA5710C11F56AB5500DF85A0 /* NSObject+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */; };
 		EA62A81D1FCE841D006EF287 /* DemoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */; };
-		EA62A8291FCE8CC8006EF287 /* AddressBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */; };
-		EA62A82A1FCE8CC8006EF287 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8221FCE8CC8006EF287 /* AddressModel.m */; };
-		EA62A82B1FCE8CC8006EF287 /* AddressSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */; };
-		EA62A82C1FCE8CC8006EF287 /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */; };
-		EA62A82D1FCE8CC8006EF287 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */; };
-		EA62A82E1FCE8CC8006EF287 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */; };
 		EA62A8331FCE9663006EF287 /* PreformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8311FCE9663006EF287 /* PreformanceViewController.m */; };
 		EA62A8341FCE9663006EF287 /* PreformanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8321FCE9663006EF287 /* PreformanceViewController.xib */; };
-		EA62A8381FCEA598006EF287 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA62A8361FCEA597006EF287 /* EditAddressViewController.m */; };
-		EA62A8391FCEA598006EF287 /* EditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */; };
 		EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */; };
 		EA72A2661DEE5D78005F12D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA72A2571DEE5D78005F12D2 /* AppDelegate.m */; };
 		EA72A2671DEE5D78005F12D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA72A2581DEE5D78005F12D2 /* Assets.xcassets */; };
@@ -38,6 +47,38 @@
 		29EBB61FA07838B6D214CF57 /* Pods-TODBModel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODBModel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TODBModel/Pods-TODBModel.debug.xcconfig"; sourceTree = "<group>"; };
 		5C3C0F24E9AE489AE617DA25 /* libPods-TODBModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TODBModel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		955ADFD052B1DD2CA11D97B4 /* Pods-TODBModel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODBModel.release.xcconfig"; path = "Pods/Target Support Files/Pods-TODBModel/Pods-TODBModel.release.xcconfig"; sourceTree = "<group>"; };
+		EA0052372175B89800F74EA1 /* TODBPointerChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODBPointerChecker.h; sourceTree = "<group>"; };
+		EA0052382175B89800F74EA1 /* TODBPointerChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TODBPointerChecker.m; sourceTree = "<group>"; };
+		EA00523A2175BCB800F74EA1 /* TODBPointerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODBPointerHelper.h; sourceTree = "<group>"; };
+		EA00523B2175BCB800F74EA1 /* TODBPointerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TODBPointerHelper.m; sourceTree = "<group>"; };
+		EA1EE21A216B4CE100654D3D /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
+		EA1EE21B216B4CE100654D3D /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
+		EA1EE21C216B4CE100654D3D /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
+		EA1EE21E216B4CE100654D3D /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		EA1EE21F216B4CE100654D3D /* Userinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Userinfo.m; sourceTree = "<group>"; };
+		EA1EE220216B4CE100654D3D /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		EA1EE221216B4CE100654D3D /* Userinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Userinfo.h; sourceTree = "<group>"; };
+		EA1EE223216B4CE100654D3D /* AddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSearchViewController.h; sourceTree = "<group>"; };
+		EA1EE224216B4CE100654D3D /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
+		EA1EE225216B4CE100654D3D /* AddressBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewController.m; sourceTree = "<group>"; };
+		EA1EE226216B4CE100654D3D /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
+		EA1EE227216B4CE100654D3D /* AddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSearchViewController.m; sourceTree = "<group>"; };
+		EA1EE228216B4CE100654D3D /* AddressSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
+		EA1EE229216B4CE100654D3D /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
+		EA1EE22A216B4CE100654D3D /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
+		EA1EE234216B713000654D3D /* CreateAddressHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateAddressHelper.h; sourceTree = "<group>"; };
+		EA1EE235216B713000654D3D /* CreateAddressHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateAddressHelper.m; sourceTree = "<group>"; };
+		EA1EE23A216DA67C00654D3D /* AddressInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressInfo.h; sourceTree = "<group>"; };
+		EA1EE23B216DA67C00654D3D /* AddressInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressInfo.m; sourceTree = "<group>"; };
+		EA1EE23D216DA85700654D3D /* TODBModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBModelError.h; sourceTree = "<group>"; };
+		EA1EE241216DB11100654D3D /* NSObject+NSCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSCoding.h"; sourceTree = "<group>"; };
+		EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NSCoding.m"; sourceTree = "<group>"; };
+		EA1EE244216DF9D900654D3D /* FMResultSet+Release.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMResultSet+Release.h"; sourceTree = "<group>"; };
+		EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FMResultSet+Release.m"; sourceTree = "<group>"; };
+		EA1EE247216F55A700654D3D /* NSObject+Property.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Property.h"; sourceTree = "<group>"; };
+		EA1EE248216F55A700654D3D /* NSObject+Property.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Property.m"; sourceTree = "<group>"; };
+		EA1EE24A2171CCD400654D3D /* NSArray+CheckPointer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+CheckPointer.h"; sourceTree = "<group>"; };
+		EA1EE24B2171CCD400654D3D /* NSArray+CheckPointer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CheckPointer.m"; sourceTree = "<group>"; };
 		EA2F0F681E48C70A00893605 /* TODBAndCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBAndCondition.h; sourceTree = "<group>"; };
 		EA2F0F691E48C70A00893605 /* TODBAndCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBAndCondition.m; sourceTree = "<group>"; };
 		EA2F0F6A1E48C70A00893605 /* TODBCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBCondition.h; sourceTree = "<group>"; };
@@ -54,22 +95,9 @@
 		EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Search.m"; sourceTree = "<group>"; };
 		EA62A81B1FCE841D006EF287 /* DemoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoListTableViewController.h; sourceTree = "<group>"; };
 		EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoListTableViewController.m; sourceTree = "<group>"; };
-		EA62A81F1FCE8CC8006EF287 /* AddressBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewController.h; sourceTree = "<group>"; };
-		EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewController.m; sourceTree = "<group>"; };
-		EA62A8211FCE8CC8006EF287 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
-		EA62A8221FCE8CC8006EF287 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
-		EA62A8231FCE8CC8006EF287 /* AddressSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressSearchViewController.h; sourceTree = "<group>"; };
-		EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressSearchViewController.m; sourceTree = "<group>"; };
-		EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
-		EA62A8261FCE8CC8006EF287 /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
-		EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
-		EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
 		EA62A8301FCE9663006EF287 /* PreformanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreformanceViewController.h; sourceTree = "<group>"; };
 		EA62A8311FCE9663006EF287 /* PreformanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreformanceViewController.m; sourceTree = "<group>"; };
 		EA62A8321FCE9663006EF287 /* PreformanceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreformanceViewController.xib; sourceTree = "<group>"; };
-		EA62A8351FCEA597006EF287 /* EditAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAddressViewController.h; sourceTree = "<group>"; };
-		EA62A8361FCEA597006EF287 /* EditAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAddressViewController.m; sourceTree = "<group>"; };
-		EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAddressViewController.xib; sourceTree = "<group>"; };
 		EA72A24C1DEE5D78005F12D2 /* TODataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataBase.h; sourceTree = "<group>"; };
 		EA72A2511DEE5D78005F12D2 /* TODataTypeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODataTypeHelper.h; sourceTree = "<group>"; };
 		EA72A2521DEE5D78005F12D2 /* TODataTypeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODataTypeHelper.m; sourceTree = "<group>"; };
@@ -83,7 +111,6 @@
 		EA72A25E1DEE5D78005F12D2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA72A26E1DEE744B005F12D2 /* TODBPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TODBPointer.h; sourceTree = "<group>"; };
 		EA72A26F1DEE744B005F12D2 /* TODBPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODBPointer.m; sourceTree = "<group>"; };
-		EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODBModelError.h; sourceTree = "<group>"; };
 		EAC1FEA21DE4353B00555898 /* TODBModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODBModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC1FED11DE43FEB00555898 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EAC1FED31DE43FF100555898 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -118,6 +145,54 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EA1EE218216B4CE100654D3D /* addressBook */ = {
+			isa = PBXGroup;
+			children = (
+				EA1EE219216B4CE100654D3D /* cells */,
+				EA1EE21D216B4CE100654D3D /* models */,
+				EA1EE222216B4CE100654D3D /* controllers */,
+			);
+			path = addressBook;
+			sourceTree = "<group>";
+		};
+		EA1EE219216B4CE100654D3D /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				EA1EE21A216B4CE100654D3D /* AddressTableViewCell.h */,
+				EA1EE21B216B4CE100654D3D /* AddressTableViewCell.xib */,
+				EA1EE21C216B4CE100654D3D /* AddressTableViewCell.m */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		EA1EE21D216B4CE100654D3D /* models */ = {
+			isa = PBXGroup;
+			children = (
+				EA1EE21E216B4CE100654D3D /* AddressModel.h */,
+				EA1EE220216B4CE100654D3D /* AddressModel.m */,
+				EA1EE221216B4CE100654D3D /* Userinfo.h */,
+				EA1EE21F216B4CE100654D3D /* Userinfo.m */,
+				EA1EE23A216DA67C00654D3D /* AddressInfo.h */,
+				EA1EE23B216DA67C00654D3D /* AddressInfo.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		EA1EE222216B4CE100654D3D /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EA1EE22A216B4CE100654D3D /* AddressBookTableViewController.h */,
+				EA1EE225216B4CE100654D3D /* AddressBookTableViewController.m */,
+				EA1EE226216B4CE100654D3D /* EditAddressViewController.h */,
+				EA1EE224216B4CE100654D3D /* EditAddressViewController.m */,
+				EA1EE229216B4CE100654D3D /* EditAddressViewController.xib */,
+				EA1EE223216B4CE100654D3D /* AddressSearchViewController.h */,
+				EA1EE227216B4CE100654D3D /* AddressSearchViewController.m */,
+				EA1EE228216B4CE100654D3D /* AddressSearchViewController.xib */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
 		EA62A81A1FCE82CB006EF287 /* demoList */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,26 +200,6 @@
 				EA62A81C1FCE841D006EF287 /* DemoListTableViewController.m */,
 			);
 			path = demoList;
-			sourceTree = "<group>";
-		};
-		EA62A81E1FCE8CC8006EF287 /* addressBook */ = {
-			isa = PBXGroup;
-			children = (
-				EA62A8351FCEA597006EF287 /* EditAddressViewController.h */,
-				EA62A8361FCEA597006EF287 /* EditAddressViewController.m */,
-				EA62A8371FCEA598006EF287 /* EditAddressViewController.xib */,
-				EA62A81F1FCE8CC8006EF287 /* AddressBookTableViewController.h */,
-				EA62A8201FCE8CC8006EF287 /* AddressBookTableViewController.m */,
-				EA62A8211FCE8CC8006EF287 /* AddressModel.h */,
-				EA62A8221FCE8CC8006EF287 /* AddressModel.m */,
-				EA62A8231FCE8CC8006EF287 /* AddressSearchViewController.h */,
-				EA62A8241FCE8CC8006EF287 /* AddressSearchViewController.m */,
-				EA62A8251FCE8CC8006EF287 /* AddressSearchViewController.xib */,
-				EA62A8261FCE8CC8006EF287 /* AddressTableViewCell.h */,
-				EA62A8271FCE8CC8006EF287 /* AddressTableViewCell.m */,
-				EA62A8281FCE8CC8006EF287 /* AddressTableViewCell.xib */,
-			);
-			path = addressBook;
 			sourceTree = "<group>";
 		};
 		EA62A82F1FCE95AB006EF287 /* performance */ = {
@@ -160,6 +215,7 @@
 		EA72A24B1DEE5D78005F12D2 /* TODBModel */ = {
 			isa = PBXGroup;
 			children = (
+				EA1EE23D216DA85700654D3D /* TODBModelError.h */,
 				EA2F0F681E48C70A00893605 /* TODBAndCondition.h */,
 				EA2F0F691E48C70A00893605 /* TODBAndCondition.m */,
 				EA2F0F6A1E48C70A00893605 /* TODBCondition.h */,
@@ -181,7 +237,18 @@
 				EA5710BD1F56AAF300DF85A0 /* NSObject+Cache.m */,
 				EA5710BF1F56AB5400DF85A0 /* NSObject+Search.h */,
 				EA5710C01F56AB5500DF85A0 /* NSObject+Search.m */,
-				EAAEC2061FD0FD19002E0AD5 /* TODBModelError.h */,
+				EA1EE241216DB11100654D3D /* NSObject+NSCoding.h */,
+				EA1EE242216DB11100654D3D /* NSObject+NSCoding.m */,
+				EA1EE244216DF9D900654D3D /* FMResultSet+Release.h */,
+				EA1EE245216DF9D900654D3D /* FMResultSet+Release.m */,
+				EA1EE247216F55A700654D3D /* NSObject+Property.h */,
+				EA1EE248216F55A700654D3D /* NSObject+Property.m */,
+				EA1EE24A2171CCD400654D3D /* NSArray+CheckPointer.h */,
+				EA1EE24B2171CCD400654D3D /* NSArray+CheckPointer.m */,
+				EA0052372175B89800F74EA1 /* TODBPointerChecker.h */,
+				EA0052382175B89800F74EA1 /* TODBPointerChecker.m */,
+				EA00523A2175BCB800F74EA1 /* TODBPointerHelper.h */,
+				EA00523B2175BCB800F74EA1 /* TODBPointerHelper.m */,
 			);
 			path = TODBModel;
 			sourceTree = "<group>";
@@ -189,11 +256,13 @@
 		EA72A2551DEE5D78005F12D2 /* TODBModelDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EA1EE218216B4CE100654D3D /* addressBook */,
 				EA62A82F1FCE95AB006EF287 /* performance */,
-				EA62A81E1FCE8CC8006EF287 /* addressBook */,
 				EA62A81A1FCE82CB006EF287 /* demoList */,
 				EA72A2561DEE5D78005F12D2 /* AppDelegate.h */,
 				EA72A2571DEE5D78005F12D2 /* AppDelegate.m */,
+				EA1EE234216B713000654D3D /* CreateAddressHelper.h */,
+				EA1EE235216B713000654D3D /* CreateAddressHelper.m */,
 				EA72A2581DEE5D78005F12D2 /* Assets.xcassets */,
 				EA72A2591DEE5D78005F12D2 /* LaunchScreen.storyboard */,
 				EA72A25D1DEE5D78005F12D2 /* Info.plist */,
@@ -252,7 +321,7 @@
 		EAC1FE9A1DE4353B00555898 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Tony;
 				TargetAttributes = {
 					EAC1FEA11DE4353B00555898 = {
@@ -285,12 +354,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA62A82E1FCE8CC8006EF287 /* AddressTableViewCell.xib in Resources */,
-				EA62A8391FCEA598006EF287 /* EditAddressViewController.xib in Resources */,
 				EA72A2671DEE5D78005F12D2 /* Assets.xcassets in Resources */,
+				EA1EE233216B4CE100654D3D /* EditAddressViewController.xib in Resources */,
+				EA1EE232216B4CE100654D3D /* AddressSearchViewController.xib in Resources */,
 				EA62A8341FCE9663006EF287 /* PreformanceViewController.xib in Resources */,
+				EA1EE22B216B4CE100654D3D /* AddressTableViewCell.xib in Resources */,
 				EA72A2681DEE5D78005F12D2 /* LaunchScreen.storyboard in Resources */,
-				EA62A82C1FCE8CC8006EF287 /* AddressSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,23 +421,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA62A82A1FCE8CC8006EF287 /* AddressModel.m in Sources */,
+				EA1EE22E216B4CE100654D3D /* AddressModel.m in Sources */,
 				EA5710BB1F56AA3B00DF85A0 /* NSObject+TODBModel.m in Sources */,
 				EA72A26B1DEE5D78005F12D2 /* main.m in Sources */,
-				EA62A8381FCEA598006EF287 /* EditAddressViewController.m in Sources */,
+				EA1EE23C216DA67C00654D3D /* AddressInfo.m in Sources */,
+				EA1EE243216DB11100654D3D /* NSObject+NSCoding.m in Sources */,
 				EA5710BE1F56AAF300DF85A0 /* NSObject+Cache.m in Sources */,
+				EA1EE22D216B4CE100654D3D /* Userinfo.m in Sources */,
 				EA72A2701DEE744B005F12D2 /* TODBPointer.m in Sources */,
-				EA62A82B1FCE8CC8006EF287 /* AddressSearchViewController.m in Sources */,
-				EA62A8291FCE8CC8006EF287 /* AddressBookTableViewController.m in Sources */,
-				EA62A82D1FCE8CC8006EF287 /* AddressTableViewCell.m in Sources */,
+				EA1EE22F216B4CE100654D3D /* EditAddressViewController.m in Sources */,
 				EA5710C11F56AB5500DF85A0 /* NSObject+Search.m in Sources */,
 				EA62A8331FCE9663006EF287 /* PreformanceViewController.m in Sources */,
+				EA00523C2175BCB800F74EA1 /* TODBPointerHelper.m in Sources */,
 				EA72A2661DEE5D78005F12D2 /* AppDelegate.m in Sources */,
+				EA1EE236216B713000654D3D /* CreateAddressHelper.m in Sources */,
 				EA62A81D1FCE841D006EF287 /* DemoListTableViewController.m in Sources */,
 				EA2F0F701E48C70A00893605 /* TODBAndCondition.m in Sources */,
+				EA1EE230216B4CE100654D3D /* AddressBookTableViewController.m in Sources */,
+				EA1EE246216DF9D900654D3D /* FMResultSet+Release.m in Sources */,
 				EA2F0F731E48C70A00893605 /* TODBOrCondition.m in Sources */,
 				EA2F0F711E48C70A00893605 /* TODBCondition.m in Sources */,
+				EA1EE231216B4CE100654D3D /* AddressSearchViewController.m in Sources */,
 				EA72A2651DEE5D78005F12D2 /* TODataTypeHelper.m in Sources */,
+				EA1EE24C2171CCD400654D3D /* NSArray+CheckPointer.m in Sources */,
+				EA1EE22C216B4CE100654D3D /* AddressTableViewCell.m in Sources */,
+				EA1EE249216F55A700654D3D /* NSObject+Property.m in Sources */,
+				EA0052392175B89800F74EA1 /* TODBPointerChecker.m in Sources */,
 				EA2F0F721E48C70A00893605 /* TODBNotCondition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,12 +478,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -452,12 +532,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

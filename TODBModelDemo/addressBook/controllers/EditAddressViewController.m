@@ -52,10 +52,12 @@
     if (!_model) {
         _model = [AddressModel crateModel];
     }
-    self.model.name = self.nameTextField.text;
+    self.model.userinfo.name = self.nameTextField.text;
     self.model.mobile = self.mobileTextField.text;
-    self.model.address = self.adddressTextView.text;
     self.model.editDate = [NSDate date];
+    
+    self.model.addressInfo.address = self.adddressTextView.text;
+
     
     [self.model save:^(NSObject *model) {
         
@@ -68,9 +70,9 @@
 - (void)setModel:(AddressModel *)model{
     _model = model;
     if (self.viewLoaded) {
-        self.nameTextField.text = model.name;
+        self.nameTextField.text = model.userinfo.name;
         self.mobileTextField.text = model.mobile;
-        self.adddressTextView.text = model.address;
+        self.adddressTextView.text = model.addressInfo.address;
         self.idLabel.text = [NSString stringWithFormat:@"ID:%d",model.addressID];
         self.editTimeLabel.text = [[[self class] formatter] stringFromDate:model.editDate];
     }

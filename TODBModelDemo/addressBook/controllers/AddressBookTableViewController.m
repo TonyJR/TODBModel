@@ -16,10 +16,7 @@
 #import "NSObject+TODBModel.h"
 #import "NSObject+Cache.h"
 #import "NSObject+Search.h"
-
-#define MOBILE_HEAD @[@"130",@"131",@"132",@"133",@"134",@"135",@"136",@"137",@"138",@"139"];
-#define SURNAME @[@"赵",@"钱",@"孙",@"李",@"周",@"吴",@"郑",@"王",@"冯",@"陈",@"楮",@"蒋",@"沈",@"韩",@"杨",@"朱",@"秦",@"尤",@"许",@"何",@"吕",@"施",@"张",@"孔",@"曹",@"严",@"华",@"卫"];
-#define CN_NUM @[@"零",@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九"];
+#import "CreateAddressHelper.h"
 
 #define kAddressCellTag @"AddressCellTag"
 
@@ -75,37 +72,13 @@
 
         self_strong.dataList = [NSMutableArray arrayWithArray:models];
         if (self_strong.dataList.count == 0) {
-            self_strong.dataList = [NSMutableArray arrayWithArray:[self createAddress:1000]];
+            self_strong.dataList = [NSMutableArray arrayWithArray:[CreateAddressHelper createAddress:1000 complete:nil]];
         }
         [self_strong.tableView reloadData];
     }];
 }
 
-- (NSArray *)createAddress:(NSUInteger)count
-{
-    NSDate *date = [NSDate date];
-    
-    
-    NSArray *createdModels = [AddressModel crateModels:count];
 
-    NSLog(@"创建%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);
-    date = [NSDate date];
-    NSArray *mobileHead = MOBILE_HEAD;
-    NSArray *surname = SURNAME;
-
-    NSArray *cnNumber = CN_NUM;
-    date = [NSDate date];
-    for (AddressModel *model in createdModels) {
-        model.editDate = [NSDate date];
-        
-        model.name = [NSString stringWithFormat:@"%@%@%@",surname[model.addressID%surname.count],cnNumber[model.addressID%100/10],cnNumber[model.addressID%10]];
-        model.mobile = [NSString stringWithFormat:@"%@%08d",mobileHead[rand()%mobileHead.count],model.addressID];
-        [model save:nil];
-    }
-    NSLog(@"更新%ld条记录用时%f",count,[[NSDate date] timeIntervalSinceDate:date]);
-
-    return createdModels;
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -207,9 +180,9 @@
     if (searchText.length > 0) {
         __weak id self_weak = self;
         
-        TODBCondition *condition1 = [TODBCondition condition:@"name" like:[NSString stringWithFormat:@"%%%@%%",searchText]];
-        TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:[NSString stringWithFormat:@"%%%@%%",searchText]];
-        [AddressModel search:[TODBOrCondition conditionWith:condition1 or:condition2] callBack:^(NSArray<NSObject *> *models) {
+        
+        TODBCondition *condition = [TODBCondition condition:@"mobile" like:[NSString stringWithFormat:@"%%%@%%",searchText]];
+        [AddressModel search:condition callBack:^(NSArray<NSObject *> *models) {
             __strong AddressBookTableViewController *self_strong = self_weak;
             self_strong.dataList = [NSMutableArray arrayWithArray:models];
             [self_strong.tableView reloadData];

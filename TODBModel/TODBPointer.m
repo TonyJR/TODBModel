@@ -10,6 +10,9 @@
 #import "NSObject+TODBModel.h"
 #import "NSObject+Cache.h"
 
+@interface TODBPointer ()
+
+@end
 
 @implementation TODBPointer
 
@@ -17,7 +20,6 @@
     self = [self init];
     if (self == nil) return nil;
 
-    
     _className = [aDecoder decodeObjectForKey:@"className"];
     _pkValue = [aDecoder decodeObjectForKey:@"pkValue"];
     
@@ -28,7 +30,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:_className forKey:@"className"];
     [aCoder encodeObject:_pkValue forKey:@"pkValue"];
-
 }
 
 - (instancetype)initWithModel:(NSObject *)model{
@@ -39,8 +40,6 @@
     self = [self init];
     if (self == nil) return nil;
 
-    
-    
     self.className = NSStringFromClass([model class]);
     self.pkValue = [model valueForKey:[[model class] db_pk]];
     

@@ -61,4 +61,5 @@
 + (void)searchSQL:(NSString *)sqlString callBack:(void(^)(NSArray<NSObject *> *models))block;
 
 
+
 @end
