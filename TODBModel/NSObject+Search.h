@@ -59,7 +59,7 @@
  @param block finish callback.
  */
 + (void)searchSQL:(NSString *)sqlString callBack:(void(^)(NSArray<NSObject *> *models))block;
-
++ (void)getNumberOfModels:(NSInteger)count callback:(void(^)(NSArray<NSObject *> *models))block;
 
 
 @end

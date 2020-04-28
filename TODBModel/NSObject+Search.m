@@ -48,6 +48,41 @@
     });
 }
 
++ (void)getNumberOfModels:(NSInteger)count callback:(void(^)(NSArray<NSObject *> *models))block{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[self searchLock] lock];
+        
+        __block  NSArray *result = [self db_search:[NSString stringWithFormat:@"SELECT * FROM %@ LIMIT %ld" ,[self db_name],(long)count]];
+        
+        
+        [[self searchLock] unlock];
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(result);
+            });
+        }
+    });
+}
+
++ (void)modelsForRange:(NSRange)range callback:(void(^)(NSArray<NSObject *> *models))block{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[self searchLock] lock];
+        
+        __block  NSArray *result = [self db_search:[NSString stringWithFormat:@"SELECT * FROM %@ LIMIT %ld OFFSET %ld" ,[self db_name],(long)range.length,(long)range.location]];
+        
+        
+        [[self searchLock] unlock];
+        
+        if (block) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(result);
+            });
+        }
+    });
+}
+
+
 + (void)removeAll:(void(^)(void))block{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self db_dropTable];

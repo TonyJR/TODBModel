@@ -6,13 +6,10 @@
 //  Copyright © 2016年 Tony. All rights reserved.
 //
 
+#ifndef TODBModel_h
+#define TODBModel_h
 #import <UIKit/UIKit.h>
 
-//! Project version number for TOModel.
-FOUNDATION_EXPORT double TOModelVersionNumber = 10202;
-
-//! Project version string for TOModel.
-FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.2.2";
 
 
 #import "TODataBase.h"
@@ -24,3 +21,4 @@ FOUNDATION_EXPORT const unsigned char TOModelVersionString[] = "1.2.2";
 #import "NSObject+TODBModel.h"
 #import "NSObject+Cache.h"
 #import "NSObject+Search.h"
+#endif /* TODBModel_h */
