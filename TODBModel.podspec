@@ -9,15 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TODBModel"
-<<<<<<< HEAD
-<<<<<<< HEAD
-  s.version      = "1.2.0"
-=======
-  s.version      = "1.1.3"
->>>>>>> e5534496c978d5f6f41309e0416fea3493a55138
-=======
-  s.version      = "1.2.3"
->>>>>>> debe7c772b16239d1badc50bdb2b3e5d8b360488
+  s.version      = "1.3.0"
   s.summary      = "A thread-safe ORM, base on sqlite and FMDB."
 
   s.description  = <<-DESC
