@@ -33,7 +33,7 @@ static NSMapTable * cache;
     
     
     for (NSString *key in dic.allKeys) {
-        [model setValue:dic[key] forKey:key];
+        [model db_setValue:dic[key] forKey:key];
     }
     return model;
 }
@@ -65,7 +65,7 @@ static NSMapTable * cache;
     if ((!allowNull) && (!result)) {
         result = [[self alloc] init];
         
-        [result setValue:modelKey forKey:[self db_pk]];
+        [result db_setValue:modelKey forKey:[self db_pk]];
     }
     
     return result;

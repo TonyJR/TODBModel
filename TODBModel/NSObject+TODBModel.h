@@ -69,5 +69,7 @@
  */
 - (void)del:(void(^)(NSObject *model))block;
 
+- (void)db_setValue:(id)value forKey:(NSString *)key;
+
 
 @end

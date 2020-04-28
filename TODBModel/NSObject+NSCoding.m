@@ -8,6 +8,7 @@
 
 #import "NSObject+NSCoding.h"
 #import <objc/runtime.h>
+#import "NSObject+TODBModel.h"
 
 @interface NSObject()
 
@@ -60,7 +61,7 @@
     if (result) {
         for (NSString *key in [[self class] classPropertys].allKeys) {
             id value = [coder decodeObjectForKey:key];
-            [self setValue:value forKey:key];
+            [self db_setValue:value forKey:key];
         }
     }
     return result;

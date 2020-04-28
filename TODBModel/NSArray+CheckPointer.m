@@ -48,7 +48,7 @@
             id value = [keyValues objectForKey:key];
 
             for (TODBPointerChecker *checker in checkers) {
-                [checker.target setValue:value forKey:checker.key];
+                [checker.target db_setValue:value forKey:checker.key];
             }
         }
     }

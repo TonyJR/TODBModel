@@ -88,9 +88,9 @@ static NSMutableDictionary *registedDBs;
             
             TO_MODEL_LOG(@"数据库路径:%@",TO_MODEL_DATABASE_PATH);
             
-            Method oldM  = class_getInstanceMethod(self, @selector(setValue:forKey:));
-            Method newM = class_getInstanceMethod(self, @selector(swap_setValue:forKey:));
-            method_exchangeImplementations(oldM, newM);
+//            Method oldM  = class_getInstanceMethod(self, @selector(setValue:forKey:));
+//            Method newM = class_getInstanceMethod(self, @selector(swap_setValue:forKey:));
+//            method_exchangeImplementations(oldM, newM);
         });
     });
     
@@ -113,9 +113,9 @@ static NSMutableDictionary *registedDBs;
 
 + (id)crateModel{
     NSString *pkType = [self sqlPropertys][[self db_pk]];
-    if (![pkType isEqual:DB_TYPE_INTEGER]) {
-        [NSException raise:@"创建模型失败" format:@"主键必须为int型"];
-    }
+//    if (![pkType isEqual:DB_TYPE_INTEGER]) {
+//        [NSException raise:@"创建模型失败" format:@"主键必须为int型"];
+//    }
     
     
     __block NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (NULL);",[[self class] db_name],[[self class] db_pk]];
@@ -130,7 +130,7 @@ static NSMutableDictionary *registedDBs;
             //            TO_MODEL_LOG(@"数据库查询成功");
             
             result = [[self alloc] init];
-            [result setValue:@(database.lastInsertRowId) forKey:[self db_pk]];
+            [result db_setValue:@(database.lastInsertRowId) forKey:[self db_pk]];
             
         }else{
             TO_MODEL_LOG(@"创建模型失败");
@@ -206,7 +206,7 @@ static NSMutableDictionary *registedDBs;
     if (lastID != 0) {
         for (NSInteger i=count-1; i>=0; i--) {
             NSObject *model = [[self alloc] init];
-            [model setValue:@(lastID - i) forKey:[self db_pk]];
+            [model db_setValue:@(lastID - i) forKey:[self db_pk]];
             [result addObject:model];
         }
     }
@@ -291,7 +291,7 @@ static NSMutableDictionary *registedDBs;
         if (lastID != 0) {
             for (NSInteger i=count-1; i>=0; i--) {
                 NSObject *model = [[self alloc] init];
-                [model setValue:@(lastID - i) forKey:[self db_pk]];
+                [model db_setValue:@(lastID - i) forKey:[self db_pk]];
                 [result addObject:model];
             }
         }
@@ -614,7 +614,7 @@ static NSMutableDictionary *registedDBs;
                 if (key) {
                     id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
                     if (value) {
-                        [item setValue:value forKey:key];
+                        [item db_setValue:value forKey:key];
                     }
                 }
             }
@@ -667,7 +667,7 @@ static NSMutableDictionary *registedDBs;
                 if (key) {
                     id value = [TODataTypeHelper readObjcObjectFrom:resultSet name:key type:type];
                     if (value) {
-                        [item setValue:value forKey:key];
+                        [item db_setValue:value forKey:key];
                     }
                 }
             }
@@ -1057,6 +1057,15 @@ static NSMutableDictionary *registedDBs;
         [[self class] saveModelByKey:value model:self];
     }
 }
+
+- (void)db_setValue:(id)value forKey:(NSString *)key{
+    [self setValue:value forKey:key];
+    
+    if ([key isEqualToString:[[self class] db_pk]]) {
+        [[self class] saveModelByKey:value model:self];
+    }
+}
+
 
 - (id)valueForUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"pk"]) {
